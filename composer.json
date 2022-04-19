@@ -1,0 +1,21 @@
+{
+    "name": "tombroucke/plugin-boilerplate",
+    "autoload": {
+        "psr-4": {
+            "Otomaties\\Events\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tom Broucke",
+            "email": "tom@tombroucke.be"
+        }
+    ],
+    "require": {
+        "composer/installers": "^1.0 || ^2.0",
+        "johnbillion/extended-cpts": "^4.3",
+        "stoutlogic/acf-builder": "^1.12"
+    },
+    "keywords": ["wordpress", "plugin", "events", "calendar"],
+    "type": "wordpress-plugin"
+}
