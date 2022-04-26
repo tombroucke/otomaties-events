@@ -1,5 +1,5 @@
 {
-    "name": "tombroucke/plugin-boilerplate",
+    "name": "tombroucke/otomaties-events",
     "autoload": {
         "psr-4": {
             "Otomaties\\Events\\": "app/"
