@@ -1,6 +1,7 @@
 <?php //phpcs:ignore
 namespace Otomaties\Events;
 
+use Otomaties\Events\Models\Subscription;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 /**
@@ -45,23 +46,136 @@ class CustomPostTypes
     public function addEventFields()
     {
         $defaultLocation = get_field('event_default_location', 'option');
-        $event = new FieldsBuilder('event');
+        $event = new FieldsBuilder('event', ['position' => 'acf_after_title', 'title' => __('Details', 'otomaties-events')]);
         $event
+            ->addTab('general', [
+                'label' => __('General', 'otomaties-events'),
+            ])
             ->addDatePicker('date', [
                 'label' => __('Date', 'otomaties-events'),
+            ])
+            ->addTimePicker('time', [
+                'label' => __('Time', 'otomaties-events'),
             ])
             ->addPostObject('location', [
                 'label' => __('Location', 'otomaties-events'),
                 'post_type' => 'location',
                 'default_value' => $defaultLocation,
             ])
-            ->addText('subscribe_form', [
-                'label' => __('Subscribe form', 'otomaties-events'),
-                'instructions' => __('Leave empty to use default form. You can find the default form in the options page.', 'otomaties-events'),
-                'placeholder' => __('Default form', 'otomaties-events'),
+            ->addTab('registration', [
+                'label' => __('Registration', 'otomaties-events'),
             ])
+            ->addMessage('registation_message', __('Registration will only be active if tickets have been added', 'otomaties-events'), [
+                'label' => __('Registration information', 'otomaties-events')
+            ])
+            ->addNumber('registration_limit', [
+                'label' => __('Maximum number of registrations', 'otomaties-events'),
+                'instructions' => __('For all tickets, leave empty to disable', 'otomaties-events'),
+            ])
+            ->addDateTimePicker('registration_start', [
+                'label' => __('Tickets available from', 'otomaties-events'),
+            ])
+            ->addDateTimePicker('registration_end', [
+                'label' => __('Tickets available untill', 'otomaties-events'),
+            ])
+            ->addRepeater('tickets', [
+                    'label' => __('Tickets', 'otomaties-events'),
+                ])
+                ->addText('title', [
+                    'label' => __('Title', 'otomaties-events'),
+                    'required' => true,
+                    'placeholder' => __('Personal registration, adult, child, ...', 'otomaties-events'),
+                ])
+                ->addNumber('ticket_limit_per_registration', [
+                    'label' => __('Limit number of tickets per registration', 'otomaties-events'),
+                    'instructions' => __('Leave empty to disable', 'otomaties-events'),
+                ])
+                ->addNumber('registration_limit', [
+                    'label' => __('Total sales limit for this ticket', 'otomaties-events'),
+                    'instructions' => __('Leave empty to disable', 'otomaties-events'),
+                ])
+            ->endRepeater()
+            ->addTab('form', [
+                'label' => __('Registration form', 'otomaties-events')
+            ])
+            ->addRepeater('extra_fields', [
+                'label' => __('Extra form fields', 'otomaties-events')
+            ])
+                ->addSelect('field_type', [
+                    'label' => __('Field type', 'otomaties-events'),
+                    'choices' => [
+                        'text' => __('Text', 'otomaties-events'),
+                        'textarea' => __('Textarea', 'otomaties-events'),
+                        'number' => __('Number', 'otomaties-events'),
+                    ],
+                    'required' => true
+                ])
+                ->addText('label', [
+                    'label' => __('Label', 'otomaties-events'),
+                    'required' => true
+                ])
+                ->addTrueFalse('required', [
+                    'label' => __('Required', 'otomaties-events'),
+                ])
+            ->endRepeater()
             ->setLocation('post_type', '==', 'event');
         acf_add_local_field_group($event->build());
+    }
+
+    /**
+     * Register post type subscription
+     */
+    public function addSubscription()
+    {
+        $postType = 'subscription';
+        $slug = 'subscriptions';
+        $postSingularName = __('Subscription', 'otomaties-events');
+        $postPluralName = __('Subscriptions', 'otomaties-events');
+
+        register_extended_post_type(
+            $postType,
+            [
+                'show_in_feed' => false,
+                'show_in_rest' => false,
+                'publicly_queryable' => false,
+                'supports' => ['title', 'author'],
+                'labels' => $this->postTypeLabels($postSingularName, $postPluralName),
+                'dashboard_activity' => true,
+                'show_in_menu' => 'edit.php?post_type=event',
+                # Add some custom columns to the admin screen:
+                'admin_cols' => [
+                    'event' => [
+                        'title'       => __('Event', 'otomaties-events'),
+                        'function' => function(){
+                            $subscription = new Subscription(get_the_ID());
+                            echo $subscription->event()->name();
+                        }
+                    ],
+                    'tickets' => [
+                        'title'  => __('Tickets', 'otomaties-events'),
+                        'function' => function(){
+                            $subscription = new Subscription(get_the_ID());
+                            echo $subscription->ticketCount();
+                        }
+                    ],
+                ],
+        
+                # Add some dropdown filters to the admin screen:
+                'admin_filters' => [
+                    'story_genre' => [
+                        'taxonomy' => 'genre'
+                    ],
+                    'story_rating' => [
+                        'meta_key' => 'star_rating',
+                    ],
+                ],
+            ],
+            [
+                'singular' => $postSingularName,
+                'plural'   => $postPluralName,
+                'slug'     => $slug,
+            ]
+        );
     }
 
     /**

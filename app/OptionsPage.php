@@ -34,13 +34,12 @@ class OptionsPage
      */
     public function addOptionsFields() : void
     {
-        $eventsSettings = new FieldsBuilder('events-settings');
+
+        $eventsSettings = new FieldsBuilder('events-settings', [
+            'title' => __('Settings', 'otomaties-events')
+        ]);
+        
         $eventsSettings
-            ->addText('event_default_subscribe_form', [
-                'label' => __('Default subscribe form shortcode', 'otomaties-events'),
-                'instructions' => __('Leave blank to disable subscriptions', 'otomaties-events'),
-                'placeholder' => __('[form]', 'otomaties-events')
-            ])
             ->addPostObject('event_default_location', [
                 'label' => __('Default location', 'otomaties-events'),
                 'post_type' => 'location',

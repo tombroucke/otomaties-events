@@ -3,6 +3,7 @@
 namespace Otomaties\Events;
 
 use DateTime;
+use Otomaties\Events\Models\Subscription;
 
 /**
  * The admin-specific functionality of the plugin.
@@ -97,9 +98,71 @@ class Admin
             $date = get_post_meta($object_id, 'date', true);
             add_filter('get_post_metadata', [$this, 'formatDateInAdminColumn'], 100, 4);
 
+            if (!$date) {
+                return '—';
+            }
+
             $dateTime = DateTime::createFromFormat('Ymd', $date);
             return [$dateTime->format('d/m/Y')];
         }
         return $metadata;
+    }
+
+    public function register() {
+        
+        $firstName = $_POST['first_name'];
+        $lastName = $_POST['last_name'];
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        $phone = $_POST['phone'];
+        $tickets = $_POST['ticket'];
+        $extraFields = $_POST['extra_fields'] ?? [];
+        $eventId = filter_input(INPUT_POST, 'event_id', FILTER_SANITIZE_NUMBER_INT);
+        $registrationNonce = sanitize_title($_POST['registration_nonce']);
+        $redirect = $_SERVER['HTTP_REFERER'];
+
+        if (!wp_verify_nonce($registrationNonce, 'register_for_' . $eventId)) {
+            $redirect = add_query_arg(
+                ['success' => 'false', 'error-message' => 'suspected-bot-activity'],
+                $redirect,
+            );
+            wp_safe_redirect($redirect);
+        }
+
+        $subscriptionId = wp_insert_post([
+            'post_title' => $firstName . ' ' . $lastName,
+            'post_status' => 'publish',
+            'post_type' => 'subscription',
+            'meta_input' => [
+                'first_name' => $firstName,
+                'last_name' => $lastName,
+                'email' => $email,
+                'phone' => $phone,
+                'event_id' => $eventId,
+                'tickets' => array_filter($tickets),
+                'extra_fields' => $extraFields,
+            ]
+        ]);
+
+        if ($subscriptionId) {
+            $redirect = add_query_arg(
+                ['success' => 'true', 'subscription_id' => $subscriptionId],
+                $redirect,
+            );
+        } else {
+            $redirect = add_query_arg(
+                ['success' => 'false', 'error-message' => 'generic-error'],
+                $redirect,
+            );
+        }
+        wp_safe_redirect($redirect);
+    }
+
+    public function metaBoxes() {
+        add_meta_box('subscription_details', __('Details', 'otomaties-events'), [$this, 'subscriptionDetails'], 'subscription', 'normal', 'high');
+    }
+
+    public function subscriptionDetails() {
+        $subscription = new Subscription(get_the_ID());
+        include dirname(__FILE__, 2) . '/views/subscription-details.php';
     }
 }

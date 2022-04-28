@@ -37,6 +37,17 @@ register_deactivation_hook(__FILE__, '\\Otomaties\\Events\\Deactivator::deactiva
  */
 function init()
 {
+    if (!function_exists('get_field')) {
+        add_action('admin_notices', function () {
+            ?>
+            <div class="notice notice-error">
+                <p><?php _e('<strong>Otomaties events</strong> is inactive. Please install & activate <strong>Advanced Custom Fields Pro</strong>.', 'otomaties-jobs') ?></p>
+            </div>
+            <?php
+        });
+        return;
+    }
+
     if (! function_exists('get_plugin_data')) {
         require_once(ABSPATH . 'wp-admin/includes/plugin.php');
     }

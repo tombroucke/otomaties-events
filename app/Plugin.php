@@ -84,6 +84,9 @@ class Plugin
         // $this->loader->add_action('admin_enqueue_scripts', $admin, 'enqueueStyles');
         // $this->loader->add_action('admin_enqueue_scripts', $admin, 'enqueueScripts');
         $this->loader->add_action('get_post_metadata', $admin, 'formatDateInAdminColumn', 100, 4);
+        $this->loader->add_action('admin_post_event_registration', $admin, 'register');
+        $this->loader->add_action('admin_post_nopriv_event_registration', $admin, 'register');
+        $this->loader->add_action('add_meta_boxes', $admin, 'metaBoxes');
     }
 
     /**
@@ -97,6 +100,7 @@ class Plugin
         // $this->loader->add_action('wp_enqueue_scripts', $frontend, 'enqueueStyles');
         // $this->loader->add_action('wp_enqueue_scripts', $frontend, 'enqueueScripts');
         $this->loader->add_action('pre_get_posts', $frontend, 'hidePastEvents');
+        $this->loader->add_filter('the_content', $frontend, 'renderSubscriptionForm');
     }
 
     private function definePostTypeHooks()
@@ -106,6 +110,7 @@ class Plugin
         $this->loader->add_action('acf/init', $cpts, 'addEventFields');
         $this->loader->add_action('init', $cpts, 'addLocation');
         $this->loader->add_action('acf/init', $cpts, 'addLocationFields');
+        $this->loader->add_action('init', $cpts, 'addSubscription');
     }
 
     private function addOptionsPage()
@@ -135,7 +140,8 @@ class Plugin
         return $this->loader;
     }
 
-    public function getPluginName() {
+    public function getPluginName()
+    {
         return $this->pluginName;
     }
 

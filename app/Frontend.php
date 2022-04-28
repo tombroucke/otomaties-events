@@ -2,6 +2,8 @@
 
 namespace Otomaties\Events;
 
+use Otomaties\Events\Models\Event;
+
 /**
  * The public-facing functionality of the plugin.
  *
@@ -114,5 +116,17 @@ class Frontend
 
         $query->set('meta_key', 'date');
         $query->set('orderby', array( 'meta_value' => 'ASC' ));
+    }
+
+    public function renderSubscriptionForm($content)
+    {
+        if (is_singular('event')) {
+            $event = new Event(get_the_ID());
+            ob_start();
+            include dirname(__FILE__, 2) . '/views/registration-form.php';
+
+            $content .= ob_get_clean();
+        }
+        return $content;
     }
 }
