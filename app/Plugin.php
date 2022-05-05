@@ -2,6 +2,9 @@
 
 namespace Otomaties\Events;
 
+use Otomaties\Events\Models\Event;
+use Otomaties\WpModels\PostTypeRepository;
+
 /**
  * The core plugin class.
  *
@@ -56,6 +59,7 @@ class Plugin
         $this->defineFrontendHooks();
         $this->definePostTypeHooks();
         $this->addOptionsPage();
+        $this->defineMailerHooks();
     }
 
     /**
@@ -87,6 +91,9 @@ class Plugin
         $this->loader->add_action('admin_post_event_registration', $admin, 'register');
         $this->loader->add_action('admin_post_nopriv_event_registration', $admin, 'register');
         $this->loader->add_action('add_meta_boxes', $admin, 'metaBoxes');
+        $this->loader->add_action('ext-cpts/registration/filter-query/event_id', $admin, 'replaceStringHackedPostIds', 10, 3);
+        $this->loader->add_action('manage_posts_extra_tablenav', $admin, 'exportBtn');
+        $this->loader->add_action('admin_init', $admin, 'exportRegistrations');
     }
 
     /**
@@ -100,7 +107,22 @@ class Plugin
         // $this->loader->add_action('wp_enqueue_scripts', $frontend, 'enqueueStyles');
         // $this->loader->add_action('wp_enqueue_scripts', $frontend, 'enqueueScripts');
         $this->loader->add_action('pre_get_posts', $frontend, 'hidePastEvents');
-        $this->loader->add_filter('the_content', $frontend, 'renderSubscriptionForm');
+        $this->loader->add_filter('the_content', $frontend, 'renderRegistrationForm');
+        $this->loader->add_filter('the_content', $frontend, 'showErrors', 1);
+
+        add_action('init', function () {
+            if (!isset($_GET['test'])) {
+                return;
+            }
+            $repository = new PostTypeRepository(Event::class);
+            ray($repository->find()->first()->author());
+            // $args = [
+            //     'post_title' => 'test',
+            // ];
+            // $post = new Post($args);
+            // ray($post);
+            // ray(Post::insert(['post_title' => 'from static']));
+        });
     }
 
     private function definePostTypeHooks()
@@ -110,7 +132,7 @@ class Plugin
         $this->loader->add_action('acf/init', $cpts, 'addEventFields');
         $this->loader->add_action('init', $cpts, 'addLocation');
         $this->loader->add_action('acf/init', $cpts, 'addLocationFields');
-        $this->loader->add_action('init', $cpts, 'addSubscription');
+        $this->loader->add_action('init', $cpts, 'addRegistration');
     }
 
     private function addOptionsPage()
@@ -118,6 +140,13 @@ class Plugin
         $options = new OptionsPage();
         $this->loader->add_action('acf/init', $options, 'addOptionsPage');
         $this->loader->add_action('acf/init', $options, 'addOptionsFields');
+    }
+
+    private function defineMailerHooks()
+    {
+        $mailer = new Mailer();
+        $this->loader->add_action('otomaties_events_new_registration', $mailer, 'confirmationEmail');
+        $this->loader->add_action('otomaties_events_new_registration', $mailer, 'notificationEmail');
     }
 
     /**

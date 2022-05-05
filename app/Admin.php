@@ -3,7 +3,9 @@
 namespace Otomaties\Events;
 
 use DateTime;
-use Otomaties\Events\Models\Subscription;
+use Otomaties\Events\Models\Event;
+use Otomaties\Events\Models\Registration;
+use Otomaties\Events\Models\TicketType;
 
 /**
  * The admin-specific functionality of the plugin.
@@ -89,10 +91,11 @@ class Admin
     }
 
     public function formatDateInAdminColumn($metadata, $object_id, $meta_key, $single) {
-        if (!is_admin()) {
+        if (!is_admin() || !function_exists('get_current_screen') || !get_current_screen()) {
             return $metadata;
         }
         $currentScreen = get_current_screen();
+        
         if ($meta_key == 'date' && $currentScreen->parent_file == 'edit.php?post_type=event') {
             remove_filter('get_post_metadata', [$this, 'formatDateInAdminColumn'], 100);
             $date = get_post_meta($object_id, 'date', true);
@@ -110,15 +113,24 @@ class Admin
 
     public function register() {
         
-        $firstName = $_POST['first_name'];
-        $lastName = $_POST['last_name'];
+        $firstName = sanitize_text_field($_POST['first_name']);
+        $lastName = sanitize_text_field($_POST['last_name']);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $phone = $_POST['phone'];
+        $phone = sanitize_text_field($_POST['phone']);
         $tickets = $_POST['ticket'];
-        $extraFields = $_POST['extra_fields'] ?? [];
+        foreach ($tickets as $key => $ticket) {
+            $tickets[esc_attr($key)] = filter_var((int)$ticket, FILTER_SANITIZE_NUMBER_INT);
+        }
+        $extraFields = [];
+        if (isset($_POST['extra_fields'])) {
+            foreach ($_POST['extra_fields'] as $key => $value) {
+                $extraFields[esc_attr($key)] = sanitize_text_field($value);
+            }
+        }
         $eventId = filter_input(INPUT_POST, 'event_id', FILTER_SANITIZE_NUMBER_INT);
         $registrationNonce = sanitize_title($_POST['registration_nonce']);
-        $redirect = $_SERVER['HTTP_REFERER'];
+        $redirect = strtok($_SERVER['HTTP_REFERER'], '?');
+
 
         if (!wp_verify_nonce($registrationNonce, 'register_for_' . $eventId)) {
             $redirect = add_query_arg(
@@ -126,12 +138,54 @@ class Admin
                 $redirect,
             );
             wp_safe_redirect($redirect);
+            die();
         }
 
-        $subscriptionId = wp_insert_post([
+        $errors = [];
+
+        $event = new Event($eventId);
+
+        if (!$event->registrationsOpen()) {
+            $errors[] = __('We\'re sorry, registrations are closed.', 'otomaties-events');
+        }
+
+        $totalTicketCount = 0;
+        foreach ($tickets as $ticketName => $ticketCount) {
+            $totalTicketCount += $ticketCount;
+        }
+        
+        if ($event->freeSpots() < $totalTicketCount) {
+            $errors[] = __('We\'re sorry, we don\'t have enough tickets available.', 'otomaties-events');
+        }
+
+        foreach ($tickets as $ticketName => $ticketCount) {
+            $ticketType = $event->ticketType($ticketName);
+            $availableTickets = $ticketType->availableTickets();
+            if ($availableTickets < $ticketCount) {
+                $errors[] = sprintf(__('The maximum number of tickets for %s is %s', 'otomaties-events'), $ticketType->title(), $availableTickets);
+                // TODO: fill fields
+            }
+        }
+
+        if (!empty($errors)) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            $_SESSION['registration_errors'] = $errors;
+
+            $redirect = add_query_arg(
+                ['success' => 'false'],
+                $redirect,
+            );
+            wp_safe_redirect($redirect);
+            die();
+        }
+
+        $registrationId = wp_insert_post([
             'post_title' => $firstName . ' ' . $lastName,
             'post_status' => 'publish',
-            'post_type' => 'subscription',
+            'post_type' => 'registration',
             'meta_input' => [
                 'first_name' => $firstName,
                 'last_name' => $lastName,
@@ -143,9 +197,13 @@ class Admin
             ]
         ]);
 
-        if ($subscriptionId) {
+
+        if (!is_wp_error($registrationId) && $registrationId) {
+            $registration = new Registration($registrationId);
+            do_action('otomaties_events_new_registration', $registration);
+
             $redirect = add_query_arg(
-                ['success' => 'true', 'subscription_id' => $subscriptionId],
+                ['success' => 'true', 'registration_id' => $registrationId],
                 $redirect,
             );
         } else {
@@ -155,14 +213,48 @@ class Admin
             );
         }
         wp_safe_redirect($redirect);
+        die();
     }
 
     public function metaBoxes() {
-        add_meta_box('subscription_details', __('Details', 'otomaties-events'), [$this, 'subscriptionDetails'], 'subscription', 'normal', 'high');
+        add_meta_box('registration_details', __('Details', 'otomaties-events'), [$this, 'registrationDetails'], 'registration', 'normal', 'high');
     }
 
-    public function subscriptionDetails() {
-        $subscription = new Subscription(get_the_ID());
-        include dirname(__FILE__, 2) . '/views/subscription-details.php';
+    public function registrationDetails() {
+        $registration = new Registration(get_the_ID());
+        include dirname(__FILE__, 2) . '/views/registration-details.php';
+    }
+
+    public function replaceStringHackedPostIds($return, $query, $filter) {
+        $return = [];
+        $return['meta_query'][] = [
+            'key'   => $filter['meta_key'],
+            'value' => str_replace('event_', '', wp_unslash($query['event_id'])),
+        ];
+        return $return;
+    }
+
+    public function exportBtn($which) {
+        $postType = $_GET['post_type'] ?? 'post';
+        $eventId = $_GET['event_id'] ?? 0;
+
+        if ('registration' == $postType && $eventId) {
+            ?>
+            <a class="button button-primary" href="<?php echo admin_url('edit.php?post_type=registration&event_id=event_2055&action=export') ?>"><?php _e('Export', 'otomaties-events'); ?></a>
+            <?php
+        }
+    }
+
+    public function exportRegistrations() {
+        $action = $_GET['action'] ?? null;
+        $eventId = $_GET['event_id'] ?? null;
+        if (!current_user_can('edit_posts') || 'export' != $action || !$eventId) {
+            return;
+        }
+
+        $event = new Event($eventId);
+        $export = new RegistrationExport($event);
+        $export->execute();
+        die();
     }
 }

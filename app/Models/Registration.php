@@ -2,28 +2,13 @@
 
 namespace Otomaties\Events\Models;
 
-class Subscription
+use Otomaties\WpModels\PostType;
+
+class Registration extends PostType
 {
-    private $subscriptionId;
-
-    public function __construct(int $subscriptionId)
-    {
-        $this->subscriptionId = $subscriptionId;
-    }
-
-    public function getId() : int
-    {
-        return $this->subscriptionId;
-    }
-
-    public function get(string $key, bool $single = true)
-    {
-        return get_post_meta($this->getId(), $key, $single);
-    }
-
     public function tickets() : array
     {
-        $tickets = $this->get('tickets');
+        $tickets = $this->meta()->get('tickets');
         if (!$tickets) {
             $tickets = [];
         }
@@ -39,7 +24,7 @@ class Subscription
         return $count;
     }
 
-    public function ticketCountFor(string $ticketKey) 
+    public function ticketCountFor(string $ticketKey)
     {
         $count = 0;
         foreach ($this->tickets() as $name => $ticketCount) {
@@ -52,6 +37,11 @@ class Subscription
 
     public function event() : Event
     {
-        return new Event($this->get('event_id'));
+        return new Event($this->meta()->get('event_id'));
+    }
+
+    public static function postType() : string
+    {
+        return 'registration';
     }
 }

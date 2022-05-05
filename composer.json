@@ -14,7 +14,8 @@
     "require": {
         "composer/installers": "^1.0 || ^2.0",
         "johnbillion/extended-cpts": "^4.3",
-        "stoutlogic/acf-builder": "^1.12"
+        "stoutlogic/acf-builder": "^1.12",
+        "phpoffice/phpspreadsheet": "^1.23"
     },
     "keywords": ["wordpress", "plugin", "events", "calendar"],
     "type": "wordpress-plugin"

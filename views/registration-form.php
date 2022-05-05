@@ -30,11 +30,13 @@
         </div>
     <?php endif; ?>
     <h3><?php _e('Tickets', 'otomaties-events'); ?></h3>
-    <?php foreach ($event->tickets() as $ticket) : ?>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="ticket_<?php $ticket->slug() ?>"><?php echo $ticket->title(); ?></span>
-            <input type="number" class="form-control" name="ticket[<?php echo $ticket->slug(); ?>]" placeholder="0" aria-label="<?php echo $ticket->title(); ?>" aria-describedby="ticket_<?php $ticket->slug() ?>">
-        </div>
+    <?php foreach ($event->ticketTypes() as $ticket) : ?>
+        <?php if ($ticket->isAvailable()) : ?>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="ticket_<?php $ticket->slug() ?>"><?php echo $ticket->title(); ?></span>
+                <input type="number" min="0" max="<?php echo $ticket->availableTickets(); ?>" class="form-control" name="ticket[<?php echo $ticket->slug(); ?>]" placeholder="0" aria-label="<?php echo $ticket->title(); ?>" aria-describedby="ticket_<?php $ticket->slug() ?>">
+            </div>
+        <?php endif; ?>
     <?php endforeach; ?>
     <input type="hidden" name="action" value="event_registration" />
     <input type="hidden" name="event_id" value="<?php echo $event->getId(); ?>" />

@@ -94,7 +94,7 @@ class Frontend
         }
         
         
-        if (get_field('events_hide_past_events', 'option')) {
+        if (get_field('otomaties_events_hide_past_events', 'option')) {
             $meta_query = array_filter((array)$query->get('meta_query'));
             $meta_query[] = array(
                 'relation' => 'AND',
@@ -118,15 +118,38 @@ class Frontend
         $query->set('orderby', array( 'meta_value' => 'ASC' ));
     }
 
-    public function renderSubscriptionForm($content)
+    public function renderRegistrationForm($content)
     {
         if (is_singular('event')) {
             $event = new Event(get_the_ID());
             ob_start();
-            include dirname(__FILE__, 2) . '/views/registration-form.php';
-
+            if (!empty($event->ticketTypes()) && $event->registrationsOpen() && $event->freeSpots() > 0) {
+                include dirname(__FILE__, 2) . '/views/registration-form.php';
+            } else {
+                include dirname(__FILE__, 2) . '/views/registrations-closed.php';
+            }
             $content .= ob_get_clean();
         }
+        return $content;
+    }
+
+    public function showErrors($content) {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!in_the_loop() || !isset($_SESSION['registration_errors']) || empty($_SESSION['registration_errors'])) {
+            return $content;
+        }
+
+        $notice = '<div class="alert alert-danger"><ul class="mb-0">';
+        foreach ($_SESSION['registration_errors'] as $error) {
+            $notice .= '<li>' . $error . '</li>';
+        }
+        $notice .= '</ul></div>';
+        $content = $notice . $content;
+        unset($_SESSION['registration_errors']);
+
         return $content;
     }
 }

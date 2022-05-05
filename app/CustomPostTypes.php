@@ -1,7 +1,8 @@
 <?php //phpcs:ignore
 namespace Otomaties\Events;
 
-use Otomaties\Events\Models\Subscription;
+use Otomaties\Events\Models\Event;
+use Otomaties\Events\Models\Registration;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 /**
@@ -33,6 +34,15 @@ class CustomPostTypes
                         'title'  => __('Event date', 'otomaties-events'),
                         'meta_key'    => 'date',
                     ],
+                    'registrations' => [
+                        'title'  => __('Registrations', 'otomaties-events'),
+                        'function'    => function(){
+                            $event = new Event(get_the_ID());
+                            $registrationCount = count($event->registrations());
+                            $color = $event->registrationsOpen() ? '#7ad03a' : '#dc3232';
+                            echo sprintf('<span style="color: %s;">&#11044;</span> <a href="%s">%s</a>', $color, admin_url('edit.php?post_type=registration&event_id=event_' . get_the_ID()), sprintf(_n('View %s registration', 'View %s registrations', $registrationCount, 'otomaties-events'), $registrationCount ));
+                        }
+                    ]
                 ],
             ],
             [
@@ -45,7 +55,7 @@ class CustomPostTypes
 
     public function addEventFields()
     {
-        $defaultLocation = get_field('event_default_location', 'option');
+        $defaultLocation = get_field('otomaties_events_event_default_location', 'option');
         $event = new FieldsBuilder('event', ['position' => 'acf_after_title', 'title' => __('Details', 'otomaties-events')]);
         $event
             ->addTab('general', [
@@ -78,8 +88,9 @@ class CustomPostTypes
             ->addDateTimePicker('registration_end', [
                 'label' => __('Tickets available untill', 'otomaties-events'),
             ])
-            ->addRepeater('tickets', [
-                    'label' => __('Tickets', 'otomaties-events'),
+            ->addRepeater('ticket_types', [
+                    'label' => __('Ticket types', 'otomaties-events'),
+                    'instructions' => __('Be careful when deleting ticket types. Existing registrations with deleted ticket types won\'t count for maximum number of registrations.')
                 ])
                 ->addText('title', [
                     'label' => __('Title', 'otomaties-events'),
@@ -123,14 +134,14 @@ class CustomPostTypes
     }
 
     /**
-     * Register post type subscription
+     * Register post type registration
      */
-    public function addSubscription()
+    public function addRegistration()
     {
-        $postType = 'subscription';
-        $slug = 'subscriptions';
-        $postSingularName = __('Subscription', 'otomaties-events');
-        $postPluralName = __('Subscriptions', 'otomaties-events');
+        $postType = 'registration';
+        $slug = 'registrations';
+        $postSingularName = __('Registration', 'otomaties-events');
+        $postPluralName = __('Registrations', 'otomaties-events');
 
         register_extended_post_type(
             $postType,
@@ -142,31 +153,34 @@ class CustomPostTypes
                 'labels' => $this->postTypeLabels($postSingularName, $postPluralName),
                 'dashboard_activity' => true,
                 'show_in_menu' => 'edit.php?post_type=event',
-                # Add some custom columns to the admin screen:
                 'admin_cols' => [
                     'event' => [
                         'title'       => __('Event', 'otomaties-events'),
-                        'function' => function(){
-                            $subscription = new Subscription(get_the_ID());
-                            echo $subscription->event()->name();
+                        'function' => function () {
+                            $registration = new Registration(get_the_ID());
+                            echo sprintf('<a href="%s">%s</a>', get_edit_post_link($registration->event()->getId()), $registration->event()->title());
                         }
                     ],
                     'tickets' => [
                         'title'  => __('Tickets', 'otomaties-events'),
-                        'function' => function(){
-                            $subscription = new Subscription(get_the_ID());
-                            echo $subscription->ticketCount();
+                        'function' => function () {
+                            $registration = new Registration(get_the_ID());
+                            echo $registration->ticketCount();
                         }
                     ],
                 ],
-        
-                # Add some dropdown filters to the admin screen:
                 'admin_filters' => [
-                    'story_genre' => [
-                        'taxonomy' => 'genre'
-                    ],
-                    'story_rating' => [
-                        'meta_key' => 'star_rating',
+                    'event_id' => [
+                        'meta_key' => 'event_id',
+                        'title' => __('Event', 'otomaties-events'),
+                        'options' => function () {
+                            $events = Event::find();
+                            $return = array();
+                            foreach ($events as $key => $event) {
+                                $return['event_' . $event->getId()] = $event->title();
+                            }
+                            return $return;
+                        },
                     ],
                 ],
             ],
