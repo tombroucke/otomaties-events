@@ -15,8 +15,14 @@
         "composer/installers": "^1.0 || ^2.0",
         "johnbillion/extended-cpts": "^4.3",
         "stoutlogic/acf-builder": "^1.12",
-        "phpoffice/phpspreadsheet": "^1.23"
+        "phpoffice/phpspreadsheet": "^1.23",
+        "tombroucke/wp-models": "^1.0"
     },
     "keywords": ["wordpress", "plugin", "events", "calendar"],
-    "type": "wordpress-plugin"
+    "type": "wordpress-plugin",
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
 }
