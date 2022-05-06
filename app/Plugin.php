@@ -109,20 +109,6 @@ class Plugin
         $this->loader->add_action('pre_get_posts', $frontend, 'hidePastEvents');
         $this->loader->add_filter('the_content', $frontend, 'renderRegistrationForm');
         $this->loader->add_filter('the_content', $frontend, 'showErrors', 1);
-
-        add_action('init', function () {
-            if (!isset($_GET['test'])) {
-                return;
-            }
-            $repository = new PostTypeRepository(Event::class);
-            ray($repository->find()->first()->author());
-            // $args = [
-            //     'post_title' => 'test',
-            // ];
-            // $post = new Post($args);
-            // ray($post);
-            // ray(Post::insert(['post_title' => 'from static']));
-        });
     }
 
     private function definePostTypeHooks()
