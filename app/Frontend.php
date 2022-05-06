@@ -133,6 +133,7 @@ class Frontend
             $event = new Event(get_the_ID());
             ob_start();
             if (!empty($event->ticketTypes()) && $event->registrationsOpen() && $event->freeSpots() > 0) {
+                $user = wp_get_current_user();
                 include dirname(__FILE__, 2) . '/views/registration-form.php';
             } else {
                 include dirname(__FILE__, 2) . '/views/registrations-closed.php';
@@ -142,14 +143,20 @@ class Frontend
         return $content;
     }
 
-    public function showErrors($content)
+    public function showMessages($content) : string
+    {
+        $content = $this->errors() . $content;
+        return $content;
+    }
+
+    private function errors() : string
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
         if (!in_the_loop() || !isset($_SESSION['registration_errors']) || empty($_SESSION['registration_errors'])) {
-            return $content;
+            return '';
         }
 
         $notice = '<div class="alert alert-danger"><ul class="mb-0">';
@@ -157,9 +164,7 @@ class Frontend
             $notice .= '<li>' . $error . '</li>';
         }
         $notice .= '</ul></div>';
-        $content = $notice . $content;
         unset($_SESSION['registration_errors']);
-
-        return $content;
+        return $notice;
     }
 }

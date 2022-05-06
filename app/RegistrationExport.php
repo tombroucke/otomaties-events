@@ -38,10 +38,10 @@ class RegistrationExport
 
         // Headers
         $headers = [
-            'first_name',
-            'last_name',
-            'phone',
-            'email'
+            __('First name', 'otomaties-events'),
+            __('Last name', 'otomaties-events'),
+            __('Phone', 'otomaties-events'),
+            __('Email', 'otomaties-events')
         ];
         foreach ($this->event->extraFormFields() as $formField) {
             $headers[] = $formField->label();
@@ -55,14 +55,14 @@ class RegistrationExport
         foreach ($this->event->registrations() as $registration) {
             // Default fields
             $entry = [
-                esc_html($registration->get('first_name')),
-                esc_html($registration->get('last_name')),
-                esc_html($registration->get('phone')),
-                esc_html($registration->get('email'))
+                esc_html($registration->meta()->get('first_name')),
+                esc_html($registration->meta()->get('last_name')),
+                esc_html($registration->meta()->get('phone')),
+                esc_html($registration->meta()->get('email'))
             ];
 
             // Extra fields
-            $registrationExtraFields = $registration->get('extra_fields');
+            $registrationExtraFields = $registration->meta()->get('extra_fields');
             foreach ($this->event->extraFormFields() as $formField) {
                 if (is_array($registrationExtraFields) && isset($registrationExtraFields[$formField->slug()])) {
                     $entry[] = esc_html($registrationExtraFields[$formField->slug()]);

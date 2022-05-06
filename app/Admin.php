@@ -94,15 +94,13 @@ class Admin
         if (!is_admin() || !function_exists('get_current_screen') || !get_current_screen()) {
             return $metadata;
         }
-        $currentScreen = get_current_screen();
-        
-        if ($meta_key == 'date' && $currentScreen->parent_file == 'edit.php?post_type=event') {
+        if ($meta_key == 'date' && isset($_GET['post_type']) && $_GET['post_type'] == 'event') {
             remove_filter('get_post_metadata', [$this, 'formatDateInAdminColumn'], 100);
             $date = get_post_meta($object_id, 'date', true);
             add_filter('get_post_metadata', [$this, 'formatDateInAdminColumn'], 100, 4);
 
             if (!$date) {
-                return '—';
+                return $metadata;
             }
 
             $dateTime = DateTime::createFromFormat('Ymd', $date);
@@ -182,10 +180,8 @@ class Admin
             die();
         }
 
-        $registrationId = wp_insert_post([
+        $registration = Registration::insert([
             'post_title' => $firstName . ' ' . $lastName,
-            'post_status' => 'publish',
-            'post_type' => 'registration',
             'meta_input' => [
                 'first_name' => $firstName,
                 'last_name' => $lastName,
@@ -197,13 +193,17 @@ class Admin
             ]
         ]);
 
+        if (is_user_logged_in()) {
+            $user = wp_get_current_user();
+            $registration->meta()->set('user_id', get_current_user_id());
+        }
 
-        if (!is_wp_error($registrationId) && $registrationId) {
-            $registration = new Registration($registrationId);
+
+        if (!is_wp_error($registration) && $registration) {
             do_action('otomaties_events_new_registration', $registration);
 
             $redirect = add_query_arg(
-                ['success' => 'true', 'registration_id' => $registrationId],
+                ['success' => 'true', 'registration_id' => $registration->getId()],
                 $redirect,
             );
         } else {

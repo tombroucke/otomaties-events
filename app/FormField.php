@@ -41,10 +41,10 @@ class FormField
     public function render() {
         $output = '<label for="' . $this->slug() . '">' . $this->label . ($this->required ? ' <span class="text-danger">*</span>' : '') . '</label>';
         if ($this->type == 'textarea') {
-            $output .= '<textarea name="extra_fields[' . $this->slug() . ']" class="form-control" ' . ($this->required ? 'required' : '') . '></textarea>';
+            $output .= '<textarea name="extra_fields[' . $this->slug() . ']" class="' . apply_filters('otomaties_events_input_class', 'form-control') . '" ' . ($this->required ? 'required' : '') . '></textarea>';
         } else {
-            $output .= '<input type="' . $this->type . '" name="extra_fields[' . $this->slug() . ']" ' . ($this->required ? 'required' : '') . ' />';
+            $output .= '<input type="' . $this->type . '" class="' . apply_filters('otomaties_events_input_class', 'form-control') . '" name="extra_fields[' . $this->slug() . ']" ' . ($this->required ? 'required' : '') . ' />';
         }
-        echo $output;
+        echo apply_filters('otomaties_events_form_field', $output, $this);
     }
 }

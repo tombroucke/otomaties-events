@@ -2,43 +2,95 @@
 
 namespace Otomaties\Events\Models;
 
+use Otomaties\Events\Formatter;
+
 class TicketType
 {
     public function __construct(private array $ticket, private Event $event)
     {
         $defaultTicket = [
             'title' => __('Personal registration', 'otomaties-events'),
+            'price' => 0,
             'ticket_limit_per_registration' => -1,
             'registration_limit' => -1,
         ];
         $this->ticket = wp_parse_args($ticket, $defaultTicket);
     }
 
-    public function get($key)
+    /**
+     * Get ticket meta
+     *
+     * @param string $key
+     * @return string|integer
+     */
+    public function get(string $key) : string|int
     {
         return $this->ticket[$key] ?? null;
     }
 
-    public function title()
+    /**
+     * Get ticket title
+     *
+     * @return string
+     */
+    public function title() : string
     {
         return $this->get('title');
     }
 
+    public function price() : ?int
+    {
+        $price = $this->get('price');
+        return $price !== '' ? (int)$price : null;
+    }
+
+    public function priceHtml(string $prepend = '', string $append = '') : ?string
+    {
+        $price = $this->price();
+        if ($price === null) {
+            return '';
+        }
+
+        $return = $prepend;
+        if (0 ==! $price) {
+            $return .= Formatter::currency($price);
+        } else {
+            $return .= __('Free', 'otomaties-events');
+        }
+        $return .= $append;
+        return $return;
+    }
+    
     public function ticketLimitPerRegistration() : int
     {
         return $this->get('ticket_limit_per_registration') ?: $this->registrationLimit();
     }
 
+    /**
+     * Get registration limit
+     *
+     * @return integer
+     */
     public function registrationLimit() : int
     {
         return $this->get('registration_limit') ?: 9999999;
     }
 
-    public function slug()
+    /**
+     * Get ticket slug
+     *
+     * @return string
+     */
+    public function slug() : string
     {
         return sanitize_title($this->title());
     }
 
+    /**
+     * Get number of sold tickets
+     *
+     * @return integer
+     */
     public function soldTickets() : int
     {
         $count = 0;
@@ -53,12 +105,25 @@ class TicketType
         return $count;
     }
 
-    public function availableTickets()
+    /**
+     * Get available ticket count
+     * Gets the lowest ticket count from global event or this ticket
+     *
+     * @return int
+     */
+    public function availableTickets() : int
     {
-        return $this->registrationLimit() - $this->soldTickets();
+        $eventFreeSpots = $this->event->freeSpots();
+        $ticketLimit = $this->registrationLimit() - $this->soldTickets();
+        return min($eventFreeSpots, $ticketLimit);
     }
 
-    public function isAvailable()
+    /**
+     * Test if ticket is available
+     *
+     * @return boolean
+     */
+    public function isAvailable() : bool
     {
         return $this->availableTickets() > 0;
     }

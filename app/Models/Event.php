@@ -5,6 +5,7 @@ namespace Otomaties\Events\Models;
 use DateTime;
 use Otomaties\Events\FormField;
 use Otomaties\WpModels\PostType;
+use Otomaties\WpModels\PostTypeCollection;
 
 class Event extends PostType
 {
@@ -80,7 +81,12 @@ class Event extends PostType
         return array_values($filteredExtraFormFields)[0];
     }
 
-    public function registrations()
+    /**
+     * Get all registrations for this event
+     *
+     * @return PostTypeCollection
+     */
+    public function registrations() : PostTypeCollection
     {
         return Registration::find([
             'meta_query' => [
@@ -92,7 +98,12 @@ class Event extends PostType
         ]);
     }
 
-    public function registrationsOpen()
+    /**
+     * Check if registrations are open
+     *
+     * @return boolean
+     */
+    public function registrationsOpen() : bool
     {
         $availableFrom = $this->meta()->get('registration_start') ? DateTime::createFromFormat('Y-m-d H:i:s', $this->meta()->get('registration_start'), wp_timezone()) : null;
         $availableUntill = $this->meta()->get('registration_end') ? DateTime::createFromFormat('Y-m-d H:i:s', $this->meta()->get('registration_end'), wp_timezone()) : null;
@@ -127,16 +138,31 @@ class Event extends PostType
         return false;
     }
 
-    public function freeSpots()
+    /**
+     * Get registration limit
+     *
+     * @return integer
+     */
+    public function registrationLimit() : int
     {
-        $availableSpots = $this->meta()->get('registration_limit');
-        if (!$availableSpots) {
-            return 99999;
-        }
-        
-        return $availableSpots - $this->soldTickets();
+        return $this->meta()->get('registration_limit') ?: 99999;
     }
 
+    /**
+     * Get amount of free spots
+     *
+     * @return int
+     */
+    public function freeSpots() : int
+    {
+        return $this->registrationLimit() - $this->soldTickets();
+    }
+
+    /**
+     * Get post type
+     *
+     * @return string
+     */
     public static function postType() : string
     {
         return 'event';

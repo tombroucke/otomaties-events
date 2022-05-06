@@ -42,6 +42,13 @@ class CustomPostTypes
                             $color = $event->registrationsOpen() ? '#7ad03a' : '#dc3232';
                             echo sprintf('<span style="color: %s;">&#11044;</span> <a href="%s">%s</a>', $color, admin_url('edit.php?post_type=registration&event_id=event_' . get_the_ID()), sprintf(_n('View %s registration', 'View %s registrations', $registrationCount, 'otomaties-events'), $registrationCount ));
                         }
+                    ],
+                    'tickets' => [
+                        'title'  => __('Tickets sold', 'otomaties-events'),
+                        'function'    => function(){
+                            $event = new Event(get_the_ID());
+                            echo $event->soldTickets();
+                        }
                     ]
                 ],
             ],
@@ -63,6 +70,7 @@ class CustomPostTypes
             ])
             ->addDatePicker('date', [
                 'label' => __('Date', 'otomaties-events'),
+                'return_format' => 'Ymd',
             ])
             ->addTimePicker('time', [
                 'label' => __('Time', 'otomaties-events'),
@@ -96,6 +104,9 @@ class CustomPostTypes
                     'label' => __('Title', 'otomaties-events'),
                     'required' => true,
                     'placeholder' => __('Personal registration, adult, child, ...', 'otomaties-events'),
+                ])
+                ->addNumber('price', [
+                    'label' => __('Price', 'otomaties-events'),
                 ])
                 ->addNumber('ticket_limit_per_registration', [
                     'label' => __('Limit number of tickets per registration', 'otomaties-events'),
@@ -158,7 +169,7 @@ class CustomPostTypes
                         'title'       => __('Event', 'otomaties-events'),
                         'function' => function () {
                             $registration = new Registration(get_the_ID());
-                            echo sprintf('<a href="%s">%s</a>', get_edit_post_link($registration->event()->getId()), $registration->event()->title());
+                            echo sprintf('<a href="%s">%s %s</a>', get_edit_post_link($registration->event()->getId()), esc_html($registration->event()->title()), $registration->event()->date()->format(get_option('date_format')));
                         }
                     ],
                     'tickets' => [

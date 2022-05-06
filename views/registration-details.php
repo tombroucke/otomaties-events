@@ -30,7 +30,7 @@
             <ul>
                 <?php foreach ($registration->tickets() as $ticketName => $ticketCount) : ?>
                     <?php $ticket = $registration->event()->ticketType($ticketName); ?>
-                    <li><?php printf('<strong>%d</strong> x %s', esc_html($ticketCount), ($ticket ? $ticket->title() : $ticketName)); ?></li>
+                    <li><?php printf('<strong>%d</strong> x %s', esc_html($ticketCount), ($ticket ? esc_html($ticket->title()) : esc_html($ticketName))); ?></li>
                 <?php endforeach; ?>
             </ul>
         </td>
