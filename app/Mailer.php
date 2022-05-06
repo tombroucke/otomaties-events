@@ -17,7 +17,7 @@ class Mailer
 
         $message = str_replace(array_keys(self::mergeTags($registration)), array_values(self::mergeTags($registration)), $message);
 
-        return $this->sendMail($registration->get('email'), $subject, $message);
+        return $this->sendMail($registration->meta()->get('email'), $subject, $message);
     }
 
     public function notificationEmail(Registration $registration)
@@ -30,7 +30,7 @@ class Mailer
 
         $message = str_replace(array_keys(self::mergeTags($registration)), array_values(self::mergeTags($registration)), $message);
 
-        return $this->sendMail($registration->get('email'), $subject, $message);
+        return $this->sendMail($registration->meta()->get('email'), $subject, $message);
     }
 
     public function message($template, array $variables = [])
@@ -85,11 +85,11 @@ class Mailer
 
     public static function mergeTags(Registration $registration = null) {
         return [
-            '{first_name}' => $registration ? esc_html($registration->get('first_name')) : '{first_name}',
-            '{last_name}' => $registration ? esc_html($registration->get('last_name')) : '{last_name}',
-            '{email}' => $registration ? esc_html($registration->get('email')) : '{email}',
-            '{phone}' => $registration ? esc_html($registration->get('phone')) : '{phone}',
-            '{custom_fields}' => $registration ? self::customFieldsTable($registration->get('extra_fields'), $registration) : '{custom_fields}',
+            '{first_name}' => $registration ? esc_html($registration->meta()->get('first_name')) : '{first_name}',
+            '{last_name}' => $registration ? esc_html($registration->meta()->get('last_name')) : '{last_name}',
+            '{email}' => $registration ? esc_html($registration->meta()->get('email')) : '{email}',
+            '{phone}' => $registration ? esc_html($registration->meta()->get('phone')) : '{phone}',
+            '{custom_fields}' => $registration ? self::customFieldsTable($registration->meta()->get('extra_fields'), $registration) : '{custom_fields}',
             '{event}' => $registration ? esc_html($registration->event()->title()) : '{event}',
             '{event_date}' => $registration ? esc_html($registration->event()->date()->format(get_option('date_format'))) : '{event_date}',
             '{event_time}' => $registration ? esc_html($registration->event()->time()) : '{event_time}',

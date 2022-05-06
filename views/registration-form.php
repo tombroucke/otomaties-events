@@ -1,4 +1,4 @@
-<form action="<?php echo admin_url('admin-post.php'); ?>" method="POST">
+<form action="<?php echo admin_url('admin-post.php'); ?>" method="POST" class="form-event-registration js-form-event-registration">
     <h2><?php _e('Register', 'otomaties-events'); ?></h2>
     <h3><?php _e('Personal details', 'otomaties-events'); ?></h3>
     <div class="row g-3 mb-5">
@@ -19,6 +19,16 @@
             <input type="text" class="form-control" name="phone" placeholder="<?php _e('Phone number', 'otomaties-events'); ?>" required>
         </div>
     </div>
+    <select name="terst" id="" required>
+        <option value="">No value</option>
+        <option value="test">blabla</option>
+    </select>
+    <label for="">
+        <input type="radio" name="test" id="" value="5" required /> vijf
+    </label>
+    <label for="">
+        <input type="radio" name="test" id="" value="6" required /> zes
+    </label>
     <?php if (!empty($event->extraFormFields())) : ?>
         <h3><?php _e('Extra information', 'otomaties-events'); ?></h3>
         <div class="row g-3 mb-5">

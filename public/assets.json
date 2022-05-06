@@ -1,0 +1,10 @@
+{
+  "main": {
+    "css": "css/main.min.css",
+    "js": "js/main.d2a767206d79fba6c64b.js"
+  },
+  "admin": {
+    "css": "css/admin.min.css",
+    "js": "js/admin.31d6cfe0d16ae931b73c.js"
+  }
+}

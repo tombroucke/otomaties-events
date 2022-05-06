@@ -104,8 +104,8 @@ class Plugin
     private function defineFrontendHooks()
     {
         $frontend = new Frontend($this->getPluginName(), $this->getVersion());
-        // $this->loader->add_action('wp_enqueue_scripts', $frontend, 'enqueueStyles');
-        // $this->loader->add_action('wp_enqueue_scripts', $frontend, 'enqueueScripts');
+        $this->loader->add_action('wp_enqueue_scripts', $frontend, 'enqueueStyles');
+        $this->loader->add_action('wp_enqueue_scripts', $frontend, 'enqueueScripts');
         $this->loader->add_action('pre_get_posts', $frontend, 'hidePastEvents');
         $this->loader->add_filter('the_content', $frontend, 'renderRegistrationForm');
         $this->loader->add_filter('the_content', $frontend, 'showErrors', 1);

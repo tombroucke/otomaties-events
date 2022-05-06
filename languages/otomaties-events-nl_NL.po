@@ -1,0 +1,596 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Otomaties Events\n"
+"POT-Creation-Date: 2022-05-06 15:15+0200\n"
+"PO-Revision-Date: 2022-05-06 15:16+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: otomaties-events.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
+
+#: app/Admin.php:149
+msgid "We're sorry, registrations are closed."
+msgstr "Het spijt ons, de inschrijvingen zijn gesloten."
+
+#: app/Admin.php:158
+msgid "We're sorry, we don't have enough tickets available."
+msgstr "Het spijt ons, we hebben niet genoeg tickets beschikbaar."
+
+#: app/Admin.php:165
+#, php-format
+msgid "The maximum number of tickets for %s is %s"
+msgstr "Het maximum aantal tickets voor %s is %s"
+
+#: app/Admin.php:220 app/CustomPostTypes.php:59
+msgid "Details"
+msgstr "Details"
+
+#: app/Admin.php:243
+msgid "Export"
+msgstr "Exporteren"
+
+#: app/CustomPostTypes.php:21 app/CustomPostTypes.php:158
+#: app/CustomPostTypes.php:175
+msgid "Event"
+msgstr "Evenement"
+
+#: app/CustomPostTypes.php:22
+msgid "Events"
+msgstr "Evenementen"
+
+#: app/CustomPostTypes.php:34
+msgid "Event date"
+msgstr "Datum evenement"
+
+#: app/CustomPostTypes.php:38 app/CustomPostTypes.php:144
+msgid "Registrations"
+msgstr "Registraties"
+
+#: app/CustomPostTypes.php:43
+#, php-format
+msgid "View %s registration"
+msgid_plural "View %s registrations"
+msgstr[0] "Bekijk %s registratie"
+msgstr[1] "Bekijk %s registraties"
+
+#: app/CustomPostTypes.php:62 app/OptionsPage.php:44
+msgid "General"
+msgstr "Algemeen"
+
+#: app/CustomPostTypes.php:65
+msgid "Date"
+msgstr "Datums"
+
+#: app/CustomPostTypes.php:68
+msgid "Time"
+msgstr "Uren"
+
+#: app/CustomPostTypes.php:71 app/CustomPostTypes.php:202
+#: app/CustomPostTypes.php:233
+msgid "Location"
+msgstr "Locatie"
+
+#: app/CustomPostTypes.php:76 app/CustomPostTypes.php:143
+msgid "Registration"
+msgstr "Inschrijving"
+
+#: app/CustomPostTypes.php:78
+msgid "Registration will only be active if tickets have been added"
+msgstr "Registratie zal alleen actief zijn als er tickets zijn toegevoegd"
+
+#: app/CustomPostTypes.php:79
+msgid "Registration information"
+msgstr "Registratie-informatie"
+
+#: app/CustomPostTypes.php:82
+msgid "Maximum number of registrations"
+msgstr "Maximum aantal registraties"
+
+#: app/CustomPostTypes.php:83
+msgid "For all tickets, leave empty to disable"
+msgstr "Voor alle tickets, laat leeg om uit te schakelen"
+
+#: app/CustomPostTypes.php:86
+msgid "Tickets available from"
+msgstr "Tickets verkrijgbaar vanaf"
+
+#: app/CustomPostTypes.php:89
+msgid "Tickets available untill"
+msgstr "Tickets beschikbaar tot"
+
+#: app/CustomPostTypes.php:92
+msgid "Ticket types"
+msgstr "Ticket types"
+
+#: app/CustomPostTypes.php:93
+msgid ""
+"Be careful when deleting ticket types. Existing registrations with deleted "
+"ticket types won't count for maximum number of registrations."
+msgstr ""
+"Wees voorzichtig met het verwijderen van tickettypes. Bestaande registraties "
+"met verwijderde tickettypes zullen niet meetellen voor het maximum aantal "
+"registraties."
+
+#: app/CustomPostTypes.php:96
+msgid "Title"
+msgstr "Titel"
+
+#: app/CustomPostTypes.php:98
+msgid "Personal registration, adult, child, ..."
+msgstr "Persoonlijke registratie, volwassene, kind, ..."
+
+#: app/CustomPostTypes.php:101
+msgid "Limit number of tickets per registration"
+msgstr "Beperk het aantal tickets per inschrijving"
+
+#: app/CustomPostTypes.php:102 app/CustomPostTypes.php:106
+msgid "Leave empty to disable"
+msgstr "Leeg laten om uit te schakelen"
+
+#: app/CustomPostTypes.php:105
+msgid "Total sales limit for this ticket"
+msgstr "Totale verkooplimiet voor dit ticket"
+
+#: app/CustomPostTypes.php:110
+msgid "Registration form"
+msgstr "Registratieformulier"
+
+#: app/CustomPostTypes.php:113
+msgid "Extra form fields"
+msgstr "Extra formuliervelden"
+
+#: app/CustomPostTypes.php:116
+msgid "Field type"
+msgstr "Veldtype"
+
+#: app/CustomPostTypes.php:118
+msgid "Text"
+msgstr "Tekst"
+
+#: app/CustomPostTypes.php:119
+msgid "Textarea"
+msgstr "Tekstveld"
+
+#: app/CustomPostTypes.php:120
+msgid "Number"
+msgstr "Nummer"
+
+#: app/CustomPostTypes.php:125
+msgid "Label"
+msgstr "Label"
+
+#: app/CustomPostTypes.php:129
+msgid "Required"
+msgstr "Verplicht"
+
+#: app/CustomPostTypes.php:165 views/registration-details.php:28
+#: views/registration-form.php:42
+msgid "Tickets"
+msgstr "Tickets"
+
+#: app/CustomPostTypes.php:203
+msgid "Locations"
+msgstr "Locaties"
+
+#: app/CustomPostTypes.php:227
+msgid "Location on map"
+msgstr "Locatie op kaart"
+
+#: app/CustomPostTypes.php:230
+msgid "Location information"
+msgstr "Locatie gegevens"
+
+#: app/CustomPostTypes.php:249
+msgid "Add New"
+msgstr "Nieuw toevoegen"
+
+#. translators: %s: singular post name
+#. translators: %s: singular taxonomy name
+#: app/CustomPostTypes.php:251 app/CustomPostTypes.php:324
+#, php-format
+msgid "Add New %s"
+msgstr "Nieuwe %s toevoegen"
+
+#. translators: %s: singular post name
+#. translators: %s: singular taxonomy name
+#: app/CustomPostTypes.php:253 app/CustomPostTypes.php:318
+#, php-format
+msgid "Edit %s"
+msgstr "Bewerk %s"
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:255
+#, php-format
+msgid "New %s"
+msgstr "Nieuwe %s"
+
+#. translators: %s: singular post name
+#. translators: %s: plural post name
+#. translators: %s: singular taxonomy name
+#: app/CustomPostTypes.php:257 app/CustomPostTypes.php:259
+#: app/CustomPostTypes.php:320
+#, php-format
+msgid "View %s"
+msgstr "Bekijk %s"
+
+#. translators: %s: singular post name
+#. translators: %s: plural taxonomy name
+#: app/CustomPostTypes.php:261 app/CustomPostTypes.php:308
+#, php-format
+msgid "Search %s"
+msgstr "Zoekresultaten voor %s"
+
+#. translators: %s: plural post name to lower
+#: app/CustomPostTypes.php:263
+#, php-format
+msgid "No %s found."
+msgstr "Geen %s gevonden."
+
+#. translators: %s: plural post name to lower
+#: app/CustomPostTypes.php:265
+#, php-format
+msgid "No %s found in trash."
+msgstr "Geen %s gevonden in de prullenbak."
+
+#. translators: %s: singular post name
+#. translators: %s: singular taxonomy name
+#: app/CustomPostTypes.php:267 app/CustomPostTypes.php:316
+#, php-format
+msgid "Parent %s:"
+msgstr "Hoofd %s:"
+
+#. translators: %s: singular post name
+#. translators: %s: plural taxonomy name
+#: app/CustomPostTypes.php:269 app/CustomPostTypes.php:312
+#, php-format
+msgid "All %s"
+msgstr "Alle %s"
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:271
+#, php-format
+msgid "%s Archives"
+msgstr "%s Archieven"
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:273
+#, php-format
+msgid "%s Attributes"
+msgstr "%s Eigenschappen"
+
+#. translators: %s: singular post name to lower
+#: app/CustomPostTypes.php:275
+#, php-format
+msgid "Insert into %s"
+msgstr "Toevoegen aan %s"
+
+#. translators: %s: singular post name to lower
+#: app/CustomPostTypes.php:277
+#, php-format
+msgid "Uploaded to this %s"
+msgstr "Geupload naar deze %s"
+
+#. translators: %s: plural post name to lower
+#: app/CustomPostTypes.php:279
+#, php-format
+msgid "Filter %s list"
+msgstr "Filter %s lijst"
+
+#. translators: %s: singular post name
+#. translators: %s: plural taxonomy name
+#: app/CustomPostTypes.php:281 app/CustomPostTypes.php:338
+#, php-format
+msgid "%s list navigation"
+msgstr "Navigatie door %slijst"
+
+#. translators: %s: singular post name
+#. translators: %s: plural taxonomy name
+#: app/CustomPostTypes.php:283 app/CustomPostTypes.php:340
+#, php-format
+msgid "%s list"
+msgstr "%s lijst"
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:285
+#, php-format
+msgid "%s published."
+msgstr "%s gepubliceerd."
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:287
+#, php-format
+msgid "%s published privately."
+msgstr "%s privé gepubliceerd."
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:289
+#, php-format
+msgid "%s reverted to draft."
+msgstr "%s teruggezet naar concept."
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:291
+#, php-format
+msgid "%s scheduled."
+msgstr "%s gepland."
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:293
+#, php-format
+msgid "%s updated."
+msgstr "%s bijgewerkt."
+
+#. translators: %s: plural taxonomy name
+#: app/CustomPostTypes.php:310
+#, php-format
+msgid "Popular %s"
+msgstr "Populair %s"
+
+#. translators: %s: singular taxonomy name
+#: app/CustomPostTypes.php:314
+#, php-format
+msgid "Parent %s"
+msgstr "Hoofd %s"
+
+#. translators: %s: singular taxonomy name
+#: app/CustomPostTypes.php:322
+#, php-format
+msgid "Update %s"
+msgstr "%s opslaan"
+
+#. translators: %s: singular taxonomy name
+#: app/CustomPostTypes.php:326
+#, php-format
+msgid "New %s Name"
+msgstr "Nieuw(e) %s naam"
+
+#. translators: %s: plural taxonomy name to lower
+#: app/CustomPostTypes.php:328
+#, php-format
+msgid "Separate %s with commas"
+msgstr "Splits %s met komma’s"
+
+#. translators: %s: plural taxonomy name to lower
+#: app/CustomPostTypes.php:330
+#, php-format
+msgid "Add or remove %s"
+msgstr "%s toevoegen of verwijderen"
+
+#. translators: %s: plural taxonomy name to lower
+#: app/CustomPostTypes.php:332
+#, php-format
+msgid "Choose from most used %s"
+msgstr "Kies uit de meest gebruikte %s"
+
+#. translators: %s: plural taxonomy name to lower
+#: app/CustomPostTypes.php:334
+#, php-format
+msgid "No %s found"
+msgstr "Geen %s gevonden."
+
+#. translators: %s: plural taxonomy name to lower
+#. translators: %s: singular taxonomy name to lower
+#: app/CustomPostTypes.php:336 app/CustomPostTypes.php:345
+#, php-format
+msgid "No %s"
+msgstr "Geen %s"
+
+#. translators: %s: plural taxonomy name
+#: app/CustomPostTypes.php:343
+#, php-format
+msgid "&larr; Back to %s"
+msgstr "&larr; Terug naar %s"
+
+#. translators: %s: singular taxonomy name to lower
+#: app/CustomPostTypes.php:347
+#, php-format
+msgid "Filter by %s"
+msgstr "Filteren op %s"
+
+#: app/Frontend.php:89
+msgid "Field is required"
+msgstr "Dit veld is verplicht"
+
+#: app/Frontend.php:90
+msgid "Enter a value less than or equal to {0}"
+msgstr "Geef een waarde in die lager of gelijk is aan {0}"
+
+#: app/Frontend.php:91
+msgid "Enter a value greater than or equal to {0}"
+msgstr "Geef een waarde in die hoger of gelijk is aan {0}"
+
+#: app/Frontend.php:92
+msgid "Please enter a valid e-mailaddress"
+msgstr "Geef een geldig e-mailadres in"
+
+#: app/Mailer.php:15
+msgid "Registration confirmation"
+msgstr "Registratiebevestiging"
+
+#: app/Mailer.php:28
+msgid "Registration notification"
+msgstr "Bevestiging van aanmelding"
+
+#: app/Models/TicketType.php:10
+msgid "Personal registration"
+msgstr "Persoonlijke registratie"
+
+#: app/OptionsPage.php:20 app/OptionsPage.php:21
+msgid "Events settings"
+msgstr "Evenement Instellingen"
+
+#: app/OptionsPage.php:39
+msgid "Settings"
+msgstr "Instellingen"
+
+#: app/OptionsPage.php:47
+msgid "Default location"
+msgstr "Standaardlocatie"
+
+#: app/OptionsPage.php:52
+msgid "Hide past events"
+msgstr "Verberg verlopen evenementen"
+
+#: app/OptionsPage.php:53
+msgid ""
+"Events will always be visible from the backend whether you check this box or "
+"not."
+msgstr ""
+"Events zullen altijd zichtbaar zijn vanuit de backend, of je dit vakje nu "
+"aanvinkt of niet."
+
+#: app/OptionsPage.php:55
+msgid "Hide past events from visitors"
+msgstr "Verberg gepasseerde events voor bezoekers"
+
+#: app/OptionsPage.php:58
+msgid "Hide registrations closed notice"
+msgstr "Verberg “Registraties gesloten” melding"
+
+#: app/OptionsPage.php:60
+msgid "Hide \"Registrations are closed\" notice"
+msgstr "Verberg de melding \"Registraties zijn gesloten”"
+
+#: app/OptionsPage.php:63
+msgid "E-mail"
+msgstr "E-mail"
+
+#: app/OptionsPage.php:66
+msgid "Confirmation e-mail"
+msgstr "Bevestigings-e-mail"
+
+#: app/OptionsPage.php:69 app/OptionsPage.php:109
+msgid "Enable/disable"
+msgstr "Inschakelen/uitschakelen"
+
+#: app/OptionsPage.php:70
+msgid "Enable confirmation e-mail"
+msgstr "Bevestigings e-mail inschakelen"
+
+#: app/OptionsPage.php:74
+msgid "Reply-to name"
+msgstr "Beantwoorden naar, naam"
+
+#: app/OptionsPage.php:82
+msgid "Reply-to e-mail"
+msgstr "Reply-to e-mail"
+
+#: app/OptionsPage.php:90
+msgid "Confirmation e-mail content"
+msgstr "Inhoud van de bevestigings e-mail"
+
+#: app/OptionsPage.php:91 app/OptionsPage.php:125
+#, php-format
+msgid "Available merge tags: %s"
+msgstr "Beschikbare samenvoeg tags: %s"
+
+#: app/OptionsPage.php:106
+msgid "Notification e-mail"
+msgstr "Notificatie e-mail"
+
+#: app/OptionsPage.php:110
+msgid "Enable notification e-mail"
+msgstr "Notificatie e-mail inschakelen"
+
+#: app/OptionsPage.php:114
+msgid "Recipient e-mail."
+msgstr "E-mail van de ontvanger."
+
+#: app/OptionsPage.php:115
+msgid "Separate multiple e-mailaddresses with comma's"
+msgstr "Scheid meerdere e-mailadressen met komma's"
+
+#: app/OptionsPage.php:124
+msgid "Notification e-mail content"
+msgstr "Inhoud van notificatie e-mailbericht"
+
+#: otomaties-events.php:44
+msgid ""
+"<strong>Otomaties events</strong> is inactive. Please install & activate "
+"<strong>Advanced Custom Fields Pro</strong>."
+msgstr ""
+"<strong>Otomaties events</strong> is inactief. Installeer en activeer "
+"<strong>Advanced Custom Fields Pro</strong>."
+
+#: views/registration-details.php:3 views/registration-form.php:6
+#: views/registration-form.php:7
+msgid "First name"
+msgstr "Voornaam"
+
+#: views/registration-details.php:7 views/registration-form.php:10
+#: views/registration-form.php:11
+msgid "Last name"
+msgstr "Achternaam"
+
+#: views/registration-details.php:11
+msgid "E-mailaddress"
+msgstr "E-mailadres"
+
+#: views/registration-details.php:15
+msgid "Phone"
+msgstr "Telefoon"
+
+#: views/registration-form.php:2 views/registration-form.php:54
+msgid "Register"
+msgstr "Inschrijven"
+
+#: views/registration-form.php:3
+msgid "Personal details"
+msgstr "Uw gegevens"
+
+#: views/registration-form.php:14 views/registration-form.php:15
+msgid "Email address"
+msgstr "Uw e-mailadres"
+
+#: views/registration-form.php:18 views/registration-form.php:19
+msgid "Phone number"
+msgstr "Telefoonnummer"
+
+#: views/registration-form.php:33
+msgid "Extra information"
+msgstr "Extra informatie"
+
+#: views/registrations-closed.php:3
+msgid "Registrations are closed"
+msgstr "De inschrijvingen zijn gesloten"
+
+#. Plugin Name of the plugin/theme
+msgid "Otomaties Events"
+msgstr "Otomaties Events"
+
+#. Description of the plugin/theme
+msgid "Add event functionality to your website"
+msgstr "Voeg events functionaliteit toe aan uw website"
+
+#. Author of the plugin/theme
+msgid "Tom Broucke"
+msgstr "Tom Broucke"
+
+#. Author URI of the plugin/theme
+msgid "https://tombroucke.be/"
+msgstr "https://tombroucke.be/"
+
+#~ msgid "Dit veld is verplicht"
+#~ msgstr "Dit veld is verplicht"
+
+#, fuzzy
+#~ msgid "Geef een waarde lager dan of gelijk aan {0} in"
+#~ msgstr "Geef een waarde lager dan of gelijk aan {0} in"
+
+#, fuzzy
+#~ msgid "Geef een waarde hoger dan of gelijk aan {0} in"
+#~ msgstr "Geef een waarde hoger dan of gelijk aan {0} in"

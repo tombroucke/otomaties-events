@@ -82,8 +82,17 @@ class Frontend
          * between the defined hooks and the functions defined in this
          * class.
          */
-
         wp_enqueue_script($this->pluginName, Assets::find('js/main.js'), array( 'jquery' ), null);
+        wp_localize_script($this->pluginName, 'oeVars', [
+            'strings' => [
+                'validator' => [
+                    'required' => __('Field is required', 'otomaties-events'),
+                    'maxValue' => __('Enter a value less than or equal to {0}', 'otomaties-events'),
+                    'minValue' => __('Enter a value greater than or equal to {0}', 'otomaties-events'),
+                    'email' => __('Please enter a valid e-mailaddress', 'otomaties-events'),
+                ]
+            ]
+        ]);
     }
 
     public function hidePastEvents($query)
@@ -133,7 +142,8 @@ class Frontend
         return $content;
     }
 
-    public function showErrors($content) {
+    public function showErrors($content)
+    {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }

@@ -1,0 +1,578 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Otomaties Events\n"
+"POT-Creation-Date: 2022-05-06 15:15+0200\n"
+"PO-Revision-Date: 2022-05-06 15:02+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: otomaties-events.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
+
+#: app/Admin.php:149
+msgid "We're sorry, registrations are closed."
+msgstr ""
+
+#: app/Admin.php:158
+msgid "We're sorry, we don't have enough tickets available."
+msgstr ""
+
+#: app/Admin.php:165
+#, php-format
+msgid "The maximum number of tickets for %s is %s"
+msgstr ""
+
+#: app/Admin.php:220 app/CustomPostTypes.php:59
+msgid "Details"
+msgstr ""
+
+#: app/Admin.php:243
+msgid "Export"
+msgstr ""
+
+#: app/CustomPostTypes.php:21 app/CustomPostTypes.php:158
+#: app/CustomPostTypes.php:175
+msgid "Event"
+msgstr ""
+
+#: app/CustomPostTypes.php:22
+msgid "Events"
+msgstr ""
+
+#: app/CustomPostTypes.php:34
+msgid "Event date"
+msgstr ""
+
+#: app/CustomPostTypes.php:38 app/CustomPostTypes.php:144
+msgid "Registrations"
+msgstr ""
+
+#: app/CustomPostTypes.php:43
+#, php-format
+msgid "View %s registration"
+msgid_plural "View %s registrations"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/CustomPostTypes.php:62 app/OptionsPage.php:44
+msgid "General"
+msgstr ""
+
+#: app/CustomPostTypes.php:65
+msgid "Date"
+msgstr ""
+
+#: app/CustomPostTypes.php:68
+msgid "Time"
+msgstr ""
+
+#: app/CustomPostTypes.php:71 app/CustomPostTypes.php:202
+#: app/CustomPostTypes.php:233
+msgid "Location"
+msgstr ""
+
+#: app/CustomPostTypes.php:76 app/CustomPostTypes.php:143
+msgid "Registration"
+msgstr ""
+
+#: app/CustomPostTypes.php:78
+msgid "Registration will only be active if tickets have been added"
+msgstr ""
+
+#: app/CustomPostTypes.php:79
+msgid "Registration information"
+msgstr ""
+
+#: app/CustomPostTypes.php:82
+msgid "Maximum number of registrations"
+msgstr ""
+
+#: app/CustomPostTypes.php:83
+msgid "For all tickets, leave empty to disable"
+msgstr ""
+
+#: app/CustomPostTypes.php:86
+msgid "Tickets available from"
+msgstr ""
+
+#: app/CustomPostTypes.php:89
+msgid "Tickets available untill"
+msgstr ""
+
+#: app/CustomPostTypes.php:92
+msgid "Ticket types"
+msgstr ""
+
+#: app/CustomPostTypes.php:93
+msgid ""
+"Be careful when deleting ticket types. Existing registrations with deleted "
+"ticket types won't count for maximum number of registrations."
+msgstr ""
+
+#: app/CustomPostTypes.php:96
+msgid "Title"
+msgstr ""
+
+#: app/CustomPostTypes.php:98
+msgid "Personal registration, adult, child, ..."
+msgstr ""
+
+#: app/CustomPostTypes.php:101
+msgid "Limit number of tickets per registration"
+msgstr ""
+
+#: app/CustomPostTypes.php:102 app/CustomPostTypes.php:106
+msgid "Leave empty to disable"
+msgstr ""
+
+#: app/CustomPostTypes.php:105
+msgid "Total sales limit for this ticket"
+msgstr ""
+
+#: app/CustomPostTypes.php:110
+msgid "Registration form"
+msgstr ""
+
+#: app/CustomPostTypes.php:113
+msgid "Extra form fields"
+msgstr ""
+
+#: app/CustomPostTypes.php:116
+msgid "Field type"
+msgstr ""
+
+#: app/CustomPostTypes.php:118
+msgid "Text"
+msgstr ""
+
+#: app/CustomPostTypes.php:119
+msgid "Textarea"
+msgstr ""
+
+#: app/CustomPostTypes.php:120
+msgid "Number"
+msgstr ""
+
+#: app/CustomPostTypes.php:125
+msgid "Label"
+msgstr ""
+
+#: app/CustomPostTypes.php:129
+msgid "Required"
+msgstr ""
+
+#: app/CustomPostTypes.php:165 views/registration-details.php:28
+#: views/registration-form.php:42
+msgid "Tickets"
+msgstr ""
+
+#: app/CustomPostTypes.php:203
+msgid "Locations"
+msgstr ""
+
+#: app/CustomPostTypes.php:227
+msgid "Location on map"
+msgstr ""
+
+#: app/CustomPostTypes.php:230
+msgid "Location information"
+msgstr ""
+
+#: app/CustomPostTypes.php:249
+msgid "Add New"
+msgstr ""
+
+#. translators: %s: singular post name
+#. translators: %s: singular taxonomy name
+#: app/CustomPostTypes.php:251 app/CustomPostTypes.php:324
+#, php-format
+msgid "Add New %s"
+msgstr ""
+
+#. translators: %s: singular post name
+#. translators: %s: singular taxonomy name
+#: app/CustomPostTypes.php:253 app/CustomPostTypes.php:318
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:255
+#, php-format
+msgid "New %s"
+msgstr ""
+
+#. translators: %s: singular post name
+#. translators: %s: plural post name
+#. translators: %s: singular taxonomy name
+#: app/CustomPostTypes.php:257 app/CustomPostTypes.php:259
+#: app/CustomPostTypes.php:320
+#, php-format
+msgid "View %s"
+msgstr ""
+
+#. translators: %s: singular post name
+#. translators: %s: plural taxonomy name
+#: app/CustomPostTypes.php:261 app/CustomPostTypes.php:308
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#. translators: %s: plural post name to lower
+#: app/CustomPostTypes.php:263
+#, php-format
+msgid "No %s found."
+msgstr ""
+
+#. translators: %s: plural post name to lower
+#: app/CustomPostTypes.php:265
+#, php-format
+msgid "No %s found in trash."
+msgstr ""
+
+#. translators: %s: singular post name
+#. translators: %s: singular taxonomy name
+#: app/CustomPostTypes.php:267 app/CustomPostTypes.php:316
+#, php-format
+msgid "Parent %s:"
+msgstr ""
+
+#. translators: %s: singular post name
+#. translators: %s: plural taxonomy name
+#: app/CustomPostTypes.php:269 app/CustomPostTypes.php:312
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:271
+#, php-format
+msgid "%s Archives"
+msgstr ""
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:273
+#, php-format
+msgid "%s Attributes"
+msgstr ""
+
+#. translators: %s: singular post name to lower
+#: app/CustomPostTypes.php:275
+#, php-format
+msgid "Insert into %s"
+msgstr ""
+
+#. translators: %s: singular post name to lower
+#: app/CustomPostTypes.php:277
+#, php-format
+msgid "Uploaded to this %s"
+msgstr ""
+
+#. translators: %s: plural post name to lower
+#: app/CustomPostTypes.php:279
+#, php-format
+msgid "Filter %s list"
+msgstr ""
+
+#. translators: %s: singular post name
+#. translators: %s: plural taxonomy name
+#: app/CustomPostTypes.php:281 app/CustomPostTypes.php:338
+#, php-format
+msgid "%s list navigation"
+msgstr ""
+
+#. translators: %s: singular post name
+#. translators: %s: plural taxonomy name
+#: app/CustomPostTypes.php:283 app/CustomPostTypes.php:340
+#, php-format
+msgid "%s list"
+msgstr ""
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:285
+#, php-format
+msgid "%s published."
+msgstr ""
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:287
+#, php-format
+msgid "%s published privately."
+msgstr ""
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:289
+#, php-format
+msgid "%s reverted to draft."
+msgstr ""
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:291
+#, php-format
+msgid "%s scheduled."
+msgstr ""
+
+#. translators: %s: singular post name
+#: app/CustomPostTypes.php:293
+#, php-format
+msgid "%s updated."
+msgstr ""
+
+#. translators: %s: plural taxonomy name
+#: app/CustomPostTypes.php:310
+#, php-format
+msgid "Popular %s"
+msgstr ""
+
+#. translators: %s: singular taxonomy name
+#: app/CustomPostTypes.php:314
+#, php-format
+msgid "Parent %s"
+msgstr ""
+
+#. translators: %s: singular taxonomy name
+#: app/CustomPostTypes.php:322
+#, php-format
+msgid "Update %s"
+msgstr ""
+
+#. translators: %s: singular taxonomy name
+#: app/CustomPostTypes.php:326
+#, php-format
+msgid "New %s Name"
+msgstr ""
+
+#. translators: %s: plural taxonomy name to lower
+#: app/CustomPostTypes.php:328
+#, php-format
+msgid "Separate %s with commas"
+msgstr ""
+
+#. translators: %s: plural taxonomy name to lower
+#: app/CustomPostTypes.php:330
+#, php-format
+msgid "Add or remove %s"
+msgstr ""
+
+#. translators: %s: plural taxonomy name to lower
+#: app/CustomPostTypes.php:332
+#, php-format
+msgid "Choose from most used %s"
+msgstr ""
+
+#. translators: %s: plural taxonomy name to lower
+#: app/CustomPostTypes.php:334
+#, php-format
+msgid "No %s found"
+msgstr ""
+
+#. translators: %s: plural taxonomy name to lower
+#. translators: %s: singular taxonomy name to lower
+#: app/CustomPostTypes.php:336 app/CustomPostTypes.php:345
+#, php-format
+msgid "No %s"
+msgstr ""
+
+#. translators: %s: plural taxonomy name
+#: app/CustomPostTypes.php:343
+#, php-format
+msgid "&larr; Back to %s"
+msgstr ""
+
+#. translators: %s: singular taxonomy name to lower
+#: app/CustomPostTypes.php:347
+#, php-format
+msgid "Filter by %s"
+msgstr ""
+
+#: app/Frontend.php:89
+msgid "Field is required"
+msgstr ""
+
+#: app/Frontend.php:90
+msgid "Enter a value less than or equal to {0}"
+msgstr ""
+
+#: app/Frontend.php:91
+msgid "Enter a value greater than or equal to {0}"
+msgstr ""
+
+#: app/Frontend.php:92
+msgid "Please enter a valid e-mailaddress"
+msgstr ""
+
+#: app/Mailer.php:15
+msgid "Registration confirmation"
+msgstr ""
+
+#: app/Mailer.php:28
+msgid "Registration notification"
+msgstr ""
+
+#: app/Models/TicketType.php:10
+msgid "Personal registration"
+msgstr ""
+
+#: app/OptionsPage.php:20 app/OptionsPage.php:21
+msgid "Events settings"
+msgstr ""
+
+#: app/OptionsPage.php:39
+msgid "Settings"
+msgstr ""
+
+#: app/OptionsPage.php:47
+msgid "Default location"
+msgstr ""
+
+#: app/OptionsPage.php:52
+msgid "Hide past events"
+msgstr ""
+
+#: app/OptionsPage.php:53
+msgid ""
+"Events will always be visible from the backend whether you check this box or "
+"not."
+msgstr ""
+
+#: app/OptionsPage.php:55
+msgid "Hide past events from visitors"
+msgstr ""
+
+#: app/OptionsPage.php:58
+msgid "Hide registrations closed notice"
+msgstr ""
+
+#: app/OptionsPage.php:60
+msgid "Hide \"Registrations are closed\" notice"
+msgstr ""
+
+#: app/OptionsPage.php:63
+msgid "E-mail"
+msgstr ""
+
+#: app/OptionsPage.php:66
+msgid "Confirmation e-mail"
+msgstr ""
+
+#: app/OptionsPage.php:69 app/OptionsPage.php:109
+msgid "Enable/disable"
+msgstr ""
+
+#: app/OptionsPage.php:70
+msgid "Enable confirmation e-mail"
+msgstr ""
+
+#: app/OptionsPage.php:74
+msgid "Reply-to name"
+msgstr ""
+
+#: app/OptionsPage.php:82
+msgid "Reply-to e-mail"
+msgstr ""
+
+#: app/OptionsPage.php:90
+msgid "Confirmation e-mail content"
+msgstr ""
+
+#: app/OptionsPage.php:91 app/OptionsPage.php:125
+#, php-format
+msgid "Available merge tags: %s"
+msgstr ""
+
+#: app/OptionsPage.php:106
+msgid "Notification e-mail"
+msgstr ""
+
+#: app/OptionsPage.php:110
+msgid "Enable notification e-mail"
+msgstr ""
+
+#: app/OptionsPage.php:114
+msgid "Recipient e-mail."
+msgstr ""
+
+#: app/OptionsPage.php:115
+msgid "Separate multiple e-mailaddresses with comma's"
+msgstr ""
+
+#: app/OptionsPage.php:124
+msgid "Notification e-mail content"
+msgstr ""
+
+#: otomaties-events.php:44
+msgid ""
+"<strong>Otomaties events</strong> is inactive. Please install & activate "
+"<strong>Advanced Custom Fields Pro</strong>."
+msgstr ""
+
+#: views/registration-details.php:3 views/registration-form.php:6
+#: views/registration-form.php:7
+msgid "First name"
+msgstr ""
+
+#: views/registration-details.php:7 views/registration-form.php:10
+#: views/registration-form.php:11
+msgid "Last name"
+msgstr ""
+
+#: views/registration-details.php:11
+msgid "E-mailaddress"
+msgstr ""
+
+#: views/registration-details.php:15
+msgid "Phone"
+msgstr ""
+
+#: views/registration-form.php:2 views/registration-form.php:54
+msgid "Register"
+msgstr ""
+
+#: views/registration-form.php:3
+msgid "Personal details"
+msgstr ""
+
+#: views/registration-form.php:14 views/registration-form.php:15
+msgid "Email address"
+msgstr ""
+
+#: views/registration-form.php:18 views/registration-form.php:19
+msgid "Phone number"
+msgstr ""
+
+#: views/registration-form.php:33
+msgid "Extra information"
+msgstr ""
+
+#: views/registrations-closed.php:3
+msgid "Registrations are closed"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Otomaties Events"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Add event functionality to your website"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Tom Broucke"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://tombroucke.be/"
+msgstr ""
