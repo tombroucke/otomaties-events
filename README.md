@@ -59,6 +59,12 @@ $eventQuery = new \WP_Query($args);
 @include('partials.pagination', ['wpQuery' => $eventQuery]) // Pagination: https://github.com/tombroucke/otomaties-sage-helper/blob/master/publishes/app/View/Composers/Pagination.php, https://github.com/tombroucke/otomaties-sage-helper/blob/master/publishes/resources/views/partials/pagination.blade.php
 ```
 
+## Customization
+
+### Render registration form in content
+The registration form will be appended to the page content by default.
+1. `add_filter('otomaties_events_show_registration_form', '__return_false');`
+2. Use shortcode `[otomaties-events-registration-form]` to display form in different section
 
 ## Todo
 WPML support

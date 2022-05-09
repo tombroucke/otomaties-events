@@ -2,8 +2,7 @@
 
 namespace Otomaties\Events;
 
-use Otomaties\Events\Models\Event;
-use Otomaties\WpModels\PostTypeRepository;
+use Otomaties\Events\Shortcodes;
 
 /**
  * The core plugin class.
@@ -60,6 +59,7 @@ class Plugin
         $this->definePostTypeHooks();
         $this->addOptionsPage();
         $this->defineMailerHooks();
+        $this->addShortcodes();
     }
 
     /**
@@ -133,6 +133,11 @@ class Plugin
         $mailer = new Mailer();
         $this->loader->add_action('otomaties_events_new_registration', $mailer, 'confirmationEmail');
         $this->loader->add_action('otomaties_events_new_registration', $mailer, 'notificationEmail');
+    }
+
+    private function addShortcodes() {
+        $shortcodes = new Shortcodes();
+        add_shortcode('otomaties-events-registration-form', [$shortcodes, 'registrationForm']);
     }
 
     /**
