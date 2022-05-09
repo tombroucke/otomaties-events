@@ -13,5 +13,4 @@ namespace Otomaties\Events;
 
 class Shortcodes
 {
-    
 }

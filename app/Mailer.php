@@ -12,7 +12,7 @@ class Mailer
         if (!get_field('otomaties_events_enable_confirmation_email', 'option')) {
             return;
         }
-        $subject = __('Registration confirmation', 'woocommerce-ballooning');
+        $subject = str_replace(array_keys(self::mergeTags($registration)), array_values(self::mergeTags($registration)), get_field('otomaties_events_confirmation_email_subject', 'option'));
         $message = wpautop(get_field('otomaties_events_confirmation_email', 'option'));
 
         $message = str_replace(array_keys(self::mergeTags($registration)), array_values(self::mergeTags($registration)), $message);
@@ -25,7 +25,7 @@ class Mailer
         if (!get_field('otomaties_events_enable_notification_email', 'option')) {
             return;
         }
-        $subject = __('Registration notification', 'woocommerce-ballooning');
+        $subject = str_replace(array_keys(self::mergeTags($registration)), array_values(self::mergeTags($registration)), get_field('otomaties_events_notification_email_subject', 'option'));
         $message = wpautop(get_field('otomaties_events_notification_email', 'option'));
 
         $message = str_replace(array_keys(self::mergeTags($registration)), array_values(self::mergeTags($registration)), $message);
@@ -91,8 +91,8 @@ class Mailer
             '{phone}' => $registration ? esc_html($registration->meta()->get('phone')) : '{phone}',
             '{custom_fields}' => $registration ? self::customFieldsTable($registration->meta()->get('extra_fields'), $registration) : '{custom_fields}',
             '{event}' => $registration ? esc_html($registration->event()->title()) : '{event}',
-            '{event_date}' => $registration ? esc_html($registration->event()->date()->format(get_option('date_format'))) : '{event_date}',
-            '{event_time}' => $registration ? esc_html($registration->event()->time()) : '{event_time}',
+            '{event_date}' => $registration ? esc_html($registration->event()->eventDate()->format(get_option('date_format'))) : '{event_date}',
+            '{event_time}' => $registration ? esc_html($registration->event()->eventTime()) : '{event_time}',
             '{ticket_table}' => $registration ? self::ticketTable($registration->tickets()) : '{ticket_table}',
         ];
     }

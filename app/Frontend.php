@@ -82,29 +82,30 @@ class Frontend
          * between the defined hooks and the functions defined in this
          * class.
          */
-        wp_enqueue_script($this->pluginName, Assets::find('js/main.js'), array( 'jquery' ), null);
-        wp_localize_script($this->pluginName, 'oeVars', [
-            'strings' => [
-                'validator' => [
-                    'required' => __('Field is required', 'otomaties-events'),
-                    'maxValue' => __('Enter a value less than or equal to {0}', 'otomaties-events'),
-                    'minValue' => __('Enter a value greater than or equal to {0}', 'otomaties-events'),
-                    'email' => __('Please enter a valid e-mailaddress', 'otomaties-events'),
+
+        if (is_singular('event')) {
+            wp_enqueue_script($this->pluginName, Assets::find('js/main.js'), array( 'jquery' ), null);
+            wp_localize_script($this->pluginName, 'oeVars', [
+                'strings' => [
+                    'validator' => [
+                        'required' => __('Field is required', 'otomaties-events'),
+                        'maxValue' => __('Enter a value less than or equal to {0}', 'otomaties-events'),
+                        'minValue' => __('Enter a value greater than or equal to {0}', 'otomaties-events'),
+                        'email' => __('Please enter a valid e-mailaddress', 'otomaties-events'),
+                    ]
                 ]
-            ]
-        ]);
+            ]);
+        }
     }
 
     public function hidePastEvents($query)
     {
-
         if ($query->get('post_type') != 'event' || is_admin()) {
             return;
         }
         
-        
-        if (get_field('otomaties_events_hide_past_events', 'option')) {
-            $meta_query = array_filter((array)$query->get('meta_query'));
+        $meta_query = array_filter((array)$query->get('meta_query'));
+        if (!$query->get('event_scope') || $query->get('event_scope') == '') {
             $meta_query[] = array(
                 'relation' => 'AND',
                 array(
@@ -116,15 +117,34 @@ class Frontend
                     ),
                     array(
                         'key' => 'date',
-                        'compare'=>'NOT EXISTS',
+                        'compare'=> 'NOT EXISTS',
+                    ),
+                    array(
+                        'key' => 'date',
+                        'value'=> '',
                     )
                 )
             );
-            $query->set('meta_query', $meta_query);
-        }
 
-        $query->set('meta_key', 'date');
-        $query->set('orderby', array( 'meta_value' => 'ASC' ));
+            $query->set('meta_key', 'date');
+            $query->set('orderby', array( 'meta_value' => 'ASC' ));
+        } else {
+            $meta_query[] = array(
+                'relation' => 'AND',
+                array(
+                    'relation' => 'OR',
+                    array(
+                        'key' => 'date',
+                        'value' => date('Ymd'),
+                        'compare' => '<'
+                    )
+                )
+            );
+
+            $query->set('meta_key', 'date');
+            $query->set('orderby', array( 'meta_value' => 'DESC' ));
+        }
+        $query->set('meta_query', $meta_query);
     }
 
     public function renderRegistrationForm($content)
@@ -146,7 +166,21 @@ class Frontend
     public function showMessages($content) : string
     {
         $content = $this->errors() . $content;
+        $content = $this->successMessage() . $content;
         return $content;
+    }
+
+    public function successMessage() : string
+    {
+        if (!isset($_GET['registration_success']) || $_GET['registration_success'] !== 'true') {
+            return '';
+        }
+
+        $message = apply_filters('otomaties_events_registration_successful', __('Registration successful', 'otomaties-events'));
+        ob_start();
+        include apply_filters('otomaties_events_notification_error', dirname(__FILE__, 2) . '/views/notifications/success.php', $message);
+        $successMessage = ob_get_clean();
+        return $successMessage;
     }
 
     private function errors() : string
@@ -159,12 +193,15 @@ class Frontend
             return '';
         }
 
-        $notice = '<div class="alert alert-danger"><ul class="mb-0">';
+        $message = '<ul class="mb-0">';
         foreach ($_SESSION['registration_errors'] as $error) {
-            $notice .= '<li>' . $error . '</li>';
+            $message .= '<li>' . $error . '</li>';
         }
-        $notice .= '</ul></div>';
+        $message .= '</ul>';
+        ob_start();
+        include apply_filters('otomaties_events_notification_error', dirname(__FILE__, 2) . '/views/notifications/error.php', $message);
+        $error = ob_get_clean();
         unset($_SESSION['registration_errors']);
-        return $notice;
+        return $error;
     }
 }

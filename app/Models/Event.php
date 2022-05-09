@@ -18,15 +18,25 @@ class Event extends PostType
         parent::__construct($id);
     }
     
-    public function date() : DateTime
+    public function eventDate() : ?DateTime
     {
+        $return = null;
         $date = $this->meta()->get('date');
-        return $date ? DateTime::createFromFormat('Ymd', $date) : null;
+        if ($date) {
+            $time = $this->meta()->get('time');
+            if ($time) {
+                $timeArray = explode(':', $time);
+                $date->setTime($timeArray[0], $timeArray[1]);
+            }
+
+            $return = DateTime::createFromFormat('Ymd', $date);
+        }
+        return $return;
     }
 
-    public function time()
+    public function eventTime() : ?string
     {
-        return substr($this->meta()->get('time'), 0, 5);
+        return $this->meta()->get('time') ? substr($this->meta()->get('time'), 0, 5) : null;
     }
 
     public function ticketTypes() : array

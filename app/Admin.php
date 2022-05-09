@@ -132,7 +132,7 @@ class Admin
 
         if (!wp_verify_nonce($registrationNonce, 'register_for_' . $eventId)) {
             $redirect = add_query_arg(
-                ['success' => 'false', 'error-message' => 'suspected-bot-activity'],
+                ['registration_success' => 'false', 'error-message' => 'suspected-bot-activity'],
                 $redirect,
             );
             wp_safe_redirect($redirect);
@@ -155,6 +155,10 @@ class Admin
         if ($event->freeSpots() < $totalTicketCount) {
             $errors[] = __('We\'re sorry, we don\'t have enough tickets available.', 'otomaties-events');
         }
+        
+        if ($totalTicketCount < 1) {
+            $errors[] = __('Please select at least one ticket.', 'otomaties-events');
+        }
 
         foreach ($tickets as $ticketName => $ticketCount) {
             $ticketType = $event->ticketType($ticketName);
@@ -173,7 +177,7 @@ class Admin
             $_SESSION['registration_errors'] = $errors;
 
             $redirect = add_query_arg(
-                ['success' => 'false'],
+                ['registration_success' => 'false'],
                 $redirect,
             );
             wp_safe_redirect($redirect);
@@ -203,12 +207,12 @@ class Admin
             do_action('otomaties_events_new_registration', $registration);
 
             $redirect = add_query_arg(
-                ['success' => 'true', 'registration_id' => $registration->getId()],
+                ['registration_success' => 'true', 'registration_id' => $registration->getId()],
                 $redirect,
             );
         } else {
             $redirect = add_query_arg(
-                ['success' => 'false', 'error-message' => 'generic-error'],
+                ['registration_success' => 'false', 'error-message' => 'generic-error'],
                 $redirect,
             );
         }

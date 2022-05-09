@@ -51,6 +51,10 @@ class CustomPostTypes
                         }
                     ]
                 ],
+                'rewrite' => [
+                    'slug' => get_field('otomaties_events_events_archive_slug', 'option') ?: 'events',
+                    'with_front' => false,
+                ]
             ],
             [
                 'singular' => $postSingularName,
@@ -169,7 +173,7 @@ class CustomPostTypes
                         'title'       => __('Event', 'otomaties-events'),
                         'function' => function () {
                             $registration = new Registration(get_the_ID());
-                            echo sprintf('<a href="%s">%s %s</a>', get_edit_post_link($registration->event()->getId()), esc_html($registration->event()->title()), $registration->event()->date()->format(get_option('date_format')));
+                            echo sprintf('<a href="%s">%s %s</a>', get_edit_post_link($registration->event()->getId()), esc_html($registration->event()->title()), $registration->event()->eventDate()->format(get_option('date_format')));
                         }
                     ],
                     'tickets' => [

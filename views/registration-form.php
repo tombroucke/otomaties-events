@@ -59,5 +59,5 @@
     <input type="hidden" name="action" value="event_registration" />
     <input type="hidden" name="event_id" value="<?php echo $event->getId(); ?>" />
     <?php wp_nonce_field('register_for_' . get_the_ID(), 'registration_nonce'); ?>
-    <button type="submit" class="btn btn-primary"><?php _e('Register', 'otomaties-events'); ?></button>
+    <button type="submit" class="<?php echo esc_attr(apply_filters('otomaties_events_submit_class', 'btn btn-primary')); ?>"><?php _e('Register', 'otomaties-events'); ?></button>
 </form>
