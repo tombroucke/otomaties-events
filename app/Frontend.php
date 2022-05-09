@@ -149,7 +149,7 @@ class Frontend
 
     public function renderRegistrationForm($content)
     {
-        if (is_singular('event') && apply_filters('otomaties_events_show_registration_form', true)) {
+        if (is_singular('event') && apply_filters('otomaties_events_show_registration_form', true) && in_the_loop()) {
             $event = new Event(get_the_ID());
             ob_start();
             if (!empty($event->ticketTypes()) && $event->registrationsOpen() && $event->freeSpots() > 0) {
