@@ -19,7 +19,7 @@
         <?php foreach ($registration->meta()->get('extra_fields') as $fieldName => $value) : ?>
             <?php $extraField = $registration->event()->extraFormField($fieldName); ?>
             <tr>
-                <th><?php echo $extraField ?  esc_html($extraField->label()) : esc_html($fieldName); ?></th>
+                <th><?php echo $extraField ? esc_html($extraField->label()) : esc_html($fieldName); ?></th>
                 <td><?php echo esc_html($value); ?></td>
             </tr>
         <?php endforeach; ?>

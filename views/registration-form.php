@@ -49,7 +49,7 @@
         <span class="input-group-text"
             id="ticket_<?php echo $ticket->slug() ?>"><?php esc_html_e($ticket->title()); ?> <?php echo $ticket->priceHtml('(', ')'); ?></span>
         <input type="number" min="0" max="<?php echo $ticket->availableTickets(); ?>"
-            class="<?php echo esc_attr(apply_filters('otomaties_events_input_class', 'form-control')); ?>"
+            class="<?php esc_attr_e(apply_filters('otomaties_events_input_class', 'form-control')); ?>"
             name="ticket[<?php esc_html_e($ticket->slug()); ?>]" placeholder="0"
             aria-label="<?php esc_html_e($ticket->title()); ?>"
             aria-describedby="ticket_<?php esc_html_e($ticket->slug()); ?>">
@@ -57,7 +57,7 @@
     <?php endif; ?>
     <?php endforeach; ?>
     <input type="hidden" name="action" value="event_registration" />
-    <input type="hidden" name="event_id" value="<?php echo $event->getId(); ?>" />
+    <input type="hidden" name="event_id" value="<?php esc_attr_e($event->getId()); ?>" />
     <?php wp_nonce_field('register_for_' . get_the_ID(), 'registration_nonce'); ?>
-    <button type="submit" class="<?php echo esc_attr(apply_filters('otomaties_events_submit_class', 'btn btn-primary')); ?>"><?php _e('Register', 'otomaties-events'); ?></button>
+    <button type="submit" class="<?php esc_attr_e(apply_filters('otomaties_events_submit_class', 'btn btn-primary')); ?>"><?php _e('Register', 'otomaties-events'); ?></button>
 </form>

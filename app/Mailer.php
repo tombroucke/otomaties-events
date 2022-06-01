@@ -17,7 +17,15 @@ class Mailer
 
         $message = str_replace(array_keys(self::mergeTags($registration)), array_values(self::mergeTags($registration)), $message);
 
-        return $this->sendMail($registration->meta()->get('email'), $subject, $message);
+        $headers = [];
+        $replyToAddress = get_field('otomaties_events_confirmation_from_name');
+        $replyToName = get_field('otomaties_events_confirmation_from_email');
+
+        if ($replyToAddress && $replyToName) {
+            $headers[] = sprintf('Reply-To: %s<%s>', $replyToAddress, $replyToName);
+        }
+
+        return $this->sendMail($registration->meta()->get('email'), $subject, $message, $headers);
     }
 
     public function notificationEmail(Registration $registration)
@@ -30,15 +38,15 @@ class Mailer
 
         $message = str_replace(array_keys(self::mergeTags($registration)), array_values(self::mergeTags($registration)), $message);
 
-        return $this->sendMail($registration->meta()->get('email'), $subject, $message);
-    }
+        $headers = [];
+        $replyToAddress = esc_html($registration->meta()->get('email'));
+        $replyToName = esc_html($registration->meta()->get('first_name'));
 
-    public function message($template, array $variables = [])
-    {
-        extract($variables);
-        ob_start();
-        include dirname(__FILE__, 2) . '/views/emails/' . $template  . '.php';
-        return ob_get_clean();
+        if ($replyToAddress && $replyToName) {
+            $headers[] = sprintf('Reply-To: %s<%s>', $replyToAddress, $replyToName);
+        }
+
+        return $this->sendMail($registration->meta()->get('email'), $subject, $message, $headers);
     }
 
     /**
@@ -62,17 +70,22 @@ class Mailer
      */
     private function sendMail(string $to, string $subject, string $message, array $headers = array())
     {
-
-        $replyToAddress = get_field('otomaties_events_confirmation_from_name');
-        $replyToName = get_field('otomaties_events_confirmation_from_email');
-
-        if ($replyToAddress && $replyToName) {
-            $headers[] = sprintf('Reply-To: %s<%s>', $replyToAddress, $replyToName);
-        }
-
         ob_start();
         include dirname(__FILE__, 2) . '/views/emails/header.php';
-        echo $message;
+        echo wp_kses($message, [
+            'p' => [],
+            'b' => [],
+            'br' => [],
+            'em' => [],
+            'a' => [
+                'href' => [],
+                'title' => [],
+            ],
+            'ol' => [],
+            'ul' => [],
+            'li' => [],
+            'strong' => [],
+        ]);
         include dirname(__FILE__, 2) . '/views/emails/footer.php';
         $body = ob_get_clean();
 
@@ -83,7 +96,8 @@ class Mailer
         return $mailSent;
     }
 
-    public static function mergeTags(Registration $registration = null) {
+    public static function mergeTags(Registration $registration = null)
+    {
         return [
             '{first_name}' => $registration ? esc_html($registration->meta()->get('first_name')) : '{first_name}',
             '{last_name}' => $registration ? esc_html($registration->meta()->get('last_name')) : '{last_name}',
@@ -97,13 +111,15 @@ class Mailer
         ];
     }
 
-    public static function ticketTable(array $tickets) {
+    public static function ticketTable(array $tickets)
+    {
         ob_start();
         include dirname(__FILE__, 2) . '/views/emails/ticket-table.php';
         return ob_get_clean();
     }
 
-    public static function customFieldsTable(array $extraFields, Registration $registration) {
+    public static function customFieldsTable(array $extraFields, Registration $registration)
+    {
         ob_start();
         include dirname(__FILE__, 2) . '/views/emails/custom-fields.php';
         return ob_get_clean();

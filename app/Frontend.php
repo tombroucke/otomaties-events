@@ -195,7 +195,7 @@ class Frontend
 
         $message = '<ul class="mb-0">';
         foreach ($_SESSION['registration_errors'] as $error) {
-            $message .= '<li>' . $error . '</li>';
+            $message .= '<li>' . esc_html($error) . '</li>';
         }
         $message .= '</ul>';
         ob_start();
