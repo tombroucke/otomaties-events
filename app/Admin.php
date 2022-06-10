@@ -97,6 +97,7 @@ class Admin
         if ($meta_key == 'date' && isset($_GET['post_type']) && $_GET['post_type'] == 'event') {
             remove_filter('get_post_metadata', [$this, 'formatDateInAdminColumn'], 100);
             $date = get_post_meta($object_id, 'date', true);
+            $dateTo = get_post_meta($object_id, 'date_to', true);
             add_filter('get_post_metadata', [$this, 'formatDateInAdminColumn'], 100, 4);
 
             if (!$date) {
@@ -104,7 +105,12 @@ class Admin
             }
 
             $dateTime = DateTime::createFromFormat('Ymd', $date);
-            return [$dateTime->format('d/m/Y')];
+            $return = $dateTime->format('d/m/Y');
+            if ($dateTo) {
+                $dateTimeTo = DateTime::createFromFormat('Ymd', $dateTo);
+                $return .= ' - ' . $dateTimeTo->format('d/m/Y');
+            }
+            return [$return];
         }
         return $metadata;
     }

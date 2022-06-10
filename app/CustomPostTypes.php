@@ -76,8 +76,15 @@ class CustomPostTypes
                 'label' => __('Date', 'otomaties-events'),
                 'return_format' => 'Ymd',
             ])
+            ->addDatePicker('date_to', [
+                'label' => __('Date to', 'otomaties-events'),
+                'return_format' => 'Ymd',
+            ])
             ->addTimePicker('time', [
                 'label' => __('Time', 'otomaties-events'),
+            ])
+            ->addTimePicker('time_to', [
+                'label' => __('Time to', 'otomaties-events'),
             ])
             ->addPostObject('location', [
                 'label' => __('Location', 'otomaties-events'),

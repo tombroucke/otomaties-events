@@ -5,6 +5,7 @@ namespace Otomaties\Events\Models;
 use DateTime;
 use Otomaties\Events\FormField;
 use Otomaties\WpModels\PostType;
+use Otomaties\Events\Models\Location;
 use Otomaties\WpModels\PostTypeCollection;
 
 class Event extends PostType
@@ -18,20 +19,47 @@ class Event extends PostType
         parent::__construct($id);
     }
     
-    public function eventDate() : ?DateTime
+    /**
+     * Get DateTime for date or date_to
+     *
+     * @param string $which 'from' or 'to'
+     * @return DateTime|null
+     */
+    public function eventDate(string $which = 'from') : ?DateTime
     {
-        $return = null;
-        $date = $this->meta()->get('date');
+        $dateKey = $which == 'from' ? 'date' : 'date_to';
+        $timeKey = $which == 'from' ? 'time' : 'time_to';
+        $dateTime = null;
+        $date = $this->meta()->get($dateKey);
         if ($date) {
-            $time = $this->meta()->get('time');
+            $dateTime = DateTime::createFromFormat('Ymd', $date);
+            $time = $this->meta()->get($timeKey);
             if ($time) {
                 $timeArray = explode(':', $time);
-                $date->setTime($timeArray[0], $timeArray[1]);
+                $dateTime->setTime($timeArray[0], $timeArray[1]);
+            } else {
+                $dateTime->setTime('00', '00');
             }
-
-            $return = DateTime::createFromFormat('Ymd', $date);
         }
-        return $return;
+        return $dateTime;
+    }
+
+    public function formattedDate(bool $showTime = false, string $dateFormat = null, string $timeFormat = null) 
+    {
+        $dateParts = [
+            $this->eventDate('from'),
+            $this->eventDate('to')
+        ];
+
+        $dateParts = array_filter($dateParts);
+        $dateParts = array_map(function ($datePart) use ($showTime, $dateFormat, $timeFormat) {
+            $format = $dateFormat ?: get_option('date_format');
+            if ($showTime && ($datePart->format('H') != '00' || $datePart->format('i') != '00')) {
+                $format .= ' ' . ($timeFormat ?: get_option('time_format'));
+            }
+            return $datePart->format($format);
+        }, $dateParts);
+        return implode(' - ', $dateParts);
     }
 
     public function eventTime() : ?string
@@ -176,5 +204,11 @@ class Event extends PostType
     public static function postType() : string
     {
         return 'event';
+    }
+
+    public function location() : ?Location
+    {
+        $location = Location::find($this->meta()->get('location'));
+        return $location->first();
     }
 }
