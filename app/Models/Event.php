@@ -44,7 +44,7 @@ class Event extends PostType
         return $dateTime;
     }
 
-    public function formattedDate(bool $showTime = false, string $dateFormat = null, string $timeFormat = null) 
+    public function formattedDate(bool $showTime = false, string $dateFormat = null, string $timeFormat = null)
     {
         $dateParts = [
             $this->eventDate('from'),
@@ -208,7 +208,8 @@ class Event extends PostType
 
     public function location() : ?Location
     {
-        $location = Location::find($this->meta()->get('location'));
+        $locationId = $this->meta()->get('location') ?: 0;
+        $location = Location::find($locationId);
         return $location->first();
     }
 }
