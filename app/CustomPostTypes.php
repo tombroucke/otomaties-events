@@ -29,6 +29,7 @@ class CustomPostTypes
                 'labels' => $this->postTypeLabels($postSingularName, $postPluralName),
                 'dashboard_activity' => true,
                 'menu_icon' => 'dashicons-calendar-alt',
+                'supports' => ['title', 'editor', 'author', 'thumbnail', 'revision', 'excerpt'],
                 'admin_cols' => [
                     'event_date' => [
                         'title'  => __('Event date', 'otomaties-events'),
@@ -36,16 +37,16 @@ class CustomPostTypes
                     ],
                     'registrations' => [
                         'title'  => __('Registrations', 'otomaties-events'),
-                        'function'    => function(){
+                        'function'    => function () {
                             $event = new Event(get_the_ID());
                             $registrationCount = count($event->registrations());
                             $color = $event->registrationsOpen() ? '#7ad03a' : '#dc3232';
-                            echo sprintf('<span style="color: %s;">&#11044;</span> <a href="%s">%s</a>', $color, admin_url('edit.php?post_type=registration&event_id=event_' . get_the_ID()), sprintf(_n('View %s registration', 'View %s registrations', $registrationCount, 'otomaties-events'), $registrationCount ));
+                            echo sprintf('<span style="color: %s;">&#11044;</span> <a href="%s">%s</a>', $color, admin_url('edit.php?post_type=registration&event_id=event_' . get_the_ID()), sprintf(_n('View %s registration', 'View %s registrations', $registrationCount, 'otomaties-events'), $registrationCount));
                         }
                     ],
                     'tickets' => [
                         'title'  => __('Tickets sold', 'otomaties-events'),
-                        'function'    => function(){
+                        'function'    => function () {
                             $event = new Event(get_the_ID());
                             echo $event->soldTickets();
                         }
