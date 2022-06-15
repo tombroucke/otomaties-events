@@ -59,6 +59,7 @@ class Event extends PostType
             }
             return $datePart->format($format);
         }, $dateParts);
+        $dateParts = array_unique($dateParts);
         return implode(' - ', $dateParts);
     }
 
