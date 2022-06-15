@@ -172,6 +172,7 @@ class CustomPostTypes
                 'show_in_feed' => false,
                 'show_in_rest' => false,
                 'publicly_queryable' => false,
+                'exclude_from_search' => true,
                 'supports' => ['title', 'author'],
                 'labels' => $this->postTypeLabels($postSingularName, $postPluralName),
                 'dashboard_activity' => true,
@@ -230,6 +231,8 @@ class CustomPostTypes
             [
                 'show_in_feed' => true,
                 'show_in_rest' => true,
+                'publicly_queryable' => false,
+                'exclude_from_search' => true,
                 'labels' => $this->postTypeLabels($postSingularName, $postPluralName),
                 'dashboard_activity' => true,
                 'show_in_menu' => 'edit.php?post_type=event',
