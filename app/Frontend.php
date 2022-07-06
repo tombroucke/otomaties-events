@@ -185,10 +185,6 @@ class Frontend
 
     private function errors() : string
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
         if (!in_the_loop() || !isset($_SESSION['registration_errors']) || empty($_SESSION['registration_errors'])) {
             return '';
         }
@@ -203,5 +199,12 @@ class Frontend
         $error = ob_get_clean();
         unset($_SESSION['registration_errors']);
         return $error;
+    }
+
+    public function startSession() : void
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 }

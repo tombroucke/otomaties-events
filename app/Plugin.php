@@ -109,6 +109,7 @@ class Plugin
         $this->loader->add_action('pre_get_posts', $frontend, 'hidePastEvents');
         $this->loader->add_filter('the_content', $frontend, 'renderRegistrationForm');
         $this->loader->add_filter('the_content', $frontend, 'showMessages', 1);
+        $this->loader->add_action('init', $frontend, 'startSession', 1);
     }
 
     private function definePostTypeHooks()
@@ -135,7 +136,8 @@ class Plugin
         $this->loader->add_action('otomaties_events_new_registration', $mailer, 'notificationEmail');
     }
 
-    private function addShortcodes() {
+    private function addShortcodes()
+    {
         $shortcodes = new Shortcodes();
         add_shortcode('otomaties-events-registration-form', [$shortcodes, 'registrationForm']);
     }
