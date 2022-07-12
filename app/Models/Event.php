@@ -13,7 +13,7 @@ class Event extends PostType
 
     public function __construct($id)
     {
-        if (strpos($id, 'event_') !== false) {
+        if (is_string($id) && strpos($id, 'event_') !== false) {
             $id = str_replace('event_', '', $id);
         }
         parent::__construct($id);
@@ -63,9 +63,10 @@ class Event extends PostType
         return implode(' - ', $dateParts);
     }
 
-    public function eventTime() : ?string
+    public function eventTime(string $which = 'from') : ?string
     {
-        return $this->meta()->get('time') ? substr($this->meta()->get('time'), 0, 5) : null;
+        $timeKey = $which == 'from' ? 'time' : 'time_to';
+        return $this->meta()->get($timeKey) ? substr($this->meta()->get($timeKey), 0, 5) : null;
     }
 
     public function ticketTypes() : array

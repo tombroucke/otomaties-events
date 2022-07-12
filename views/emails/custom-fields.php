@@ -5,7 +5,9 @@
             <ul style="margin-bottom: 0; margin-top: 0;">
             <?php foreach ($extraFields as $fieldName => $value) : ?>
                 <?php $extraField = $registration->event()->extraFormField($fieldName); ?>
-                <li><?php echo $extraField ?  esc_html($extraField->label()) : esc_html($fieldName); ?>: <?php echo esc_html($value); ?></li>
+                <li>
+                    <?php echo $extraField ? esc_html($extraField->label()) : esc_html($fieldName); ?>: <?php echo esc_html($value); ?>
+                </li>
             <?php endforeach; ?>
             </ul>
         </td>
