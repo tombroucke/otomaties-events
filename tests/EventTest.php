@@ -86,10 +86,10 @@ final class EventTest extends TestCase
 
     public function testFormattedEventDateIsCorrect() : void
     {
-        $this->assertEquals('12 January 2022 - 13 January 2022', self::$event->formattedDate());
-        $this->assertEquals('12 January 2022 13:00 - 13 January 2022 18:00', self::$event->formattedDate(true));
-        $this->assertEquals('12-01-2022 - 13-01-2022', self::$event->formattedDate(false, 'd-m-Y'));
-        $this->assertEquals('12-01-2022 13 00 00 - 13-01-2022 18 00 00', self::$event->formattedDate(true, 'd-m-Y', 'H i s'));
+        $this->assertEquals('12 January 2022 - 13 January 2022', self::$event->formattedEventDate());
+        $this->assertEquals('12 January 2022 13:00 - 13 January 2022 18:00', self::$event->formattedEventDate(true));
+        $this->assertEquals('12-01-2022 - 13-01-2022', self::$event->formattedEventDate(false, 'd-m-Y'));
+        $this->assertEquals('12-01-2022 13 00 00 - 13-01-2022 18 00 00', self::$event->formattedEventDate(true, 'd-m-Y', 'H i s'));
     }
 
     public function testEventTimeIsCorrect() : void

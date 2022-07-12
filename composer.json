@@ -33,6 +33,7 @@
     },
     "scripts": {
         "test": [
+            "phpcs --standard=PSR2 app views",
             "phpunit --colors=always --verbose"
         ]
     }

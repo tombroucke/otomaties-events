@@ -11,7 +11,12 @@ use Otomaties\WpModels\PostTypeCollection;
 class Event extends PostType
 {
 
-    public function __construct($id)
+    /**
+     * Set up Event by ID or by string (event_#)
+     *
+     * @param integer|string|\WP_Post $id
+     */
+    public function __construct(int|string|\WP_Post $id)
     {
         if (is_string($id) && strpos($id, 'event_') !== false) {
             $id = str_replace('event_', '', $id);
@@ -44,8 +49,19 @@ class Event extends PostType
         return $dateTime;
     }
 
-    public function formattedDate(bool $showTime = false, string $dateFormat = null, string $timeFormat = null)
-    {
+    /**
+     * Get formatted event date
+     *
+     * @param boolean $showTime
+     * @param string|null $dateFormat
+     * @param string|null $timeFormat
+     * @return string
+     */
+    public function formattedEventDate(
+        bool $showTime = false,
+        string $dateFormat = null,
+        string $timeFormat = null
+    ) : string {
         $dateParts = [
             $this->eventDate('from'),
             $this->eventDate('to')
@@ -57,18 +73,44 @@ class Event extends PostType
             if ($showTime && ($datePart->format('H') != '00' || $datePart->format('i') != '00')) {
                 $format .= ' ' . ($timeFormat ?: get_option('time_format'));
             }
-            return $datePart->format($format);
+            return date_i18n($format, $datePart->getTimestamp());
         }, $dateParts);
         $dateParts = array_unique($dateParts);
         return implode(' - ', $dateParts);
     }
 
+    /**
+     * Get formatted event date
+     *
+     * @deprecated deprecated since version 1.0.11
+     * @param boolean $showTime
+     * @param string|null $dateFormat
+     * @param string|null $timeFormat
+     * @return string
+     */
+    public function formattedDate(bool $showTime = false, string $dateFormat = null, string $timeFormat = null) : string
+    {
+        trigger_error('Method ' . __METHOD__ . ' is deprecated. Use formattedEventDate() instead.', E_USER_DEPRECATED);
+        return $this->formattedEventDate($showTime, $dateFormat, $timeFormat);
+    }
+
+    /**
+     * Get event date
+     *
+     * @param string $which 'from' or 'to'
+     * @return string|null
+     */
     public function eventTime(string $which = 'from') : ?string
     {
         $timeKey = $which == 'from' ? 'time' : 'time_to';
         return $this->meta()->get($timeKey) ? substr($this->meta()->get($timeKey), 0, 5) : null;
     }
 
+    /**
+     * Get all registered ticket types for this event
+     *
+     * @return array
+     */
     public function ticketTypes() : array
     {
         $ticketTypes = array_filter((array)get_field('ticket_types', $this->getId()));
@@ -76,8 +118,21 @@ class Event extends PostType
             return new TicketType($ticketType, $this);
         }, $ticketTypes);
     }
+
+    public function availableTicketTypes() : array
+    {
+        return array_filter($this->ticketTypes(), function ($ticketType) {
+            return $ticketType->isAvailable();
+        });
+    }
     
-    public function ticketType(string $slug)
+    /**
+     * Get ticket type from slug
+     *
+     * @param string $slug
+     * @return null|array
+     */
+    public function ticketType(string $slug) : ?TicketType
     {
         $ticketTypes = $this->ticketTypes();
         $filteredTicketTypes = array_filter($ticketTypes, function ($ticketType) use ($slug) {
@@ -90,6 +145,11 @@ class Event extends PostType
         return array_values($filteredTicketTypes)[0];
     }
 
+    /**
+     * Get number of sold tickets
+     *
+     * @return integer
+     */
     public function soldTickets() : int
     {
         $ticketCount = 0;
@@ -99,7 +159,12 @@ class Event extends PostType
         return $ticketCount;
     }
 
-    public function extraFormFields()
+    /**
+     * Get extra form fields
+     *
+     * @return array An array of FormField objects
+     */
+    public function extraFormFields() : array
     {
         $fields = array_filter((array)get_field('extra_fields', $this->getId()));
         return array_map(function ($field) {
@@ -107,7 +172,13 @@ class Event extends PostType
         }, $fields);
     }
 
-    public function extraFormField($slug)
+    /**
+     * Get form fields for this event
+     *
+     * @param string $slug
+     * @return FormField|null
+     */
+    public function extraFormField(string $slug) : ?FormField
     {
         $extraFormFields = $this->extraFormFields();
         $filteredExtraFormFields = array_filter($extraFormFields, function ($extraFormField) use ($slug) {
@@ -145,8 +216,10 @@ class Event extends PostType
      */
     public function registrationsOpen() : bool
     {
-        $availableFrom = $this->meta()->get('registration_start') ? DateTime::createFromFormat('Y-m-d H:i:s', $this->meta()->get('registration_start'), wp_timezone()) : null;
-        $availableUntill = $this->meta()->get('registration_end') ? DateTime::createFromFormat('Y-m-d H:i:s', $this->meta()->get('registration_end'), wp_timezone()) : null;
+        $availableFrom = $this->meta()->get('registration_start')
+            ? DateTime::createFromFormat('Y-m-d H:i:s', $this->meta()->get('registration_start'), wp_timezone()) : null;
+        $availableUntill = $this->meta()->get('registration_end')
+            ? DateTime::createFromFormat('Y-m-d H:i:s', $this->meta()->get('registration_end'), wp_timezone()) : null;
         $now = new DateTime();
         $now->setTimezone(wp_timezone());
 
@@ -208,6 +281,11 @@ class Event extends PostType
         return 'event';
     }
 
+    /**
+     * Get Event location
+     *
+     * @return Location|null
+     */
     public function location() : ?Location
     {
         $locationId = $this->meta()->get('location') ?: 0;

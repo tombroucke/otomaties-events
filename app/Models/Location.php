@@ -6,7 +6,13 @@ use Otomaties\WpModels\PostType;
 
 class Location extends PostType
 {
-    public function information() {
+    /**
+     * Get location information
+     *
+     * @return string
+     */
+    public function information() : string
+    {
         return $this->meta()->get('location_information');
     }
 

@@ -6,6 +6,11 @@ use Otomaties\WpModels\PostType;
 
 class Registration extends PostType
 {
+    /**
+     * Get tickets in registration
+     *
+     * @return array
+     */
     public function tickets() : array
     {
         $tickets = $this->meta()->get('tickets');
@@ -15,6 +20,11 @@ class Registration extends PostType
         return $tickets;
     }
 
+    /**
+     * Get total tickets in registration
+     *
+     * @return integer
+     */
     public function ticketCount() : int
     {
         $count = 0;
@@ -24,7 +34,13 @@ class Registration extends PostType
         return $count;
     }
 
-    public function ticketCountFor(string $ticketKey)
+    /**
+     * Get ticket count for specific ticket
+     *
+     * @param string $ticketKey
+     * @return integer
+     */
+    public function ticketCountFor(string $ticketKey) : int
     {
         $count = 0;
         foreach ($this->tickets() as $name => $ticketCount) {
@@ -35,11 +51,21 @@ class Registration extends PostType
         return $count;
     }
 
+    /**
+     * Get linked event
+     *
+     * @return Event
+     */
     public function event() : Event
     {
         return new Event($this->meta()->get('event_id'));
     }
 
+    /**
+     * Get post type
+     *
+     * @return string
+     */
     public static function postType() : string
     {
         return 'registration';

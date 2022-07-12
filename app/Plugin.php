@@ -74,7 +74,7 @@ class Plugin
 
         $plugin_i18n = new I18n();
 
-        $this->loader->add_action('plugins_loaded', $plugin_i18n, 'loadTextdomain');
+        $this->loader->addAction('plugins_loaded', $plugin_i18n, 'loadTextdomain');
     }
 
     /**
@@ -85,15 +85,15 @@ class Plugin
     private function defineAdminHooks()
     {
         $admin = new Admin($this->getPluginName(), $this->getVersion());
-        // $this->loader->add_action('admin_enqueue_scripts', $admin, 'enqueueStyles');
-        // $this->loader->add_action('admin_enqueue_scripts', $admin, 'enqueueScripts');
-        $this->loader->add_action('get_post_metadata', $admin, 'formatDateInAdminColumn', 100, 4);
-        $this->loader->add_action('admin_post_event_registration', $admin, 'register');
-        $this->loader->add_action('admin_post_nopriv_event_registration', $admin, 'register');
-        $this->loader->add_action('add_meta_boxes', $admin, 'metaBoxes');
-        $this->loader->add_action('ext-cpts/registration/filter-query/event_id', $admin, 'replaceStringHackedPostIds', 10, 3);
-        $this->loader->add_action('manage_posts_extra_tablenav', $admin, 'exportBtn');
-        $this->loader->add_action('admin_init', $admin, 'exportRegistrations');
+        // $this->loader->addAction('admin_enqueue_scripts', $admin, 'enqueueStyles');
+        // $this->loader->addAction('admin_enqueue_scripts', $admin, 'enqueueScripts');
+        $this->loader->addAction('get_post_metadata', $admin, 'formatDateInAdminColumn', 100, 4);
+        $this->loader->addAction('admin_post_event_registration', $admin, 'register');
+        $this->loader->addAction('admin_post_nopriv_event_registration', $admin, 'register');
+        $this->loader->addAction('add_meta_boxes', $admin, 'metaBoxes');
+        $this->loader->addAction('ext-cpts/registration/filter-query/event_id', $admin, 'replaceStringHackedPostIds', 10, 3); // phpcs:ignore Generic.Files.LineLength
+        $this->loader->addAction('manage_posts_extra_tablenav', $admin, 'exportBtn');
+        $this->loader->addAction('admin_init', $admin, 'exportRegistrations');
     }
 
     /**
@@ -104,36 +104,36 @@ class Plugin
     private function defineFrontendHooks()
     {
         $frontend = new Frontend($this->getPluginName(), $this->getVersion());
-        $this->loader->add_action('wp_enqueue_scripts', $frontend, 'enqueueStyles');
-        $this->loader->add_action('wp_enqueue_scripts', $frontend, 'enqueueScripts');
-        $this->loader->add_action('pre_get_posts', $frontend, 'hidePastEvents');
-        $this->loader->add_filter('the_content', $frontend, 'renderRegistrationForm');
-        $this->loader->add_filter('the_content', $frontend, 'showMessages', 1);
-        $this->loader->add_action('init', $frontend, 'startSession', 1);
+        $this->loader->addAction('wp_enqueue_scripts', $frontend, 'enqueueStyles');
+        $this->loader->addAction('wp_enqueue_scripts', $frontend, 'enqueueScripts');
+        $this->loader->addAction('pre_get_posts', $frontend, 'hidePastEvents');
+        $this->loader->addFilter('the_content', $frontend, 'renderRegistrationForm');
+        $this->loader->addFilter('the_content', $frontend, 'showMessages', 1);
+        $this->loader->addAction('init', $frontend, 'startSession', 1);
     }
 
     private function definePostTypeHooks()
     {
         $cpts = new CustomPostTypes();
-        $this->loader->add_action('init', $cpts, 'addEvent');
-        $this->loader->add_action('acf/init', $cpts, 'addEventFields');
-        $this->loader->add_action('init', $cpts, 'addLocation');
-        $this->loader->add_action('acf/init', $cpts, 'addLocationFields');
-        $this->loader->add_action('init', $cpts, 'addRegistration');
+        $this->loader->addAction('init', $cpts, 'addEvent');
+        $this->loader->addAction('acf/init', $cpts, 'addEventFields');
+        $this->loader->addAction('init', $cpts, 'addLocation');
+        $this->loader->addAction('acf/init', $cpts, 'addLocationFields');
+        $this->loader->addAction('init', $cpts, 'addRegistration');
     }
 
     private function addOptionsPage()
     {
         $options = new OptionsPage();
-        $this->loader->add_action('acf/init', $options, 'addOptionsPage');
-        $this->loader->add_action('acf/init', $options, 'addOptionsFields');
+        $this->loader->addAction('acf/init', $options, 'addOptionsPage');
+        $this->loader->addAction('acf/init', $options, 'addOptionsFields');
     }
 
     private function defineMailerHooks()
     {
         $mailer = new Mailer();
-        $this->loader->add_action('otomaties_events_new_registration', $mailer, 'confirmationEmail');
-        $this->loader->add_action('otomaties_events_new_registration', $mailer, 'notificationEmail');
+        $this->loader->addAction('otomaties_events_new_registration', $mailer, 'confirmationEmail');
+        $this->loader->addAction('otomaties_events_new_registration', $mailer, 'notificationEmail');
     }
 
     private function addShortcodes()

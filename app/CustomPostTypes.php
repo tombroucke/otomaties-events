@@ -41,7 +41,20 @@ class CustomPostTypes
                             $event = new Event(get_the_ID());
                             $registrationCount = count($event->registrations());
                             $color = $event->registrationsOpen() ? '#7ad03a' : '#dc3232';
-                            echo sprintf('<span style="color: %s;">&#11044;</span> <a href="%s">%s</a>', $color, admin_url('edit.php?post_type=registration&event_id=event_' . get_the_ID()), sprintf(_n('View %s registration', 'View %s registrations', $registrationCount, 'otomaties-events'), $registrationCount));
+                            echo sprintf(
+                                '<span style="color: %s;">&#11044;</span> <a href="%s">%s</a>',
+                                $color,
+                                admin_url('edit.php?post_type=registration&event_id=event_' . get_the_ID()),
+                                sprintf(
+                                    _n(
+                                        'View %s registration',
+                                        'View %s registrations',
+                                        $registrationCount,
+                                        'otomaties-events'
+                                    ),
+                                    $registrationCount
+                                )
+                            );
                         }
                     ],
                     'tickets' => [
@@ -68,7 +81,13 @@ class CustomPostTypes
     public function addEventFields()
     {
         $defaultLocation = get_field('otomaties_events_event_default_location', 'option');
-        $event = new FieldsBuilder('event', ['position' => 'acf_after_title', 'title' => __('Details', 'otomaties-events')]);
+        $event = new FieldsBuilder(
+            'event',
+            [
+                'position' => 'acf_after_title',
+                'title' => __('Details', 'otomaties-events')
+            ]
+        );
         $event
             ->addTab('general', [
                 'label' => __('General', 'otomaties-events'),
@@ -77,12 +96,12 @@ class CustomPostTypes
                 'label' => __('Date', 'otomaties-events'),
                 'return_format' => 'Ymd',
             ])
+            ->addTimePicker('time', [
+                'label' => __('Time', 'otomaties-events'),
+            ])
             ->addDatePicker('date_to', [
                 'label' => __('Date to', 'otomaties-events'),
                 'return_format' => 'Ymd',
-            ])
-            ->addTimePicker('time', [
-                'label' => __('Time', 'otomaties-events'),
             ])
             ->addTimePicker('time_to', [
                 'label' => __('Time to', 'otomaties-events'),
@@ -95,7 +114,7 @@ class CustomPostTypes
             ->addTab('registration', [
                 'label' => __('Registration', 'otomaties-events'),
             ])
-            ->addMessage('registation_message', __('Registration will only be active if tickets have been added', 'otomaties-events'), [
+            ->addMessage('registation_message', __('Registration will only be active if tickets have been added', 'otomaties-events'), [ // phpcs:ignore Generic.Files.LineLength
                 'label' => __('Registration information', 'otomaties-events')
             ])
             ->addNumber('registration_limit', [
@@ -110,7 +129,7 @@ class CustomPostTypes
             ])
             ->addRepeater('ticket_types', [
                     'label' => __('Ticket types', 'otomaties-events'),
-                    'instructions' => __('Be careful when deleting ticket types. Existing registrations with deleted ticket types won\'t count for maximum number of registrations.')
+                    'instructions' => __('Be careful when deleting ticket types. Existing registrations with deleted ticket types won\'t count for maximum number of registrations.', 'otomaties-events') // phpcs:ignore Generic.Files.LineLength
                 ])
                 ->addText('title', [
                     'label' => __('Title', 'otomaties-events'),
@@ -182,7 +201,12 @@ class CustomPostTypes
                         'title'       => __('Event', 'otomaties-events'),
                         'function' => function () {
                             $registration = new Registration(get_the_ID());
-                            echo sprintf('<a href="%s">%s %s</a>', get_edit_post_link($registration->event()->getId()), esc_html($registration->event()->title()), $registration->event()->eventDate()->format(get_option('date_format')));
+                            echo sprintf(
+                                '<a href="%s">%s %s</a>',
+                                get_edit_post_link($registration->event()->getId()),
+                                esc_html($registration->event()->title()),
+                                $registration->event()->eventDate()->format(get_option('date_format'))
+                            );
                         }
                     ],
                     'tickets' => [
@@ -272,51 +296,117 @@ class CustomPostTypes
     private function postTypeLabels($singular_name, $plural_name)
     {
         return [
-            'add_new'                  => __('Add New', 'otomaties-events'),
+            'add_new' => __('Add New', 'otomaties-events'),
             /* translators: %s: singular post name */
-            'add_new_item'             => sprintf(__('Add New %s', 'otomaties-events'), $singular_name),
+            'add_new_item' => sprintf(
+                __('Add New %s', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular post name */
-            'edit_item'                => sprintf(__('Edit %s', 'otomaties-events'), $singular_name),
+            'edit_item' => sprintf(
+                __('Edit %s', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular post name */
-            'new_item'                 => sprintf(__('New %s', 'otomaties-events'), $singular_name),
+            'new_item' => sprintf(
+                __('New %s', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular post name */
-            'view_item'                => sprintf(__('View %s', 'otomaties-events'), $singular_name),
+            'view_item' => sprintf(
+                __('View %s', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: plural post name */
-            'view_items'               => sprintf(__('View %s', 'otomaties-events'), $plural_name),
+            'view_items' => sprintf(
+                __('View %s', 'otomaties-events'),
+                $plural_name
+            ),
             /* translators: %s: singular post name */
-            'search_items'             => sprintf(__('Search %s', 'otomaties-events'), $plural_name),
+            'search_items' => sprintf(
+                __('Search %s', 'otomaties-events'),
+                $plural_name
+            ),
             /* translators: %s: plural post name to lower */
-            'not_found'                => sprintf(__('No %s found.', 'otomaties-events'), strtolower($plural_name)),
+            'not_found' => sprintf(
+                __('No %s found.', 'otomaties-events'),
+                strtolower($plural_name)
+            ),
             /* translators: %s: plural post name to lower */
-            'not_found_in_trash'       => sprintf(__('No %s found in trash.', 'otomaties-events'), strtolower($plural_name)),
+            'not_found_in_trash' => sprintf(
+                __('No %s found in trash.', 'otomaties-events'),
+                strtolower($plural_name)
+            ),
             /* translators: %s: singular post name */
-            'parent_item_colon'        => sprintf(__('Parent %s:', 'otomaties-events'), $singular_name),
+            'parent_item_colon' => sprintf(
+                __('Parent %s:', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular post name */
-            'all_items'                => sprintf(__('All %s', 'otomaties-events'), $plural_name),
+            'all_items' => sprintf(
+                __('All %s', 'otomaties-events'),
+                $plural_name
+            ),
             /* translators: %s: singular post name */
-            'archives'                 => sprintf(__('%s Archives', 'otomaties-events'), $singular_name),
+            'archives' => sprintf(
+                __('%s Archives', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular post name */
-            'attributes'               => sprintf(__('%s Attributes', 'otomaties-events'), $singular_name),
+            'attributes' => sprintf(
+                __('%s Attributes', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular post name to lower */
-            'insert_into_item'         => sprintf(__('Insert into %s', 'otomaties-events'), strtolower($singular_name)),
+            'insert_into_item' => sprintf(
+                __('Insert into %s', 'otomaties-events'),
+                strtolower($singular_name)
+            ),
             /* translators: %s: singular post name to lower */
-            'uploaded_to_this_item'    => sprintf(__('Uploaded to this %s', 'otomaties-events'), strtolower($singular_name)),
+            'uploaded_to_this_item'    => sprintf(
+                __('Uploaded to this %s', 'otomaties-events'),
+                strtolower($singular_name)
+            ),
             /* translators: %s: plural post name to lower */
-            'filter_items_list'        => sprintf(__('Filter %s list', 'otomaties-events'), strtolower($plural_name)),
+            'filter_items_list' => sprintf(
+                __('Filter %s list', 'otomaties-events'),
+                strtolower($plural_name)
+            ),
             /* translators: %s: singular post name */
-            'items_list_navigation'    => sprintf(__('%s list navigation', 'otomaties-events'), $plural_name),
+            'items_list_navigation' => sprintf(
+                __('%s list navigation', 'otomaties-events'),
+                $plural_name
+            ),
             /* translators: %s: singular post name */
-            'items_list'               => sprintf(__('%s list', 'otomaties-events'), $plural_name),
+            'items_list' => sprintf(
+                __('%s list', 'otomaties-events'),
+                $plural_name
+            ),
             /* translators: %s: singular post name */
-            'item_published'           => sprintf(__('%s published.', 'otomaties-events'), $singular_name),
+            'item_published' => sprintf(
+                __('%s published.', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular post name */
-            'item_published_privately' => sprintf(__('%s published privately.', 'otomaties-events'), $singular_name),
+            'item_published_privately' => sprintf(
+                __('%s published privately.', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular post name */
-            'item_reverted_to_draft'   => sprintf(__('%s reverted to draft.', 'otomaties-events'), $singular_name),
+            'item_reverted_to_draft' => sprintf(
+                __('%s reverted to draft.', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular post name */
-            'item_scheduled'           => sprintf(__('%s scheduled.', 'otomaties-events'), $singular_name),
+            'item_scheduled' => sprintf(
+                __('%s scheduled.', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular post name */
-            'item_updated'             => sprintf(__('%s updated.', 'otomaties-events'), $singular_name),
+            'item_updated' => sprintf(
+                __('%s updated.', 'otomaties-events'),
+                $singular_name
+            ),
         ];
     }
 
@@ -331,46 +421,106 @@ class CustomPostTypes
     {
         return [
             /* translators: %s: plural taxonomy name */
-            'search_items'               => sprintf(__('Search %s', 'otomaties-events'), $plural_name),
+            'search_items' => sprintf(
+                __('Search %s', 'otomaties-events'),
+                $plural_name
+            ),
             /* translators: %s: plural taxonomy name */
-            'popular_items'              => sprintf(__('Popular %s', 'otomaties-events'), $plural_name),
+            'popular_items' => sprintf(
+                __('Popular %s', 'otomaties-events'),
+                $plural_name
+            ),
             /* translators: %s: plural taxonomy name */
-            'all_items'                  => sprintf(__('All %s', 'otomaties-events'), $plural_name),
+            'all_items' => sprintf(
+                __('All %s', 'otomaties-events'),
+                $plural_name
+            ),
             /* translators: %s: singular taxonomy name */
-            'parent_item'                => sprintf(__('Parent %s', 'otomaties-events'), $singular_name),
+            'parent_item' => sprintf(
+                __('Parent %s', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular taxonomy name */
-            'parent_item_colon'          => sprintf(__('Parent %s:', 'otomaties-events'), $singular_name),
+            'parent_item_colon' => sprintf(
+                __('Parent %s:', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular taxonomy name */
-            'edit_item'                  => sprintf(__('Edit %s', 'otomaties-events'), $singular_name),
+            'edit_item' => sprintf(
+                __('Edit %s', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular taxonomy name */
-            'view_item'                  => sprintf(__('View %s', 'otomaties-events'), $singular_name),
+            'view_item' => sprintf(
+                __('View %s', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular taxonomy name */
-            'update_item'                => sprintf(__('Update %s', 'otomaties-events'), $singular_name),
+            'update_item' => sprintf(
+                __('Update %s', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular taxonomy name */
-            'add_new_item'               => sprintf(__('Add New %s', 'otomaties-events'), $singular_name),
+            'add_new_item' => sprintf(
+                __('Add New %s', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: singular taxonomy name */
-            'new_item_name'              => sprintf(__('New %s Name', 'otomaties-events'), $singular_name),
+            'new_item_name' => sprintf(
+                __('New %s Name', 'otomaties-events'),
+                $singular_name
+            ),
             /* translators: %s: plural taxonomy name to lower */
-            'separate_items_with_commas' => sprintf(__('Separate %s with commas', 'otomaties-events'), strtolower($plural_name)),
+            'separate_items_with_commas' => sprintf(
+                __('Separate %s with commas', 'otomaties-events'),
+                strtolower($plural_name)
+            ),
             /* translators: %s: plural taxonomy name to lower */
-            'add_or_remove_items'        => sprintf(__('Add or remove %s', 'otomaties-events'), strtolower($plural_name)),
+            'add_or_remove_items' => sprintf(
+                __('Add or remove %s', 'otomaties-events'),
+                strtolower($plural_name)
+            ),
             /* translators: %s: plural taxonomy name to lower */
-            'choose_from_most_used'      => sprintf(__('Choose from most used %s', 'otomaties-events'), strtolower($plural_name)),
+            'choose_from_most_used' => sprintf(
+                __('Choose from most used %s', 'otomaties-events'),
+                strtolower($plural_name)
+            ),
             /* translators: %s: plural taxonomy name to lower */
-            'not_found'                  => sprintf(__('No %s found', 'otomaties-events'), strtolower($plural_name)),
+            'not_found' => sprintf(
+                __('No %s found', 'otomaties-events'),
+                strtolower($plural_name)
+            ),
             /* translators: %s: plural taxonomy name to lower */
-            'no_terms'                   => sprintf(__('No %s', 'otomaties-events'), strtolower($plural_name)),
+            'no_terms' => sprintf(
+                __('No %s', 'otomaties-events'),
+                strtolower($plural_name)
+            ),
             /* translators: %s: plural taxonomy name */
-            'items_list_navigation'      => sprintf(__('%s list navigation', 'otomaties-events'), $plural_name),
+            'items_list_navigation' => sprintf(
+                __('%s list navigation', 'otomaties-events'),
+                $plural_name
+            ),
             /* translators: %s: plural taxonomy name */
-            'items_list'                 => sprintf(__('%s list', 'otomaties-events'), $plural_name),
-            'most_used'                  => 'Most Used',
+            'items_list' => sprintf(
+                __('%s list', 'otomaties-events'),
+                $plural_name
+            ),
+            'most_used' => 'Most Used',
             /* translators: %s: plural taxonomy name */
-            'back_to_items'              => sprintf(__('&larr; Back to %s', 'otomaties-events'), $plural_name),
+            'back_to_items' => sprintf(
+                __('&larr; Back to %s', 'otomaties-events'),
+                $plural_name
+            ),
             /* translators: %s: singular taxonomy name to lower */
-            'no_item'                    => sprintf(__('No %s', 'otomaties-events'), strtolower($singular_name)),
+            'no_item' => sprintf(
+                __('No %s', 'otomaties-events'),
+                strtolower($singular_name)
+            ),
             /* translators: %s: singular taxonomy name to lower */
-            'filter_by'                  => sprintf(__('Filter by %s', 'otomaties-events'), strtolower($singular_name)),
+            'filter_by' => sprintf(
+                __('Filter by %s', 'otomaties-events'),
+                strtolower($singular_name)
+            ),
         ];
     }
 }

@@ -22,28 +22,49 @@ class FormField
         $this->required = $settings['required'];
     }
 
-    public function label() {
+    public function label()
+    {
         return $this->label;
     }
 
-    public function type() {
+    public function type()
+    {
         return $this->type;
     }
 
-    public function required() {
+    public function required()
+    {
         return $this->required;
     }
 
-    public function slug() {
+    public function slug()
+    {
         return sanitize_title($this->label);
     }
 
-    public function render() {
-        $output = '<label for="' . $this->slug() . '">' . $this->label . ($this->required ? ' <span class="text-danger">*</span>' : '') . '</label>';
+    public function render()
+    {
+        $output = sprintf(
+            '<label for="%s">%s %s</label>',
+            $this->slug(),
+            $this->label,
+            $this->required ? ' <span class="text-danger">*</span>' : ''
+        );
         if ($this->type == 'textarea') {
-            $output .= '<textarea name="extra_fields[' . $this->slug() . ']" class="' . apply_filters('otomaties_events_input_class', 'form-control') . '" ' . ($this->required ? 'required' : '') . '></textarea>';
+            $output .= sprintf(
+                '<textarea name="extra_fields[%s]" class="%s" %s></textarea>',
+                $this->slug(),
+                apply_filters('otomaties_events_input_class', 'form-control'),
+                $this->required ? 'required' : ''
+            );
         } else {
-            $output .= '<input type="' . $this->type . '" class="' . apply_filters('otomaties_events_input_class', 'form-control') . '" name="extra_fields[' . $this->slug() . ']" ' . ($this->required ? 'required' : '') . ' />';
+            $output .= sprintf(
+                '<input type="%s" class="%s" name="extra_fields[%s]" %s>',
+                $this->type,
+                apply_filters('otomaties_events_input_class', 'form-control'),
+                $this->slug(),
+                $this->required ? 'required' : ''
+            );
         }
         echo apply_filters('otomaties_events_form_field', $output, $this);
     }

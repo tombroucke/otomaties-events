@@ -90,7 +90,8 @@ class Admin
         wp_enqueue_script($this->pluginName, Assets::find('js/admin.js'), array( 'jquery' ), $this->version, false);
     }
 
-    public function formatDateInAdminColumn($metadata, $object_id, $meta_key, $single) {
+    public function formatDateInAdminColumn($metadata, $object_id, $meta_key, $single)
+    {
         if (!is_admin() || !function_exists('get_current_screen') || !get_current_screen()) {
             return $metadata;
         }
@@ -115,13 +116,14 @@ class Admin
         return $metadata;
     }
 
-    public function register() {
+    public function register()
+    {
         
         $firstName = sanitize_text_field($_POST['first_name']);
         $lastName = sanitize_text_field($_POST['last_name']);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $phone = sanitize_text_field($_POST['phone']);
-        $tickets = $_POST['ticket'];
+        $tickets = isset($_POST['ticket']) ? $_POST['ticket'] : [];
         foreach ($tickets as $key => $ticket) {
             $tickets[esc_attr($key)] = filter_var((int)$ticket, FILTER_SANITIZE_NUMBER_INT);
         }
@@ -170,7 +172,11 @@ class Admin
             $ticketType = $event->ticketType($ticketName);
             $availableTickets = $ticketType->availableTickets();
             if ($availableTickets < $ticketCount) {
-                $errors[] = sprintf(__('The maximum number of tickets for %s is %s', 'otomaties-events'), $ticketType->title(), $availableTickets);
+                $errors[] = sprintf(
+                    __('The maximum number of tickets for %s is %s', 'otomaties-events'),
+                    $ticketType->title(),
+                    $availableTickets
+                );
                 // TODO: fill fields
             }
         }
@@ -226,16 +232,26 @@ class Admin
         die();
     }
 
-    public function metaBoxes() {
-        add_meta_box('registration_details', __('Details', 'otomaties-events'), [$this, 'registrationDetails'], 'registration', 'normal', 'high');
+    public function metaBoxes()
+    {
+        add_meta_box(
+            'registration_details',
+            __('Details', 'otomaties-events'),
+            [$this, 'registrationDetails'],
+            'registration',
+            'normal',
+            'high'
+        );
     }
 
-    public function registrationDetails() {
+    public function registrationDetails()
+    {
         $registration = new Registration(get_the_ID());
         include dirname(__FILE__, 2) . '/views/registration-details.php';
     }
 
-    public function replaceStringHackedPostIds($return, $query, $filter) {
+    public function replaceStringHackedPostIds($return, $query, $filter)
+    {
         $return = [];
         $return['meta_query'][] = [
             'key'   => $filter['meta_key'],
@@ -244,18 +260,22 @@ class Admin
         return $return;
     }
 
-    public function exportBtn($which) {
+    public function exportBtn($which)
+    {
         $postType = $_GET['post_type'] ?? 'post';
         $eventId = $_GET['event_id'] ?? 0;
 
         if ('registration' == $postType && $eventId) {
             ?>
-            <a class="button button-primary" href="<?php echo admin_url('edit.php?post_type=registration&event_id=event_2055&action=export') ?>"><?php _e('Export', 'otomaties-events'); ?></a>
+            <a class="button button-primary" href="<?php echo admin_url('edit.php?post_type=registration&event_id=event_2055&action=export'); ?>"><?php // phpcs:ignore Generic.Files.LineLength ?>
+                <?php _e('Export', 'otomaties-events'); ?>
+            </a>
             <?php
         }
     }
 
-    public function exportRegistrations() {
+    public function exportRegistrations()
+    {
         $action = $_GET['action'] ?? null;
         $eventId = $_GET['event_id'] ?? null;
         if (!current_user_can('edit_posts') || 'export' != $action || !$eventId) {

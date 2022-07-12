@@ -2,6 +2,6 @@
     <div class="alert alert-primary">
         <?php _e('Registration is currently not possible.', 'otomaties-events'); ?>
     </div>
-<?php else: ?>
+<?php else : ?>
     <!-- Registrations are closed -->
 <?php endif; ?>

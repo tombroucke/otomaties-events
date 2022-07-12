@@ -13,8 +13,8 @@ class WP_Post
         'time' => '13:00:00',
         'date_to' => '20220113',
         'time_to' => '18:00:00',
-		'registration_start' => '12-01-2021 15:00:00',
-		'registration_end' => '12-01-2029 15:00:00',
+        'registration_start' => '12-01-2021 15:00:00',
+        'registration_end' => '12-01-2029 15:00:00',
         'tickets' => ['adult' => 4, 'child' => 1],
         'registration_limit' => 500,
     ];
@@ -31,6 +31,12 @@ function get_the_title(int $postId)
     return $post->post_title;
 }
 
+function date_i18n($format, $timestamp_with_offset)
+{
+    $dateTime = new DateTime();
+    $dateTime->setTimestamp($timestamp_with_offset);
+    return $dateTime->format($format);
+}
 
 function get_post_type(int $postId)
 {
@@ -86,8 +92,8 @@ function get_field(string $selector, $postid, bool $format = true)
             return [
                 [
                     "field_type" => "textarea",
-					"label" => "Remark",
-					"required" => true
+                    "label" => "Remark",
+                    "required" => true
                 ]
             ];
     }
@@ -544,6 +550,7 @@ function remove_accents($string, $locale = '')
     return $string;
 }
 
-function wp_timezone() {
-	return new DateTimeZone('Europe/Brussels');
+function wp_timezone()
+{
+    return new DateTimeZone('Europe/Brussels');
 }

@@ -6,6 +6,12 @@ use Otomaties\Events\Formatter;
 
 class TicketType
 {
+    /**
+     * Set up ticket type
+     *
+     * @param array $ticket
+     * @param Event $event
+     */
     public function __construct(private array $ticket, private Event $event)
     {
         $defaultTicket = [
@@ -38,12 +44,24 @@ class TicketType
         return $this->get('title');
     }
 
+    /**
+     * Ticket price
+     *
+     * @return integer|null
+     */
     public function price() : ?int
     {
         $price = $this->get('price');
         return $price !== '' ? (int)$price : null;
     }
 
+    /**
+     * Get formatted price
+     *
+     * @param string $prepend
+     * @param string $append
+     * @return string|null
+     */
     public function priceHtml(string $prepend = '', string $append = '') : ?string
     {
         $price = $this->price();
@@ -61,6 +79,11 @@ class TicketType
         return $return;
     }
     
+    /**
+     * Ticket limit per registration
+     *
+     * @return integer
+     */
     public function ticketLimitPerRegistration() : int
     {
         return $this->get('ticket_limit_per_registration') ?: $this->registrationLimit();

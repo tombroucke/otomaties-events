@@ -45,7 +45,10 @@ class OptionsPage
             ->addText('otomaties_events_events_archive_slug', [
                 'label' => __('Archive slug', 'otomaties-events'),
                 'default_value' => __('events', 'otomaties-events'),
-                'instructions' => sprintf(__('<a href="%s">Re-save permalinks</a> after updating this value', 'otomaties-events'), admin_url('options-permalink.php'))
+                'instructions' => sprintf(
+                    __('<a href="%s">Re-save permalinks</a> after updating this value', 'otomaties-events'),
+                    admin_url('options-permalink.php')
+                )
             ])
             ->addPostObject('otomaties_events_event_default_location', [
                 'label' => __('Default location', 'otomaties-events'),
@@ -86,24 +89,30 @@ class OptionsPage
             ])
             ->addText('otomaties_events_confirmation_email_subject', [
                 'label' => __('Subject', 'otomaties-events'),
-                'instructions' => sprintf(__('Available merge tags: %s', 'otomaties-events'), implode(', ', Mailer::mergeTags())),
+                'instructions' => sprintf(
+                    __('Available merge tags: %s', 'otomaties-events'),
+                    implode(', ', Mailer::mergeTags())
+                ),
                 'default_value' => __('Registration confirmation', 'otomaties-events')
             ])
             ->addWysiwyg('otomaties_events_confirmation_email', [
                 'label' => __('Confirmation e-mail content', 'otomaties-events'),
-                'instructions' => sprintf(__('Available merge tags: %s', 'otomaties-events'), implode(', ', Mailer::mergeTags())),
+                'instructions' => sprintf(
+                    __('Available merge tags: %s', 'otomaties-events'),
+                    implode(', ', Mailer::mergeTags())
+                ),
                 'conditional_logic' => [
                     'field' => 'otomaties_events_enable_confirmation_email',
                     'operator' => '==',
                     'value' =>'1'
                 ],
-                'default_value' => __("Hi {first_name},\n\nThanks for subscribing for {event} on {event_date} at {event_time}.\n\n<h3>Tickets:</h3>\n\n{ticket_table}\n\nKind regards", 'otomaties-events')
+                'default_value' => __("Hi {first_name},\n\nThanks for subscribing for {event} on {event_date}.\n\n<h3>Tickets:</h3>\n\n{ticket_table}\n\nKind regards", 'otomaties-events') // phpcs:ignore Generic.Files.LineLength
             ])
             ->addAccordion('notification_email', [
                 'label' => __('Notification e-mail', 'otomaties-events')
             ])
             ->addTrueFalse('otomaties_events_enable_notification_email', [
-                'label' => __('Enable/disable'),
+                'label' => __('Enable/disable', 'otomaties-events'),
                 'message' => __('Enable notification e-mail', 'otomaties-events'),
                 'default_value' => 1
             ])
@@ -119,18 +128,24 @@ class OptionsPage
             ])
             ->addText('otomaties_events_notification_email_subject', [
                 'label' => __('Subject', 'otomaties-events'),
-                'instructions' => sprintf(__('Available merge tags: %s', 'otomaties-events'), implode(', ', Mailer::mergeTags())),
+                'instructions' => sprintf(
+                    __('Available merge tags: %s', 'otomaties-events'),
+                    implode(', ', Mailer::mergeTags())
+                ),
                 'default_value' => __('New registration for {event}', 'otomaties-events')
             ])
             ->addWysiwyg('otomaties_events_notification_email', [
                 'label' => __('Notification e-mail content', 'otomaties-events'),
-                'instructions' => sprintf(__('Available merge tags: %s', 'otomaties-events'), implode(', ', Mailer::mergeTags())),
+                'instructions' => sprintf(
+                    __('Available merge tags: %s', 'otomaties-events'),
+                    implode(', ', Mailer::mergeTags())
+                ),
                 'conditional_logic' => [
                     'field' => 'otomaties_events_enable_notification_email',
                     'operator' => '==',
                     'value' =>'1'
                 ],
-                'default_value' => __("Hi,\n\nThere is a new registration for {event} on {event_date} at {event_time}.\n\nName: {first_name} {last_name}\nEmail: {email}\nPhone: {phone}\nCustom fields: \n{custom_fields}\n\n<h3>Tickets:</h3>\n{ticket_table}\n\nKind regards", 'otomaties-events')
+                'default_value' => __("Hi,\n\nThere is a new registration for {event} on {event_date}.\n\nName: {first_name} {last_name}\nEmail: {email}\nPhone: {phone}\nCustom fields: \n{custom_fields}\n\n<h3>Tickets:</h3>\n{ticket_table}\n\nKind regards", 'otomaties-events')// phpcs:ignore Generic.Files.LineLength
             ])
             ->addAccordion('accordion_field_end')->endpoint()
             ->setLocation('options_page', '==', 'events-settings');

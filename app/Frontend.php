@@ -152,7 +152,11 @@ class Frontend
         if (is_singular('event') && apply_filters('otomaties_events_show_registration_form', true)) {
             $event = new Event(get_the_ID());
             ob_start();
-            if (!empty($event->ticketTypes()) && $event->registrationsOpen() && $event->freeSpots() > 0) {
+            if (!empty($event->ticketTypes())
+                && !empty($event->availableTicketTypes())
+                && $event->registrationsOpen()
+                && $event->freeSpots() > 0
+            ) {
                 $user = wp_get_current_user();
                 include dirname(__FILE__, 2) . '/views/registration-form.php';
             } else {
@@ -176,9 +180,16 @@ class Frontend
             return '';
         }
 
-        $message = apply_filters('otomaties_events_registration_successful', __('Registration successful', 'otomaties-events'));
+        $message = apply_filters(
+            'otomaties_events_registration_successful',
+            __('Registration successful', 'otomaties-events')
+        );
         ob_start();
-        include apply_filters('otomaties_events_notification_error', dirname(__FILE__, 2) . '/views/notifications/success.php', $message);
+        include apply_filters(
+            'otomaties_events_notification_error',
+            dirname(__FILE__, 2) . '/views/notifications/success.php',
+            $message
+        );
         $successMessage = ob_get_clean();
         return $successMessage;
     }
@@ -195,7 +206,11 @@ class Frontend
         }
         $message .= '</ul>';
         ob_start();
-        include apply_filters('otomaties_events_notification_error', dirname(__FILE__, 2) . '/views/notifications/error.php', $message);
+        include apply_filters(
+            'otomaties_events_notification_error',
+            dirname(__FILE__, 2) . '/views/notifications/error.php',
+            $message
+        );
         $error = ob_get_clean();
         unset($_SESSION['registration_errors']);
         return $error;
