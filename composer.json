@@ -1,5 +1,6 @@
 {
     "name": "tombroucke/otomaties-events",
+    "description": "Add event functionality to your WordPress website",
     "autoload": {
         "psr-4": {
             "Otomaties\\Events\\": "app/"
