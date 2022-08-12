@@ -195,6 +195,10 @@ class CustomPostTypes
                 'supports' => ['title', 'author'],
                 'labels' => $this->postTypeLabels($postSingularName, $postPluralName),
                 'dashboard_activity' => true,
+                'has_archive' => false,
+                'public' => false,
+                'show_ui' => true,
+                'show_in_nav_menus' => true,
                 'show_in_menu' => 'edit.php?post_type=event',
                 'admin_cols' => [
                     'event' => [
@@ -253,13 +257,17 @@ class CustomPostTypes
         register_extended_post_type(
             $postType,
             [
-                'show_in_feed' => true,
+                'show_in_feed' => false,
                 'show_in_rest' => true,
                 'publicly_queryable' => false,
                 'exclude_from_search' => true,
                 'labels' => $this->postTypeLabels($postSingularName, $postPluralName),
                 'dashboard_activity' => true,
                 'show_in_menu' => 'edit.php?post_type=event',
+                'has_archive' => false,
+                'public' => false,
+                'show_ui' => true,
+                'show_in_nav_menus' => true,
             ],
             [
                 'singular' => $postSingularName,
