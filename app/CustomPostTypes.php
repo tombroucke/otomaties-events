@@ -34,6 +34,7 @@ class CustomPostTypes
                     'event_date' => [
                         'title'  => __('Event date', 'otomaties-events'),
                         'meta_key'    => 'date',
+                        'default'     => 'DESC'
                     ],
                     'registrations' => [
                         'title'  => __('Registrations', 'otomaties-events'),
@@ -58,7 +59,7 @@ class CustomPostTypes
                         }
                     ],
                     'tickets' => [
-                        'title'  => __('Tickets sold', 'otomaties-events'),
+                        'title'  => __('# Tickets sold', 'otomaties-events'),
                         'function'    => function () {
                             $event = new Event(get_the_ID());
                             echo $event->soldTickets();
@@ -201,6 +202,9 @@ class CustomPostTypes
                 'show_in_nav_menus' => true,
                 'show_in_menu' => 'edit.php?post_type=event',
                 'admin_cols' => [
+                    'title' => [
+                        'title'       => __('Name', 'otomaties-events'),
+                    ],
                     'event' => [
                         'title'       => __('Event', 'otomaties-events'),
                         'function' => function () {
@@ -214,12 +218,17 @@ class CustomPostTypes
                         }
                     ],
                     'tickets' => [
-                        'title'  => __('Tickets', 'otomaties-events'),
+                        'title'  => __('# Tickets', 'otomaties-events'),
                         'function' => function () {
                             $registration = new Registration(get_the_ID());
                             echo $registration->ticketCount();
                         }
                     ],
+                    'published' => array(
+                        'title'       => __('Registration date', 'otomaties-events'),
+                        'post_field'  => 'post_date',
+                        'default'     => 'DESC'
+                    ),
                 ],
                 'admin_filters' => [
                     'event_id' => [
