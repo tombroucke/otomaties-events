@@ -5,29 +5,37 @@
     <h3><?php echo apply_filters('otomaties_events_string_personal_details', __('Personal details', 'otomaties-events')); ?></h3><?php // phpcs:ignore Generic.Files.LineLength ?>
     <div class="<?php echo apply_filters('otomaties_events_section_class', 'row g-3 mb-5'); ?>">
         <div class="<?php echo apply_filters('otomaties_events_input_container_class', 'col-md-6'); ?>">
+            <?php if (apply_filters('otomaties_events_display_input_label', true)) : ?>
             <label for="first_name"><?php _e('First name', 'otomaties-events'); ?> <span
                     class="text-danger">*</span></label>
+            <?php endif; ?>
             <input type="text" class="<?php echo apply_filters('otomaties_events_input_class', 'form-control'); ?>"
                 name="first_name" placeholder="<?php _e('First name', 'otomaties-events'); ?>"
                 value="<?php esc_html_e($user->first_name); ?>" required>
         </div>
         <div class="<?php echo apply_filters('otomaties_events_input_container_class', 'col-md-6'); ?>">
-            <label for="last_name"><?php _e('Last name', 'otomaties-events'); ?> <span
+            <?php if (apply_filters('otomaties_events_display_input_label', true)) : ?>
+                <label for="last_name"><?php _e('Last name', 'otomaties-events'); ?> <span
                     class="text-danger">*</span></label>
+            <?php endif; ?>
             <input type="text" class="<?php echo apply_filters('otomaties_events_input_class', 'form-control'); ?>"
                 name="last_name" placeholder="<?php _e('Last name', 'otomaties-events'); ?>"
                 value="<?php esc_html_e($user->last_name); ?>" required>
         </div>
         <div class="<?php echo apply_filters('otomaties_events_input_container_class', 'col-md-6'); ?>">
-            <label for="email"><?php _e('Email address', 'otomaties-events'); ?> <span
+            <?php if (apply_filters('otomaties_events_display_input_label', true)) : ?>
+                <label for="email"><?php _e('Email address', 'otomaties-events'); ?> <span
                     class="text-danger">*</span></label>
+            <?php endif; ?>
             <input type="email" class="<?php echo apply_filters('otomaties_events_input_class', 'form-control'); ?>"
                 name="email" placeholder="<?php _e('Email address', 'otomaties-events'); ?>"
                 value="<?php esc_html_e($user->user_email); ?>" required>
         </div>
         <div class="<?php echo apply_filters('otomaties_events_input_container_class', 'col-md-6'); ?>">
-            <label for="phone"><?php _e('Phone number', 'otomaties-events'); ?> <span
+            <?php if (apply_filters('otomaties_events_display_input_label', true)) : ?>
+                <label for="phone"><?php _e('Phone number', 'otomaties-events'); ?> <span
                     class="text-danger">*</span></label>
+            <?php endif; ?>
             <input type="text" class="<?php echo apply_filters('otomaties_events_input_class', 'form-control'); ?>"
                 name="phone" placeholder="<?php _e('Phone number', 'otomaties-events'); ?>"
                 value="<?php esc_html_e($user->user_phone); ?>" required>

@@ -44,24 +44,31 @@ class FormField
 
     public function render()
     {
-        $output = sprintf(
-            '<label for="%s">%s %s</label>',
-            $this->slug(),
-            $this->label,
-            $this->required ? ' <span class="text-danger">*</span>' : ''
-        );
+        $output = '';
+
+        if (apply_filters('otomaties_events_display_input_label', true)) {
+            $output .= sprintf(
+                '<label for="%s">%s %s</label>',
+                $this->slug(),
+                $this->label,
+                $this->required ? ' <span class="text-danger">*</span>' : ''
+            );
+        }
+
         if ($this->type == 'textarea') {
             $output .= sprintf(
-                '<textarea name="extra_fields[%s]" class="%s" %s></textarea>',
+                '<textarea name="extra_fields[%s]" class="%s" placeholder="%s" %s></textarea>',
                 $this->slug(),
                 apply_filters('otomaties_events_input_class', 'form-control'),
+                $this->label,
                 $this->required ? 'required' : ''
             );
         } else {
             $output .= sprintf(
-                '<input type="%s" class="%s" name="extra_fields[%s]" %s>',
+                '<input type="%s" class="%s" placeholder="%s" name="extra_fields[%s]" %s>',
                 $this->type,
                 apply_filters('otomaties_events_input_class', 'form-control'),
+                $this->label,
                 $this->slug(),
                 $this->required ? 'required' : ''
             );
