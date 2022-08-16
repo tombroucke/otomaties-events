@@ -28,6 +28,7 @@ class CustomPostTypes
                 'show_in_rest' => true,
                 'labels' => $this->postTypeLabels($postSingularName, $postPluralName),
                 'dashboard_activity' => true,
+                'has_archive' => apply_filters('otomaties_events_has_archive', true),
                 'menu_icon' => 'dashicons-calendar-alt',
                 'supports' => ['title', 'editor', 'author', 'thumbnail', 'revision', 'excerpt'],
                 'admin_cols' => [
