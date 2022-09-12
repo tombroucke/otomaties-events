@@ -55,6 +55,7 @@ class Mailer
         );
 
         $headers = [];
+        $to = get_field('otomaties_events_notification_recipients', 'option');
         $replyToAddress = esc_html($registration->meta()->get('email'));
         $replyToName = esc_html($registration->meta()->get('first_name'));
 
@@ -62,7 +63,7 @@ class Mailer
             $headers[] = sprintf('Reply-To: %s<%s>', $replyToAddress, $replyToName);
         }
 
-        return $this->sendMail($registration->meta()->get('email'), $subject, $message, $headers);
+        return $this->sendMail($to, $subject, $message, $headers);
     }
 
     /**
