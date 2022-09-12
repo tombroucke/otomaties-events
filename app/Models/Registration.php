@@ -54,11 +54,12 @@ class Registration extends PostType
     /**
      * Get linked event
      *
-     * @return Event
+     * @return Event|null
      */
-    public function event() : Event
-    {
-        return new Event($this->meta()->get('event_id'));
+    public function event() : ?Event
+    { 
+        $eventId = $this->meta()->get('event_id');
+        return $eventId && post_exists($eventId) ? new Event($eventId) : null;
     }
 
     /**

@@ -210,12 +210,18 @@ class CustomPostTypes
                         'title'       => __('Event', 'otomaties-events'),
                         'function' => function () {
                             $registration = new Registration(get_the_ID());
-                            echo sprintf(
-                                '<a href="%s">%s %s</a>',
-                                get_edit_post_link($registration->event()->getId()),
-                                esc_html($registration->event()->title()),
-                                $registration->event()->eventDate()->format(get_option('date_format'))
-                            );
+                            $event = $registration->event();
+                            
+                            if ($event) {
+                                echo sprintf(
+                                    '<a href="%s">%s %s</a>',
+                                    get_edit_post_link($event->getId()),
+                                    esc_html($event->title()),
+                                    $event->eventDate()->format(get_option('date_format'))
+                                );
+                            } else {
+                                echo __('Deleted event', 'otomaties-events');
+                            }
                         }
                     ],
                     'tickets' => [
