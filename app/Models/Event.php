@@ -297,7 +297,11 @@ class Event extends PostType
 
     public function mergeFormFields()
     {
-        $mergeFromGeneralOptions = get_field('otomaties_events_merge_extra_form_fields', 'option');
-        return $mergeFromGeneralOptions || $this->meta()->get('merge_extra_form_fields');
+        return $this->meta()->get('merge_extra_form_fields');
+    }
+
+    public function hideTicketsTitle()
+    {
+        return $this->meta()->get('hide_tickets_title');
     }
 }

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Otomaties Events\n"
-"POT-Creation-Date: 2022-09-12 13:29+0200\n"
+"POT-Creation-Date: 2022-09-12 14:25+0200\n"
 "PO-Revision-Date: 2022-05-06 15:02+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -47,8 +47,8 @@ msgstr ""
 msgid "Export"
 msgstr ""
 
-#: app/CustomPostTypes.php:21 app/CustomPostTypes.php:210
-#: app/CustomPostTypes.php:243
+#: app/CustomPostTypes.php:21 app/CustomPostTypes.php:225
+#: app/CustomPostTypes.php:258
 msgid "Event"
 msgstr ""
 
@@ -60,7 +60,7 @@ msgstr ""
 msgid "Event date"
 msgstr ""
 
-#: app/CustomPostTypes.php:41 app/CustomPostTypes.php:188
+#: app/CustomPostTypes.php:41 app/CustomPostTypes.php:203
 msgid "Registrations"
 msgstr ""
 
@@ -95,12 +95,12 @@ msgstr ""
 msgid "Time to"
 msgstr ""
 
-#: app/CustomPostTypes.php:112 app/CustomPostTypes.php:270
-#: app/CustomPostTypes.php:307
+#: app/CustomPostTypes.php:112 app/CustomPostTypes.php:285
+#: app/CustomPostTypes.php:322
 msgid "Location"
 msgstr ""
 
-#: app/CustomPostTypes.php:117 app/CustomPostTypes.php:187
+#: app/CustomPostTypes.php:117 app/CustomPostTypes.php:202
 msgid "Registration"
 msgstr ""
 
@@ -194,195 +194,216 @@ msgstr ""
 msgid "Required"
 msgstr ""
 
-#: app/CustomPostTypes.php:207
+#: app/CustomPostTypes.php:177 app/OptionsPage.php:64
+msgid "Merge extra registration form fields"
+msgstr ""
+
+#: app/CustomPostTypes.php:180 app/OptionsPage.php:67
+msgid ""
+"Merge extra registration form fields with default registration form fields"
+msgstr ""
+
+#: app/CustomPostTypes.php:183 app/CustomPostTypes.php:189
+msgid "Can also be set in general settings"
+msgstr ""
+
+#: app/CustomPostTypes.php:186 app/OptionsPage.php:73
+msgid "Hide tickets title"
+msgstr ""
+
+#: app/CustomPostTypes.php:188 app/OptionsPage.php:75
+msgid "Hide tickets title on registration form"
+msgstr ""
+
+#: app/CustomPostTypes.php:222
 msgid "Name"
 msgstr ""
 
-#: app/CustomPostTypes.php:223
+#: app/CustomPostTypes.php:238
 msgid "Deleted event"
 msgstr ""
 
-#: app/CustomPostTypes.php:228
+#: app/CustomPostTypes.php:243
 msgid "# Tickets"
 msgstr ""
 
-#: app/CustomPostTypes.php:235
+#: app/CustomPostTypes.php:250
 msgid "Registration date"
 msgstr ""
 
-#: app/CustomPostTypes.php:271
+#: app/CustomPostTypes.php:286
 msgid "Locations"
 msgstr ""
 
-#: app/CustomPostTypes.php:301
+#: app/CustomPostTypes.php:316
 msgid "Location on map"
 msgstr ""
 
-#: app/CustomPostTypes.php:304
+#: app/CustomPostTypes.php:319
 msgid "Location information"
 msgstr ""
 
-#: app/CustomPostTypes.php:323
+#: app/CustomPostTypes.php:338
 msgid "Add New"
 msgstr ""
 
-#: app/CustomPostTypes.php:326 app/CustomPostTypes.php:489
+#: app/CustomPostTypes.php:341 app/CustomPostTypes.php:504
 #, php-format
 msgid "Add New %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:331 app/CustomPostTypes.php:474
+#: app/CustomPostTypes.php:346 app/CustomPostTypes.php:489
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:336
+#: app/CustomPostTypes.php:351
 #, php-format
 msgid "New %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:341 app/CustomPostTypes.php:346
-#: app/CustomPostTypes.php:479
+#: app/CustomPostTypes.php:356 app/CustomPostTypes.php:361
+#: app/CustomPostTypes.php:494
 #, php-format
 msgid "View %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:351 app/CustomPostTypes.php:449
+#: app/CustomPostTypes.php:366 app/CustomPostTypes.php:464
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:356
+#: app/CustomPostTypes.php:371
 #, php-format
 msgid "No %s found."
 msgstr ""
 
-#: app/CustomPostTypes.php:361
+#: app/CustomPostTypes.php:376
 #, php-format
 msgid "No %s found in trash."
 msgstr ""
 
-#: app/CustomPostTypes.php:366 app/CustomPostTypes.php:469
+#: app/CustomPostTypes.php:381 app/CustomPostTypes.php:484
 #, php-format
 msgid "Parent %s:"
 msgstr ""
 
-#: app/CustomPostTypes.php:371 app/CustomPostTypes.php:459
+#: app/CustomPostTypes.php:386 app/CustomPostTypes.php:474
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:376
+#: app/CustomPostTypes.php:391
 #, php-format
 msgid "%s Archives"
 msgstr ""
 
-#: app/CustomPostTypes.php:381
+#: app/CustomPostTypes.php:396
 #, php-format
 msgid "%s Attributes"
 msgstr ""
 
-#: app/CustomPostTypes.php:386
+#: app/CustomPostTypes.php:401
 #, php-format
 msgid "Insert into %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:391
+#: app/CustomPostTypes.php:406
 #, php-format
 msgid "Uploaded to this %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:396
+#: app/CustomPostTypes.php:411
 #, php-format
 msgid "Filter %s list"
 msgstr ""
 
-#: app/CustomPostTypes.php:401 app/CustomPostTypes.php:524
+#: app/CustomPostTypes.php:416 app/CustomPostTypes.php:539
 #, php-format
 msgid "%s list navigation"
 msgstr ""
 
-#: app/CustomPostTypes.php:406 app/CustomPostTypes.php:529
+#: app/CustomPostTypes.php:421 app/CustomPostTypes.php:544
 #, php-format
 msgid "%s list"
 msgstr ""
 
-#: app/CustomPostTypes.php:411
+#: app/CustomPostTypes.php:426
 #, php-format
 msgid "%s published."
 msgstr ""
 
-#: app/CustomPostTypes.php:416
+#: app/CustomPostTypes.php:431
 #, php-format
 msgid "%s published privately."
 msgstr ""
 
-#: app/CustomPostTypes.php:421
+#: app/CustomPostTypes.php:436
 #, php-format
 msgid "%s reverted to draft."
 msgstr ""
 
-#: app/CustomPostTypes.php:426
+#: app/CustomPostTypes.php:441
 #, php-format
 msgid "%s scheduled."
 msgstr ""
 
-#: app/CustomPostTypes.php:431
+#: app/CustomPostTypes.php:446
 #, php-format
 msgid "%s updated."
 msgstr ""
 
-#: app/CustomPostTypes.php:454
+#: app/CustomPostTypes.php:469
 #, php-format
 msgid "Popular %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:464
+#: app/CustomPostTypes.php:479
 #, php-format
 msgid "Parent %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:484
+#: app/CustomPostTypes.php:499
 #, php-format
 msgid "Update %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:494
+#: app/CustomPostTypes.php:509
 #, php-format
 msgid "New %s Name"
 msgstr ""
 
-#: app/CustomPostTypes.php:499
+#: app/CustomPostTypes.php:514
 #, php-format
 msgid "Separate %s with commas"
 msgstr ""
 
-#: app/CustomPostTypes.php:504
+#: app/CustomPostTypes.php:519
 #, php-format
 msgid "Add or remove %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:509
+#: app/CustomPostTypes.php:524
 #, php-format
 msgid "Choose from most used %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:514
+#: app/CustomPostTypes.php:529
 #, php-format
 msgid "No %s found"
 msgstr ""
 
-#: app/CustomPostTypes.php:519 app/CustomPostTypes.php:540
+#: app/CustomPostTypes.php:534 app/CustomPostTypes.php:555
 #, php-format
 msgid "No %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:535
+#: app/CustomPostTypes.php:550
 #, php-format
 msgid "&larr; Back to %s"
 msgstr ""
 
-#: app/CustomPostTypes.php:545
+#: app/CustomPostTypes.php:560
 #, php-format
 msgid "Filter by %s"
 msgstr ""
@@ -452,49 +473,53 @@ msgstr ""
 msgid "Hide \"Registrations are closed\" notice"
 msgstr ""
 
-#: app/OptionsPage.php:64
+#: app/OptionsPage.php:70 app/OptionsPage.php:76
+msgid "Can be overriden per event"
+msgstr ""
+
+#: app/OptionsPage.php:79
 msgid "E-mail"
 msgstr ""
 
-#: app/OptionsPage.php:67
+#: app/OptionsPage.php:82
 msgid "Confirmation e-mail"
 msgstr ""
 
-#: app/OptionsPage.php:70 app/OptionsPage.php:115
+#: app/OptionsPage.php:85 app/OptionsPage.php:130
 msgid "Enable/disable"
 msgstr ""
 
-#: app/OptionsPage.php:71
+#: app/OptionsPage.php:86
 msgid "Enable confirmation e-mail"
 msgstr ""
 
-#: app/OptionsPage.php:75
+#: app/OptionsPage.php:90
 msgid "Reply-to name"
 msgstr ""
 
-#: app/OptionsPage.php:83
+#: app/OptionsPage.php:98
 msgid "Reply-to e-mail"
 msgstr ""
 
-#: app/OptionsPage.php:91 app/OptionsPage.php:130
+#: app/OptionsPage.php:106 app/OptionsPage.php:145
 msgid "Subject"
 msgstr ""
 
-#: app/OptionsPage.php:93 app/OptionsPage.php:101 app/OptionsPage.php:132
-#: app/OptionsPage.php:140
+#: app/OptionsPage.php:108 app/OptionsPage.php:116 app/OptionsPage.php:147
+#: app/OptionsPage.php:155
 #, php-format
 msgid "Available merge tags: %s"
 msgstr ""
 
-#: app/OptionsPage.php:96
+#: app/OptionsPage.php:111
 msgid "Registration confirmation"
 msgstr ""
 
-#: app/OptionsPage.php:99
+#: app/OptionsPage.php:114
 msgid "Confirmation e-mail content"
 msgstr ""
 
-#: app/OptionsPage.php:109
+#: app/OptionsPage.php:124
 msgid ""
 "Hi {first_name},\n"
 "\n"
@@ -507,31 +532,31 @@ msgid ""
 "Kind regards"
 msgstr ""
 
-#: app/OptionsPage.php:112
+#: app/OptionsPage.php:127
 msgid "Notification e-mail"
 msgstr ""
 
-#: app/OptionsPage.php:116
+#: app/OptionsPage.php:131
 msgid "Enable notification e-mail"
 msgstr ""
 
-#: app/OptionsPage.php:120
+#: app/OptionsPage.php:135
 msgid "Recipient e-mail."
 msgstr ""
 
-#: app/OptionsPage.php:121
+#: app/OptionsPage.php:136
 msgid "Separate multiple e-mailaddresses with comma's"
 msgstr ""
 
-#: app/OptionsPage.php:135
+#: app/OptionsPage.php:150
 msgid "New registration for {event}"
 msgstr ""
 
-#: app/OptionsPage.php:138
+#: app/OptionsPage.php:153
 msgid "Notification e-mail content"
 msgstr ""
 
-#: app/OptionsPage.php:148
+#: app/OptionsPage.php:163
 msgid ""
 "Hi,\n"
 "\n"
@@ -577,11 +602,11 @@ msgstr ""
 msgid "E-mailaddress"
 msgstr ""
 
-#: views/registration-details.php:29 views/registration-form.php:54
+#: views/registration-details.php:29 views/registration-form.php:61
 msgid "Tickets"
 msgstr ""
 
-#: views/registration-form.php:4 views/registration-form.php:76
+#: views/registration-form.php:4 views/registration-form.php:88
 msgid "Register"
 msgstr ""
 
@@ -597,7 +622,7 @@ msgstr ""
 msgid "Phone number"
 msgstr ""
 
-#: views/registration-form.php:45
+#: views/registration-form.php:48
 msgid "Extra information"
 msgstr ""
 

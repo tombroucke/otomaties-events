@@ -175,11 +175,18 @@ class CustomPostTypes
             ->endRepeater()
             ->addTrueFalse('merge_extra_form_fields', [
                 'label' => __('Merge extra registration form fields', 'otomaties-events'),
-                'default_value' => false,
+                'default_value' => get_field('otomaties_events_default_merge_extra_form_fields', 'option'),
                 'message' => __(
                     'Merge extra registration form fields with default registration form fields',
                     'otomaties-events'
                 ),
+                'instructions' => __('Can also be set in general settings', 'otomaties-events'),
+            ])
+            ->addTrueFalse('hide_tickets_title', [
+                'label' => __('Hide tickets title', 'otomaties-events'),
+                'default_value' => get_field('otomaties_events_default_hide_tickets_title', 'option'),
+                'message' => __('Hide tickets title on registration form', 'otomaties-events'),
+                'instructions' => __('Can also be set in general settings', 'otomaties-events')
             ])
             ->setLocation('post_type', '==', 'event');
         acf_add_local_field_group($event->build());

@@ -60,13 +60,20 @@ class OptionsPage
                 'default_value' => false,
                 'message' => __('Hide "Registrations are closed" notice', 'otomaties-events'),
             ])
-            ->addTrueFalse('otomaties_events_merge_extra_form_fields', [
+            ->addTrueFalse('otomaties_events_default_merge_extra_form_fields', [
                 'label' => __('Merge extra registration form fields', 'otomaties-events'),
                 'default_value' => false,
                 'message' => __(
                     'Merge extra registration form fields with default registration form fields',
                     'otomaties-events'
                 ),
+                'instructions' => __('Can be overriden per event', 'otomaties-events'),
+            ])
+            ->addTrueFalse('otomaties_events_default_hide_tickets_title', [
+                'label' => __('Hide tickets title', 'otomaties-events'),
+                'default_value' => false,
+                'message' => __('Hide tickets title on registration form', 'otomaties-events'),
+                'instructions' => __('Can be overriden per event', 'otomaties-events')
             ])
             ->addTab('email', [
                 'label' => __('E-mail', 'otomaties-events')
