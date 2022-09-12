@@ -40,16 +40,20 @@
                 name="phone" placeholder="<?php _e('Phone number', 'otomaties-events'); ?>"
                 value="<?php esc_html_e($user->user_phone); ?>" required>
         </div>
+    <?php if (!$event->mergeFormFields() || empty($event->extraFormFields())) : ?>
     </div>
+    <?php endif; ?>
     <?php if (!empty($event->extraFormFields())) : ?>
-    <h3><?php echo apply_filters('otomaties_events_string_extra_information', __('Extra information', 'otomaties-events')); ?></h3><?php // phpcs:ignore Generic.Files.LineLength ?>
-    <div class="<?php echo apply_filters('otomaties_events_section_class', 'row g-3 mb-5'); ?>">
+        <?php if (!$event->mergeFormFields()) : ?>
+            <h3><?php echo apply_filters('otomaties_events_string_extra_information', __('Extra information', 'otomaties-events')); ?></h3><?php // phpcs:ignore Generic.Files.LineLength ?>
+            <div class="<?php echo apply_filters('otomaties_events_section_class', 'row g-3 mb-5'); ?>">
+        <?php endif; ?>
         <?php foreach ($event->extraFormFields() as $extraFormField) : ?>
         <div class="col-12">
             <?php $extraFormField->render(); ?>
         </div>
         <?php endforeach; ?>
-    </div>
+        </div>
     <?php endif; ?>
     <h3><?php echo apply_filters('otomaties_events_string_personal_tickets', __('Tickets', 'otomaties-events')); ?></h3>
     <?php foreach ($event->ticketTypes() as $ticket) : ?>

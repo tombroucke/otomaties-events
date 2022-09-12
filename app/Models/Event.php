@@ -8,6 +8,8 @@ use Otomaties\WpModels\PostType;
 use Otomaties\Events\Models\Location;
 use Otomaties\WpModels\PostTypeCollection;
 
+use function DeliciousBrains\WPMDB\Container\DI\get;
+
 class Event extends PostType
 {
 
@@ -291,5 +293,11 @@ class Event extends PostType
         $locationId = $this->meta()->get('location') ?: 0;
         $location = Location::find($locationId);
         return $location->first();
+    }
+
+    public function mergeFormFields()
+    {
+        $mergeFromGeneralOptions = get_field('otomaties_events_merge_extra_form_fields', 'option');
+        return $mergeFromGeneralOptions || $this->meta()->get('merge_extra_form_fields');
     }
 }

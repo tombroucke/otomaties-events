@@ -173,6 +173,14 @@ class CustomPostTypes
                     'label' => __('Required', 'otomaties-events'),
                 ])
             ->endRepeater()
+            ->addTrueFalse('merge_extra_form_fields', [
+                'label' => __('Merge extra registration form fields', 'otomaties-events'),
+                'default_value' => false,
+                'message' => __(
+                    'Merge extra registration form fields with default registration form fields',
+                    'otomaties-events'
+                ),
+            ])
             ->setLocation('post_type', '==', 'event');
         acf_add_local_field_group($event->build());
     }

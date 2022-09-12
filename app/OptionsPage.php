@@ -60,6 +60,14 @@ class OptionsPage
                 'default_value' => false,
                 'message' => __('Hide "Registrations are closed" notice', 'otomaties-events'),
             ])
+            ->addTrueFalse('otomaties_events_merge_extra_form_fields', [
+                'label' => __('Merge extra registration form fields', 'otomaties-events'),
+                'default_value' => false,
+                'message' => __(
+                    'Merge extra registration form fields with default registration form fields',
+                    'otomaties-events'
+                ),
+            ])
             ->addTab('email', [
                 'label' => __('E-mail', 'otomaties-events')
             ])
@@ -67,7 +75,7 @@ class OptionsPage
                 'label' => __('Confirmation e-mail', 'otomaties-events')
             ])
             ->addTrueFalse('otomaties_events_enable_confirmation_email', [
-                'label' => __('Enable/disable'),
+                'label' => __('Enable/disable', 'otomaties-events'),
                 'message' => __('Enable confirmation e-mail', 'otomaties-events'),
                 'default_value' => 1
             ])
