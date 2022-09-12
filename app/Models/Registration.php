@@ -57,7 +57,7 @@ class Registration extends PostType
      * @return Event|null
      */
     public function event() : ?Event
-    { 
+    {
         $eventId = $this->meta()->get('event_id');
         return $eventId && post_exists($eventId) ? new Event($eventId) : null;
     }
