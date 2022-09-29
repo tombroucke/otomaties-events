@@ -260,14 +260,15 @@ class Admin
         return $return;
     }
 
-    public function exportBtn($which)
+    public function exportBtn()
     {
         $postType = $_GET['post_type'] ?? 'post';
-        $eventId = $_GET['event_id'] ?? 0;
+        $eventId = filter_input(INPUT_GET, 'event_id', FILTER_SANITIZE_NUMBER_INT);
 
         if ('registration' == $postType && $eventId) {
+            $path = sprintf('edit.php?post_type=registration&event_id=event_%s&action=export', $eventId);
             ?>
-            <a class="button button-primary" href="<?php echo admin_url('edit.php?post_type=registration&event_id=event_2055&action=export'); ?>"><?php // phpcs:ignore Generic.Files.LineLength ?>
+            <a class="button button-primary" href="<?php echo admin_url($path); ?>">
                 <?php _e('Export', 'otomaties-events'); ?>
             </a>
             <?php

@@ -58,7 +58,7 @@
         <?php endif; ?>
     <?php endif; ?>
     <?php if (!$event->hideTicketsTitle()) : ?>
-        <h3><?php echo apply_filters('otomaties_events_string_personal_tickets', __('Tickets', 'otomaties-events')); ?></h3>
+        <h3><?php echo apply_filters('otomaties_events_string_personal_tickets', __('Tickets', 'otomaties-events')); ?></h3><?php // phpcs:ignore Generic.Files.LineLength ?>
         <div class="<?php echo apply_filters('otomaties_tickets_section_class', 'row g-3 mb-5'); ?>">
     <?php endif; ?>
     <?php foreach ($event->ticketTypes() as $ticket) : ?>
