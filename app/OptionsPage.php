@@ -10,9 +10,11 @@ class OptionsPage
 {
 
     /**
-     * Create pages
+     * Create option page
+     *
+     * @return void
      */
-    public function addOptionsPage()
+    public function addOptionsPage() : void
     {
         
         acf_add_options_page(
@@ -123,6 +125,7 @@ class OptionsPage
                 ],
                 'default_value' => __("Hi {first_name},\n\nThanks for subscribing for {event} on {event_date}.\n\n<h3>Tickets:</h3>\n\n{ticket_table}\n\nKind regards", 'otomaties-events') // phpcs:ignore Generic.Files.LineLength
             ])
+            ->addAccordion('confirmation_email_end')->endpoint()
             ->addAccordion('notification_email', [
                 'label' => __('Notification e-mail', 'otomaties-events')
             ])
@@ -162,7 +165,7 @@ class OptionsPage
                 ],
                 'default_value' => __("Hi,\n\nThere is a new registration for {event} on {event_date}.\n\nName: {first_name} {last_name}\nEmail: {email}\nPhone: {phone}\nCustom fields: \n{custom_fields}\n\n<h3>Tickets:</h3>\n{ticket_table}\n\nKind regards", 'otomaties-events')// phpcs:ignore Generic.Files.LineLength
             ])
-            ->addAccordion('accordion_field_end')->endpoint()
+            ->addAccordion('notification_email_end')->endpoint()
             ->setLocation('options_page', '==', 'events-settings');
         acf_add_local_field_group($eventsSettings->build());
     }

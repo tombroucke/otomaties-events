@@ -35,7 +35,7 @@ class Plugin
     /**
      * The name of the plugin
      *
-     * @var [type]
+     * @var string
      */
     protected $pluginName;
 
@@ -46,8 +46,9 @@ class Plugin
      * Load the dependencies, define the locale, and set the hooks for the admin area and
      * the public-facing side of the site.
      *
+     * @param array<string> $pluginData
      */
-    public function __construct($pluginData)
+    public function __construct(array $pluginData)
     {
         $this->version = $pluginData['Version'];
         $this->pluginName = $pluginData['pluginName'];
@@ -69,7 +70,7 @@ class Plugin
      * with WordPress.
      *
      */
-    private function setLocale()
+    private function setLocale() : void
     {
 
         $plugin_i18n = new I18n();
@@ -82,7 +83,7 @@ class Plugin
      * of the plugin.
      *
      */
-    private function defineAdminHooks()
+    private function defineAdminHooks() : void
     {
         $admin = new Admin($this->getPluginName(), $this->getVersion());
         // $this->loader->addAction('admin_enqueue_scripts', $admin, 'enqueueStyles');
@@ -101,9 +102,9 @@ class Plugin
      * of the plugin.
      *
      */
-    private function defineFrontendHooks()
+    private function defineFrontendHooks() : void
     {
-        $frontend = new Frontend($this->getPluginName(), $this->getVersion());
+        $frontend = new Frontend($this->getPluginName());
         $this->loader->addAction('wp_enqueue_scripts', $frontend, 'enqueueStyles');
         $this->loader->addAction('wp_enqueue_scripts', $frontend, 'enqueueScripts');
         $this->loader->addAction('pre_get_posts', $frontend, 'hidePastEvents');
@@ -112,7 +113,7 @@ class Plugin
         $this->loader->addAction('init', $frontend, 'startSession', 1);
     }
 
-    private function definePostTypeHooks()
+    private function definePostTypeHooks() : void
     {
         $cpts = new CustomPostTypes();
         $this->loader->addAction('init', $cpts, 'addEvent');
@@ -122,21 +123,21 @@ class Plugin
         $this->loader->addAction('init', $cpts, 'addRegistration');
     }
 
-    private function addOptionsPage()
+    private function addOptionsPage() : void
     {
         $options = new OptionsPage();
         $this->loader->addAction('acf/init', $options, 'addOptionsPage');
         $this->loader->addAction('acf/init', $options, 'addOptionsFields');
     }
 
-    private function defineMailerHooks()
+    private function defineMailerHooks() : void
     {
         $mailer = new Mailer();
         $this->loader->addAction('otomaties_events_new_registration', $mailer, 'confirmationEmail');
         $this->loader->addAction('otomaties_events_new_registration', $mailer, 'notificationEmail');
     }
 
-    private function addShortcodes()
+    private function addShortcodes() : void
     {
         $shortcodes = new Shortcodes();
         add_shortcode('otomaties-events-registration-form', [$shortcodes, 'registrationForm']);
@@ -146,7 +147,7 @@ class Plugin
      * Run the loader to execute all of the hooks with WordPress.
      *
      */
-    public function run()
+    public function run() : void
     {
         $this->loader->run();
     }
@@ -157,12 +158,12 @@ class Plugin
      * @since     1.0.0
      * @return    Loader    Orchestrates the hooks of the plugin.
      */
-    public function getLoader()
+    public function getLoader() : Loader
     {
         return $this->loader;
     }
 
-    public function getPluginName()
+    public function getPluginName() : string
     {
         return $this->pluginName;
     }
@@ -173,7 +174,7 @@ class Plugin
      * @since     1.0.0
      * @return    string    The version number of the plugin.
      */
-    public function getVersion()
+    public function getVersion() : string
     {
         return $this->version;
     }

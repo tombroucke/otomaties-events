@@ -13,12 +13,11 @@ class Deactivator
 {
 
     /**
-     * Short Description. (use period)
+     * Method is run on plugin deactivation
      *
-     * Long Description.
-     *
+     * @return void
      */
-    public static function deactivate()
+    public static function deactivate() : void
     {
     }
 }

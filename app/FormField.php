@@ -4,11 +4,32 @@ namespace Otomaties\Events;
 
 class FormField
 {
+    /**
+     * Form field type eg. textarea, number, text
+     *
+     * @var string
+     */
+    private string $type;
 
-    private $type;
-    private $label;
-    private $required;
+    /**
+     * Form field label
+     *
+     * @var string
+     */
+    private string $label;
 
+    /**
+     * Whether the form field is required
+     *
+     * @var boolean
+     */
+    private bool $required;
+
+    /**
+     * Setup form field
+     *
+     * @param array<string, mixed> $fieldsettings
+     */
     public function __construct(array $fieldsettings)
     {
         $defaults = [
@@ -19,30 +40,55 @@ class FormField
         $settings = wp_parse_args($fieldsettings, $defaults);
         $this->type = $settings['field_type'];
         $this->label = $settings['label'];
-        $this->required = $settings['required'];
+        $this->required = filter_var($settings['required'], FILTER_VALIDATE_BOOLEAN);
     }
 
-    public function label()
+    /**
+     * Get field label
+     *
+     * @return string
+     */
+    public function label() : string
     {
         return $this->label;
     }
 
-    public function type()
+    /**
+     * Get field type
+     *
+     * @return string
+     */
+    public function type() : string
     {
         return $this->type;
     }
 
-    public function required()
+    /**
+     * Test if field is required
+     *
+     * @return boolean
+     */
+    public function required() : bool
     {
         return $this->required;
     }
 
-    public function slug()
+    /**
+     * Get field slug
+     *
+     * @return string
+     */
+    public function slug() : string
     {
         return sanitize_title($this->label);
     }
 
-    public function render()
+    /**
+     * Render field
+     *
+     * @return void
+     */
+    public function render() : void
     {
         $output = '';
 

@@ -17,8 +17,9 @@ class I18n
     /**
      * Load the plugin text domain for translation.
      *
+     * @return void
      */
-    public function loadTextdomain()
+    public function loadTextdomain() : void
     {
         load_plugin_textdomain('otomaties-events', false, dirname(plugin_basename(__FILE__), 2) . '/languages/');
     }

@@ -13,12 +13,11 @@ class Activator
 {
 
     /**
-     * Short Description. (use period)
+     * Method is run on plugin activation
      *
-     * Long Description.
-     *
+     * @return void
      */
-    public static function activate()
+    public static function activate() : void
     {
     }
 }

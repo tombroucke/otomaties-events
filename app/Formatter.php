@@ -4,7 +4,13 @@ namespace Otomaties\Events;
 
 class Formatter
 {
-    public static function currency($amount) : string
+    /**
+     * Format amount with currency symbol
+     *
+     * @param integer|float|string $amount
+     * @return string
+     */
+    public static function currency(int|float|string $amount) : string
     {
         return '€ ' . $amount;
     }

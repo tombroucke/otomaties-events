@@ -3,20 +3,33 @@
 namespace Otomaties\Events;
 
 use Otomaties\Events\Models\Event;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class RegistrationExport
 {
-    protected $event;
+    /**
+     * The event object
+     *
+     * @var Event
+     */
+    protected Event $event;
 
+    /**
+     * Constructor, save event in property
+     *
+     * @param Event $event
+     */
     public function __construct(Event $event)
     {
         $this->event = $event;
     }
 
-    public function execute()
+    /**
+     * Download xlsx
+     *
+     * @return void
+     */
+    public function execute() : void
     {
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()
@@ -32,7 +45,12 @@ class RegistrationExport
         $writer->save('php://output');
     }
 
-    private function data()
+    /**
+     * Export content
+     *
+     * @return array<array<string>>
+     */
+    private function data() : array
     {
         $data = [];
 
@@ -75,18 +93,22 @@ class RegistrationExport
             $tickets = $registration->tickets();
             foreach ($this->event->ticketTypes() as $ticketType) {
                 if (is_array($tickets) && isset($tickets[$ticketType->slug()])) {
-                    $entry[] = esc_html($tickets[$ticketType->slug()]);
+                    $entry[] = filter_var($tickets[$ticketType->slug()], FILTER_SANITIZE_NUMBER_INT);
                 } else {
                     $entry[] = '';
                 }
             }
             $data[] = $entry;
         }
-
         return $data;
     }
 
-    private function printHeaders()
+    /**
+     * Print headers for output
+     *
+     * @return void
+     */
+    private function printHeaders() : void
     {
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header(sprintf('Content-Disposition: attachment;filename="%s.xlsx"', $this->event->name()));

@@ -24,30 +24,22 @@ class Frontend
     private $pluginName;
 
     /**
-     * The version of this plugin.
-     *
-     * @var      string    $version    The current version of this plugin.
-     */
-    private $version;
-
-    /**
      * Initialize the class and set its properties.
      *
      * @param      string    $pluginName       The name of the plugin.
-     * @param      string    $version    The version of this plugin.
      */
-    public function __construct($pluginName, $version)
+    public function __construct($pluginName)
     {
 
         $this->pluginName = $pluginName;
-        $this->version = $version;
     }
 
     /**
      * Register the stylesheets for the public-facing side of the site.
      *
+     * @return void
      */
-    public function enqueueStyles()
+    public function enqueueStyles() : void
     {
 
         /**
@@ -67,8 +59,9 @@ class Frontend
     /**
      * Register the JavaScript for the public-facing side of the site.
      *
+     * @return void
      */
-    public function enqueueScripts()
+    public function enqueueScripts() : void
     {
 
         /**
@@ -99,7 +92,13 @@ class Frontend
         }
     }
 
-    public function hidePastEvents($query)
+    /**
+     * Hide events in the past
+     *
+     * @param \WP_Query $query
+     * @return void
+     */
+    public function hidePastEvents(\WP_Query $query) : void
     {
         if ($query->get('post_type') != 'event' || is_admin()) {
             return;
@@ -148,7 +147,13 @@ class Frontend
         $query->set('meta_query', $meta_query);
     }
 
-    public function renderRegistrationForm($content)
+    /**
+     * Render registration form
+     *
+     * @param string $content
+     * @return string
+     */
+    public function renderRegistrationForm($content) : string
     {
         if (is_singular('event') && apply_filters('otomaties_events_show_registration_form', true)) {
             $event = new Event(get_the_ID());
@@ -168,13 +173,24 @@ class Frontend
         return $content;
     }
 
-    public function showMessages($content) : string
+    /**
+     * Show error and success messages
+     *
+     * @param string $content
+     * @return string
+     */
+    public function showMessages(string $content) : string
     {
         $content = $this->errors() . $content;
         $content = $this->successMessage() . $content;
         return $content;
     }
 
+    /**
+     * Get success message
+     *
+     * @return string
+     */
     public function successMessage() : string
     {
         if (!isset($_GET['registration_success']) || $_GET['registration_success'] !== 'true') {
@@ -187,7 +203,7 @@ class Frontend
         );
         ob_start();
         include apply_filters(
-            'otomaties_events_notification_error',
+            'otomaties_events_notification_success',
             dirname(__FILE__, 2) . '/views/notifications/success.php',
             $message
         );
@@ -195,6 +211,11 @@ class Frontend
         return $successMessage;
     }
 
+    /**
+     * Get error messages
+     *
+     * @return string
+     */
     private function errors() : string
     {
         if (!in_the_loop() || !isset($_SESSION['registration_errors']) || empty($_SESSION['registration_errors'])) {

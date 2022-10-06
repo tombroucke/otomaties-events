@@ -15,7 +15,13 @@ use Otomaties\Events\Models\Event;
 
 class Shortcodes
 {
-    public function registrationForm($atts)
+    /**
+     * Output the registration form
+     *
+     * @param array<string, int> $atts
+     * @return string
+     */
+    public function registrationForm(array $atts = []) : string
     {
         $atts = shortcode_atts(array(
             'event' => get_the_ID(),

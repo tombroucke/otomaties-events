@@ -9,7 +9,7 @@ class TicketType
     /**
      * Set up ticket type
      *
-     * @param array $ticket
+     * @param array<string, mixed> $ticket
      * @param Event $event
      */
     public function __construct(private array $ticket, private Event $event)

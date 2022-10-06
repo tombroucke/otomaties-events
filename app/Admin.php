@@ -49,8 +49,9 @@ class Admin
     /**
      * Register the stylesheets for the admin area.
      *
+     * @return void
      */
-    public function enqueueStyles()
+    public function enqueueStyles() : void
     {
 
         /**
@@ -71,8 +72,9 @@ class Admin
     /**
      * Register the JavaScript for the admin area.
      *
+     * @return void
      */
-    public function enqueueScripts()
+    public function enqueueScripts() : void
     {
 
         /**
@@ -90,7 +92,16 @@ class Admin
         wp_enqueue_script($this->pluginName, Assets::find('js/admin.js'), array( 'jquery' ), $this->version, false);
     }
 
-    public function formatDateInAdminColumn($metadata, $object_id, $meta_key, $single)
+    /**
+     * Show formatted date for events in admin column
+     *
+     * @param mixed $metadata
+     * @param integer $object_id
+     * @param string $meta_key
+     * @param boolean $single
+     * @return array<mixed>
+     */
+    public function formatDateInAdminColumn(mixed $metadata, int $object_id, string $meta_key, bool $single) : array
     {
         if (!is_admin() || !function_exists('get_current_screen') || !get_current_screen()) {
             return $metadata;
@@ -116,7 +127,12 @@ class Admin
         return $metadata;
     }
 
-    public function register()
+    /**
+     * Handler for registration form
+     *
+     * @return void
+     */
+    public function register() : void
     {
         
         $firstName = sanitize_text_field($_POST['first_name']);
@@ -214,25 +230,23 @@ class Admin
             $registration->meta()->set('user_id', get_current_user_id());
         }
 
+        do_action('otomaties_events_new_registration', $registration);
 
-        if (!is_wp_error($registration) && $registration) {
-            do_action('otomaties_events_new_registration', $registration);
-
-            $redirect = add_query_arg(
-                ['registration_success' => 'true', 'registration_id' => $registration->getId()],
-                $redirect,
-            );
-        } else {
-            $redirect = add_query_arg(
-                ['registration_success' => 'false', 'error-message' => 'generic-error'],
-                $redirect,
-            );
-        }
+        $redirect = add_query_arg(
+            ['registration_success' => 'true', 'registration_id' => $registration->getId()],
+            $redirect,
+        );
+        
         wp_safe_redirect($redirect);
         die();
     }
 
-    public function metaBoxes()
+    /**
+     * Add meta box to registration post type with details
+     *
+     * @return void
+     */
+    public function metaBoxes() : void
     {
         add_meta_box(
             'registration_details',
@@ -244,13 +258,27 @@ class Admin
         );
     }
 
-    public function registrationDetails()
+    /**
+     * Include registration details template
+     *
+     * @return void
+     */
+    public function registrationDetails() : void
     {
         $registration = new Registration(get_the_ID());
         include dirname(__FILE__, 2) . '/views/registration-details.php';
     }
 
-    public function replaceStringHackedPostIds($return, $query, $filter)
+    /**
+     * Replace strings in hacked post ids
+     * @see https://github.com/johnbillion/extended-cpts/issues/87#issuecomment-1113253050
+     *
+     * @param array<mixed> $return
+     * @param array<mixed> $query
+     * @param array<mixed> $filter
+     * @return array<mixed>
+     */
+    public function replaceStringHackedPostIds(array $return, array $query, array $filter) : array
     {
         $return = [];
         $return['meta_query'][] = [
@@ -260,7 +288,12 @@ class Admin
         return $return;
     }
 
-    public function exportBtn()
+    /**
+     * Display export button on registration overview page
+     *
+     * @return void
+     */
+    public function exportBtn() : void
     {
         $postType = $_GET['post_type'] ?? 'post';
         $eventId = filter_input(INPUT_GET, 'event_id', FILTER_SANITIZE_NUMBER_INT);
@@ -275,7 +308,12 @@ class Admin
         }
     }
 
-    public function exportRegistrations()
+    /**
+     * Export registrations handler
+     *
+     * @return void
+     */
+    public function exportRegistrations() : void
     {
         $action = $_GET['action'] ?? null;
         $eventId = $_GET['event_id'] ?? null;

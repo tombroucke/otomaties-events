@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 use Otomaties\WpModels\PostType;
 use Otomaties\Events\Models\Event;
 use Otomaties\Events\Models\TicketType;
-use Otomaties\WpModels\PostTypeCollection;
+use Otomaties\WpModels\Collection;
 use Otomaties\WpModels\Exceptions\InvalidPostTypeException;
 
 final class EventTest extends TestCase
@@ -156,7 +156,7 @@ final class EventTest extends TestCase
     {
         $this->assertCount(999, self::$event->registrations());
         $this->assertInstanceOf(
-            PostTypeCollection::class,
+            Collection::class,
             self::$event->registrations()
         );
     }

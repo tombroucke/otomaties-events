@@ -6,9 +6,7 @@ use DateTime;
 use Otomaties\Events\FormField;
 use Otomaties\WpModels\PostType;
 use Otomaties\Events\Models\Location;
-use Otomaties\WpModels\PostTypeCollection;
-
-use function DeliciousBrains\WPMDB\Container\DI\get;
+use Otomaties\WpModels\Collection;
 
 class Event extends PostType
 {
@@ -43,9 +41,9 @@ class Event extends PostType
             $time = $this->meta()->get($timeKey);
             if ($time) {
                 $timeArray = explode(':', $time);
-                $dateTime->setTime($timeArray[0], $timeArray[1]);
+                $dateTime->setTime((int)$timeArray[0], (int)$timeArray[1]);
             } else {
-                $dateTime->setTime('00', '00');
+                $dateTime->setTime(0, 0);
             }
         }
         return $dateTime;
@@ -111,7 +109,7 @@ class Event extends PostType
     /**
      * Get all registered ticket types for this event
      *
-     * @return array
+     * @return array<TicketType>
      */
     public function ticketTypes() : array
     {
@@ -121,6 +119,11 @@ class Event extends PostType
         }, $ticketTypes);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return array<TicketType>
+     */
     public function availableTicketTypes() : array
     {
         return array_filter($this->ticketTypes(), function ($ticketType) {
@@ -132,7 +135,7 @@ class Event extends PostType
      * Get ticket type from slug
      *
      * @param string $slug
-     * @return null|array
+     * @return TicketType|null
      */
     public function ticketType(string $slug) : ?TicketType
     {
@@ -164,7 +167,7 @@ class Event extends PostType
     /**
      * Get extra form fields
      *
-     * @return array An array of FormField objects
+     * @return array<FormField> An array of FormField objects
      */
     public function extraFormFields() : array
     {
@@ -197,9 +200,9 @@ class Event extends PostType
     /**
      * Get all registrations for this event
      *
-     * @return PostTypeCollection
+     * @return Collection<Registration>
      */
-    public function registrations() : PostTypeCollection
+    public function registrations() : Collection
     {
         return Registration::find([
             'meta_query' => [
@@ -229,28 +232,16 @@ class Event extends PostType
         if (empty($this->ticketTypes())) {
             return false;
         }
-
-        // Open if no deadlines are filled in
-        if (!$availableFrom && !$availableUntill) {
+        
+        if (!$availableFrom && !$availableUntill) { // Registration are open if no deadlines are filled in
             return true;
-        }
-
-        // If only available from is filled in
-        if (!$availableUntill) {
+        } elseif (!$availableUntill) { // If only available from is filled in
             return $now >= $availableFrom;
-        }
-
-        // If only available untill is filled in
-        if (!$availableFrom) {
+        } elseif (!$availableFrom) { // If only available untill is filled in
             return $now <= $availableUntill;
-        }
-
-        // If both are filled in
-        if ($availableFrom && $availableUntill) {
+        } else { // Both are filled in
             return $now >= $availableFrom && $now <= $availableUntill;
         }
-
-        return false;
     }
 
     /**
@@ -295,13 +286,23 @@ class Event extends PostType
         return $location->first();
     }
 
-    public function mergeFormFields()
+    /**
+     * Should we merge default fields with extra fields
+     *
+     * @return boolean
+     */
+    public function mergeFormFields() : bool
     {
-        return $this->meta()->get('merge_extra_form_fields');
+        return filter_var($this->meta()->get('merge_extra_form_fields'), FILTER_VALIDATE_BOOLEAN);
     }
 
-    public function hideTicketsTitle()
+    /**
+     * Should we hide the title for tickets
+     *
+     * @return boolean
+     */
+    public function hideTicketsTitle() : bool
     {
-        return $this->meta()->get('hide_tickets_title');
+        return filter_var($this->meta()->get('hide_tickets_title'), FILTER_VALIDATE_BOOLEAN);
     }
 }

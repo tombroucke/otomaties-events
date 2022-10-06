@@ -11,7 +11,13 @@ namespace Otomaties\Events;
 
 class Assets
 {
-    public static function find(string $filename)
+    /**
+     * Get full asset url
+     *
+     * @param string $filename
+     * @return string
+     */
+    public static function find(string $filename) : string
     {
         $filename = rtrim(ltrim($filename, '/'), '/');
         $publicPath = plugins_url('public/', dirname(__FILE__));
@@ -29,9 +35,7 @@ class Assets
             && array_key_exists($file_array[1], $themanifest[ $file_array[0] ])
         ) {
             return $publicPath . $manifest->get()[ $file_array[0] ][ $file_array[1] ];
-        } else {
-            return $publicPath . $filename;
         }
-        return $file;
+        return $publicPath . $filename;
     }
 }

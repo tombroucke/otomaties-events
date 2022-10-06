@@ -9,7 +9,7 @@ class Registration extends PostType
     /**
      * Get tickets in registration
      *
-     * @return array
+     * @return array<string, int>
      */
     public function tickets() : array
     {

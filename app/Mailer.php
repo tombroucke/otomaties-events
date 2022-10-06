@@ -7,10 +7,16 @@ use Otomaties\Events\Models\Registration;
 class Mailer
 {
 
-    public function confirmationEmail(Registration $registration)
+    /**
+     * Send confirmation email
+     *
+     * @param Registration $registration
+     * @return boolean
+     */
+    public function confirmationEmail(Registration $registration) : bool
     {
         if (!get_field('otomaties_events_enable_confirmation_email', 'option')) {
-            return;
+            return false;
         }
         $subject = str_replace(
             array_keys(self::mergeTags($registration)),
@@ -36,10 +42,16 @@ class Mailer
         return $this->sendMail($registration->meta()->get('email'), $subject, $message, $headers);
     }
 
-    public function notificationEmail(Registration $registration)
+    /**
+     * Send notification email
+     *
+     * @param Registration $registration
+     * @return boolean
+     */
+    public function notificationEmail(Registration $registration) : bool
     {
         if (!get_field('otomaties_events_enable_notification_email', 'option')) {
-            return;
+            return false;
         }
         $subject = str_replace(
             array_keys(self::mergeTags($registration)),
@@ -82,10 +94,10 @@ class Mailer
      * @param string $to
      * @param string $subject
      * @param string $message
-     * @param array $headers
-     * @return bool Whether the email has been sent
+     * @param array<string, string> $headers
+     * @return boolean Whether the email has been sent
      */
-    private function sendMail(string $to, string $subject, string $message, array $headers = array())
+    private function sendMail(string $to, string $subject, string $message, array $headers = array()) : bool
     {
         ob_start();
         include dirname(__FILE__, 2) . '/views/emails/header.php';
@@ -113,7 +125,13 @@ class Mailer
         return $mailSent;
     }
 
-    public static function mergeTags(Registration $registration = null)
+    /**
+     * Get all merge tags with their value
+     *
+     * @param Registration|null $registration
+     * @return array<string, string>
+     */
+    public static function mergeTags(Registration $registration = null) : array
     {
         return [
             '{first_name}' => $registration ? esc_html($registration->meta()->get('first_name')) : '{first_name}',
@@ -128,14 +146,27 @@ class Mailer
         ];
     }
 
-    public static function ticketTable(array $tickets)
+    /**
+     * Ticket table
+     *
+     * @param array<string, int> $tickets
+     * @return string
+     */
+    public static function ticketTable(array $tickets) : string
     {
         ob_start();
         include dirname(__FILE__, 2) . '/views/emails/ticket-table.php';
         return ob_get_clean();
     }
 
-    public static function customFieldsTable(array $extraFields, Registration $registration)
+    /**
+     * Extra fields table
+     *
+     * @param array<string, mixed> $extraFields
+     * @param Registration $registration
+     * @return string
+     */
+    public static function customFieldsTable(array $extraFields, Registration $registration) : string
     {
         ob_start();
         include dirname(__FILE__, 2) . '/views/emails/custom-fields.php';

@@ -13,8 +13,10 @@ class CustomPostTypes
 
     /**
      * Register post type event
+     *
+     * @return void
      */
-    public function addEvent()
+    public function addEvent() : void
     {
         $postType = 'event';
         $slug = 'events';
@@ -80,7 +82,12 @@ class CustomPostTypes
         );
     }
 
-    public function addEventFields()
+    /**
+     * Add acf fields to event
+     *
+     * @return void
+     */
+    public function addEventFields() : void
     {
         $defaultLocation = get_field('otomaties_events_event_default_location', 'option');
         $event = new FieldsBuilder(
@@ -194,8 +201,10 @@ class CustomPostTypes
 
     /**
      * Register post type registration
+     *
+     * @return void
      */
-    public function addRegistration()
+    public function addRegistration() : void
     {
         $postType = 'registration';
         $slug = 'registrations';
@@ -277,8 +286,10 @@ class CustomPostTypes
 
     /**
      * Register post type location
+     *
+     * @return void
      */
-    public function addLocation()
+    public function addLocation() : void
     {
         $postType = 'location';
         $slug = 'locations';
@@ -308,7 +319,12 @@ class CustomPostTypes
         );
     }
 
-    public function addLocationFields()
+    /**
+     * Add acf fields to location
+     *
+     * @return void
+     */
+    public function addLocationFields() : void
     {
         $location = new FieldsBuilder('location');
         $location
@@ -330,9 +346,9 @@ class CustomPostTypes
      *
      * @param  string $singular_name The singular name for the post type.
      * @param  string $plural_name   The plural name for the post type.
-     * @return array
+     * @return array<string, string>
      */
-    private function postTypeLabels($singular_name, $plural_name)
+    private function postTypeLabels(string $singular_name, string $plural_name) : array
     {
         return [
             'add_new' => __('Add New', 'otomaties-events'),
@@ -456,110 +472,110 @@ class CustomPostTypes
      * @param  string $plural_name   The plural name for the taxonomy.
      * @return array
      */
-    private function taxonomyLabels($singular_name, $plural_name)
-    {
-        return [
-            /* translators: %s: plural taxonomy name */
-            'search_items' => sprintf(
-                __('Search %s', 'otomaties-events'),
-                $plural_name
-            ),
-            /* translators: %s: plural taxonomy name */
-            'popular_items' => sprintf(
-                __('Popular %s', 'otomaties-events'),
-                $plural_name
-            ),
-            /* translators: %s: plural taxonomy name */
-            'all_items' => sprintf(
-                __('All %s', 'otomaties-events'),
-                $plural_name
-            ),
-            /* translators: %s: singular taxonomy name */
-            'parent_item' => sprintf(
-                __('Parent %s', 'otomaties-events'),
-                $singular_name
-            ),
-            /* translators: %s: singular taxonomy name */
-            'parent_item_colon' => sprintf(
-                __('Parent %s:', 'otomaties-events'),
-                $singular_name
-            ),
-            /* translators: %s: singular taxonomy name */
-            'edit_item' => sprintf(
-                __('Edit %s', 'otomaties-events'),
-                $singular_name
-            ),
-            /* translators: %s: singular taxonomy name */
-            'view_item' => sprintf(
-                __('View %s', 'otomaties-events'),
-                $singular_name
-            ),
-            /* translators: %s: singular taxonomy name */
-            'update_item' => sprintf(
-                __('Update %s', 'otomaties-events'),
-                $singular_name
-            ),
-            /* translators: %s: singular taxonomy name */
-            'add_new_item' => sprintf(
-                __('Add New %s', 'otomaties-events'),
-                $singular_name
-            ),
-            /* translators: %s: singular taxonomy name */
-            'new_item_name' => sprintf(
-                __('New %s Name', 'otomaties-events'),
-                $singular_name
-            ),
-            /* translators: %s: plural taxonomy name to lower */
-            'separate_items_with_commas' => sprintf(
-                __('Separate %s with commas', 'otomaties-events'),
-                strtolower($plural_name)
-            ),
-            /* translators: %s: plural taxonomy name to lower */
-            'add_or_remove_items' => sprintf(
-                __('Add or remove %s', 'otomaties-events'),
-                strtolower($plural_name)
-            ),
-            /* translators: %s: plural taxonomy name to lower */
-            'choose_from_most_used' => sprintf(
-                __('Choose from most used %s', 'otomaties-events'),
-                strtolower($plural_name)
-            ),
-            /* translators: %s: plural taxonomy name to lower */
-            'not_found' => sprintf(
-                __('No %s found', 'otomaties-events'),
-                strtolower($plural_name)
-            ),
-            /* translators: %s: plural taxonomy name to lower */
-            'no_terms' => sprintf(
-                __('No %s', 'otomaties-events'),
-                strtolower($plural_name)
-            ),
-            /* translators: %s: plural taxonomy name */
-            'items_list_navigation' => sprintf(
-                __('%s list navigation', 'otomaties-events'),
-                $plural_name
-            ),
-            /* translators: %s: plural taxonomy name */
-            'items_list' => sprintf(
-                __('%s list', 'otomaties-events'),
-                $plural_name
-            ),
-            'most_used' => 'Most Used',
-            /* translators: %s: plural taxonomy name */
-            'back_to_items' => sprintf(
-                __('&larr; Back to %s', 'otomaties-events'),
-                $plural_name
-            ),
-            /* translators: %s: singular taxonomy name to lower */
-            'no_item' => sprintf(
-                __('No %s', 'otomaties-events'),
-                strtolower($singular_name)
-            ),
-            /* translators: %s: singular taxonomy name to lower */
-            'filter_by' => sprintf(
-                __('Filter by %s', 'otomaties-events'),
-                strtolower($singular_name)
-            ),
-        ];
-    }
+    // private function taxonomyLabels($singular_name, $plural_name)
+    // {
+    //     return [
+    //         /* translators: %s: plural taxonomy name */
+    //         'search_items' => sprintf(
+    //             __('Search %s', 'otomaties-events'),
+    //             $plural_name
+    //         ),
+    //         /* translators: %s: plural taxonomy name */
+    //         'popular_items' => sprintf(
+    //             __('Popular %s', 'otomaties-events'),
+    //             $plural_name
+    //         ),
+    //         /* translators: %s: plural taxonomy name */
+    //         'all_items' => sprintf(
+    //             __('All %s', 'otomaties-events'),
+    //             $plural_name
+    //         ),
+    //         /* translators: %s: singular taxonomy name */
+    //         'parent_item' => sprintf(
+    //             __('Parent %s', 'otomaties-events'),
+    //             $singular_name
+    //         ),
+    //         /* translators: %s: singular taxonomy name */
+    //         'parent_item_colon' => sprintf(
+    //             __('Parent %s:', 'otomaties-events'),
+    //             $singular_name
+    //         ),
+    //         /* translators: %s: singular taxonomy name */
+    //         'edit_item' => sprintf(
+    //             __('Edit %s', 'otomaties-events'),
+    //             $singular_name
+    //         ),
+    //         /* translators: %s: singular taxonomy name */
+    //         'view_item' => sprintf(
+    //             __('View %s', 'otomaties-events'),
+    //             $singular_name
+    //         ),
+    //         /* translators: %s: singular taxonomy name */
+    //         'update_item' => sprintf(
+    //             __('Update %s', 'otomaties-events'),
+    //             $singular_name
+    //         ),
+    //         /* translators: %s: singular taxonomy name */
+    //         'add_new_item' => sprintf(
+    //             __('Add New %s', 'otomaties-events'),
+    //             $singular_name
+    //         ),
+    //         /* translators: %s: singular taxonomy name */
+    //         'new_item_name' => sprintf(
+    //             __('New %s Name', 'otomaties-events'),
+    //             $singular_name
+    //         ),
+    //         /* translators: %s: plural taxonomy name to lower */
+    //         'separate_items_with_commas' => sprintf(
+    //             __('Separate %s with commas', 'otomaties-events'),
+    //             strtolower($plural_name)
+    //         ),
+    //         /* translators: %s: plural taxonomy name to lower */
+    //         'add_or_remove_items' => sprintf(
+    //             __('Add or remove %s', 'otomaties-events'),
+    //             strtolower($plural_name)
+    //         ),
+    //         /* translators: %s: plural taxonomy name to lower */
+    //         'choose_from_most_used' => sprintf(
+    //             __('Choose from most used %s', 'otomaties-events'),
+    //             strtolower($plural_name)
+    //         ),
+    //         /* translators: %s: plural taxonomy name to lower */
+    //         'not_found' => sprintf(
+    //             __('No %s found', 'otomaties-events'),
+    //             strtolower($plural_name)
+    //         ),
+    //         /* translators: %s: plural taxonomy name to lower */
+    //         'no_terms' => sprintf(
+    //             __('No %s', 'otomaties-events'),
+    //             strtolower($plural_name)
+    //         ),
+    //         /* translators: %s: plural taxonomy name */
+    //         'items_list_navigation' => sprintf(
+    //             __('%s list navigation', 'otomaties-events'),
+    //             $plural_name
+    //         ),
+    //         /* translators: %s: plural taxonomy name */
+    //         'items_list' => sprintf(
+    //             __('%s list', 'otomaties-events'),
+    //             $plural_name
+    //         ),
+    //         'most_used' => 'Most Used',
+    //         /* translators: %s: plural taxonomy name */
+    //         'back_to_items' => sprintf(
+    //             __('&larr; Back to %s', 'otomaties-events'),
+    //             $plural_name
+    //         ),
+    //         /* translators: %s: singular taxonomy name to lower */
+    //         'no_item' => sprintf(
+    //             __('No %s', 'otomaties-events'),
+    //             strtolower($singular_name)
+    //         ),
+    //         /* translators: %s: singular taxonomy name to lower */
+    //         'filter_by' => sprintf(
+    //             __('Filter by %s', 'otomaties-events'),
+    //             strtolower($singular_name)
+    //         ),
+    //     ];
+    // }
 }
