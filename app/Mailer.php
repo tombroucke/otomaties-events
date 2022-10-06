@@ -39,7 +39,7 @@ class Mailer
             $headers[] = sprintf('Reply-To: %s<%s>', $replyToAddress, $replyToName);
         }
 
-        return $this->sendMail($registration->meta()->get('email'), $subject, $message, $headers);
+        return $this->sendMail($registration->meta()->get('email'), html_entity_decode($subject), $message, $headers);
     }
 
     /**
@@ -75,7 +75,7 @@ class Mailer
             $headers[] = sprintf('Reply-To: %s<%s>', $replyToAddress, $replyToName);
         }
 
-        return $this->sendMail($to, $subject, $message, $headers);
+        return $this->sendMail($to, html_entity_decode($subject), $message, $headers);
     }
 
     /**

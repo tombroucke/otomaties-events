@@ -99,9 +99,9 @@ class Admin
      * @param integer $object_id
      * @param string $meta_key
      * @param boolean $single
-     * @return array<mixed>
+     * @return array<mixed>|null
      */
-    public function formatDateInAdminColumn(mixed $metadata, int $object_id, string $meta_key, bool $single) : array
+    public function formatDateInAdminColumn(mixed $metadata, int $object_id, string $meta_key, bool $single) : ?array
     {
         if (!is_admin() || !function_exists('get_current_screen') || !get_current_screen()) {
             return $metadata;
