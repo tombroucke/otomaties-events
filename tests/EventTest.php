@@ -175,4 +175,29 @@ final class EventTest extends TestCase
     {
         $this->assertEquals(500 - (999 * 4) - (999 * 1), self::$event->freeSpots());
     }
+
+    public function testPostTypeIsCorrect()
+    {
+        $this->assertEquals('event', Event::postType());
+    }
+
+    public function testMergeFormFieldsReturnsBoolean()
+    {
+        $this->assertIsBool(self::$event->mergeFormFields());
+    }
+
+    public function testMergeFormFieldsReturnsFalse()
+    {
+        $this->assertFalse(self::$event->mergeFormFields());
+    }
+
+    public function testHideTicketsTitleReturnsBoolean()
+    {
+        $this->assertIsBool(self::$event->hideTicketsTitle());
+    }
+
+    public function testHideTicketsTitleReturnsTrue()
+    {
+        $this->assertTrue(self::$event->hideTicketsTitle());
+    }
 }

@@ -17,6 +17,9 @@ class WP_Post
         'registration_end' => '12-01-2029 15:00:00',
         'tickets' => ['adult' => 4, 'child' => 1],
         'registration_limit' => 500,
+        'hide_tickets_title' => 1,
+        'merge_extra_form_fields' => 0,
+        'location_information' => 'Location info',
     ];
 
     public function __construct($id = 420)
@@ -45,6 +48,9 @@ function get_post_type(int $postId)
     }
     if (69 == $postId) {
         return 'registration';
+    }
+    if (42 == $postId) {
+        return 'location';
     }
     return 'event';
 }
