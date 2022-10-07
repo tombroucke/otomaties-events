@@ -468,11 +468,11 @@ class CustomPostTypes
     /**
      * Translate taxonomy labels
      *
-     * @param  string $singular_name The singular name for the taxonomy.
-     * @param  string $plural_name   The plural name for the taxonomy.
-     * @return array
+     * @param  string $singular_name The singular name for the post type.
+     * @param  string $plural_name   The plural name for the post type.
+     * @return array<string, string>
      */
-    // private function taxonomyLabels($singular_name, $plural_name)
+    // private function postTypeLabels(string $singular_name, string $plural_name) : array
     // {
     //     return [
     //         /* translators: %s: plural taxonomy name */
