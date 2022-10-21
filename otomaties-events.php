@@ -5,7 +5,7 @@ namespace Otomaties\Events;
 /**
  * Plugin Name:       Otomaties Events
  * Description:       Add event functionality to your website
- * Version:           1.3.0
+ * Version:           1.4.0
  * Author:            Tom Broucke
  * Author URI:        https://tombroucke.be/
  * License:           GPL-2.0+
