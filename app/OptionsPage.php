@@ -22,7 +22,7 @@ class OptionsPage
                 'page_title'    => __('Events settings', 'otomaties-events'),
                 'menu_title'    => __('Events settings', 'otomaties-events'),
                 'menu_slug'     => 'events-settings',
-                'capability'    => 'edit_posts',
+                'capability'    => 'manage_options',
                 'redirect'      => false,
                 'parent_slug'   => 'edit.php?post_type=event'
             )
