@@ -33,6 +33,22 @@ class CustomPostTypes
                 'has_archive' => apply_filters('otomaties_events_has_archive', true),
                 'menu_icon' => 'dashicons-calendar-alt',
                 'supports' => ['title', 'editor', 'author', 'thumbnail', 'revision', 'excerpt'],
+                'map_meta_cap' => true,
+                'capabilities' => apply_filters('otomaties_events_event_capabilities', [
+                    'edit_post' => 'edit_post',
+                    'read_post' => 'read_post',
+                    'delete_post' => 'delete_post',
+                    'edit_posts' => 'edit_posts',
+                    'edit_others_posts' => 'edit_others_posts',
+                    'delete_posts' => 'delete_posts',
+                    'publish_posts' => 'publish_posts',
+                    'read_private_posts' => 'read_private_posts',
+                    'delete_private_posts' => 'delete_private_posts',
+                    'delete_published_posts' => 'delete_published_posts',
+                    'delete_others_posts' => 'delete_others_posts',
+                    'edit_private_posts' => 'edit_private_posts',
+                    'edit_published_posts' => 'edit_published_posts',
+                ]),
                 'admin_cols' => [
                     'event_date' => [
                         'title'  => __('Event date', 'otomaties-events'),
@@ -226,6 +242,22 @@ class CustomPostTypes
                 'show_ui' => true,
                 'show_in_nav_menus' => true,
                 'show_in_menu' => 'edit.php?post_type=event',
+                'map_meta_cap' => true,
+                'capabilities' => apply_filters('otomaties_events_registration_capabilities', [
+                    'edit_post' => 'edit_post',
+                    'read_post' => 'read_post',
+                    'delete_post' => 'delete_post',
+                    'edit_posts' => 'edit_posts',
+                    'edit_others_posts' => 'edit_others_posts',
+                    'delete_posts' => 'delete_posts',
+                    'publish_posts' => 'publish_posts',
+                    'read_private_posts' => 'read_private_posts',
+                    'delete_private_posts' => 'delete_private_posts',
+                    'delete_published_posts' => 'delete_published_posts',
+                    'delete_others_posts' => 'delete_others_posts',
+                    'edit_private_posts' => 'edit_private_posts',
+                    'edit_published_posts' => 'edit_published_posts',
+                ]),
                 'admin_cols' => [
                     'title' => [
                         'title'       => __('Name', 'otomaties-events'),
@@ -310,6 +342,22 @@ class CustomPostTypes
                 'public' => false,
                 'show_ui' => true,
                 'show_in_nav_menus' => true,
+                'map_meta_cap' => true,
+                'capabilities' => apply_filters('otomaties_events_location_capabilities', [
+                    'edit_post' => 'edit_post',
+                    'read_post' => 'read_post',
+                    'delete_post' => 'delete_post',
+                    'edit_posts' => 'edit_posts',
+                    'edit_others_posts' => 'edit_others_posts',
+                    'delete_posts' => 'delete_posts',
+                    'publish_posts' => 'publish_posts',
+                    'read_private_posts' => 'read_private_posts',
+                    'delete_private_posts' => 'delete_private_posts',
+                    'delete_published_posts' => 'delete_published_posts',
+                    'delete_others_posts' => 'delete_others_posts',
+                    'edit_private_posts' => 'edit_private_posts',
+                    'edit_published_posts' => 'edit_published_posts',
+                ]),
             ],
             [
                 'singular' => $postSingularName,
@@ -468,11 +516,11 @@ class CustomPostTypes
     /**
      * Translate taxonomy labels
      *
-     * @param  string $singular_name The singular name for the post type.
-     * @param  string $plural_name   The plural name for the post type.
+     * @param  string $singular_name The singular name for the taxonomy.
+     * @param  string $plural_name   The plural name for the taxonomy.
      * @return array<string, string>
      */
-    // private function postTypeLabels(string $singular_name, string $plural_name) : array
+    // private function taxonomyLabels($singular_name, $plural_name)
     // {
     //     return [
     //         /* translators: %s: plural taxonomy name */
