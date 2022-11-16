@@ -5,7 +5,6 @@ namespace Otomaties\Events;
 use DateTime;
 use Otomaties\Events\Models\Event;
 use Otomaties\Events\Models\Registration;
-use Otomaties\Events\Models\TicketType;
 
 /**
  * The admin-specific functionality of the plugin.
@@ -299,7 +298,7 @@ class Admin
         $eventId = filter_input(INPUT_GET, 'event_id', FILTER_SANITIZE_NUMBER_INT);
 
         if ('registration' == $postType && $eventId) {
-            $path = sprintf('edit.php?post_type=registration&event_id=event_%s&action=export', $eventId);
+            $path = sprintf('edit.php?post_type=registration&event_id=event_%s&action=export', esc_html($eventId));
             ?>
             <a class="button button-primary" href="<?php echo admin_url($path); ?>">
                 <?php _e('Export', 'otomaties-events'); ?>

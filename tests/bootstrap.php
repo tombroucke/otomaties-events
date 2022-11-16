@@ -66,11 +66,9 @@ function get_option(string $option, $default = false)
     switch ($option) {
         case 'date_format':
             return 'j F Y';
-            break;
 
         case 'time_format':
             return 'H:i';
-            break;
     }
     return false;
 }
@@ -93,7 +91,6 @@ function get_field(string $selector, $postid, bool $format = true)
                     "registration_limit" => ""
                 ]
             ];
-            break;
         case 'extra_fields':
             return [
                 [
