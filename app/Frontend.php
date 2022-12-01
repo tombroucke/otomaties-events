@@ -107,7 +107,7 @@ class Frontend
         $meta_query = array_filter((array)$query->get('meta_query'));
         if (!$query->get('event_scope') || $query->get('event_scope') == '') {
             $meta_query[] = array(
-                'relation' => 'AND',
+                'relation' => 'OR',
                 array(
                     'relation' => 'OR',
                     array(
@@ -123,6 +123,19 @@ class Frontend
                         'key' => 'date',
                         'value'=> '',
                     )
+                ),
+                array(
+                    'relation' => 'AND',
+                    array(
+                        'key' => 'date',
+                        'value' => date('Ymd'),
+                        'compare' => '<='
+                    ),
+                    array(
+                        'key' => 'date_to',
+                        'value' => date('Ymd'),
+                        'compare' => '>='
+                    ),
                 )
             );
 
@@ -130,7 +143,6 @@ class Frontend
             $query->set('orderby', array( 'meta_value' => 'ASC' ));
         } else {
             $meta_query[] = array(
-                'relation' => 'AND',
                 array(
                     'relation' => 'OR',
                     array(
