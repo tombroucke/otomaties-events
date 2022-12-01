@@ -94,7 +94,7 @@ class Mailer
      * @param string $to
      * @param string $subject
      * @param string $message
-     * @param array<string, string> $headers
+     * @param array<int, string> $headers
      * @return boolean Whether the email has been sent
      */
     private function sendMail(string $to, string $subject, string $message, array $headers = array()) : bool
