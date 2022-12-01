@@ -1,5 +1,4 @@
 import Polyglot from 'node-polyglot';
-import '../scss/main.scss';
 import FormValidator from '@tombroucke/otomaties-form-validator';
 /* global oeVars:true */
 
