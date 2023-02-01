@@ -100,12 +100,21 @@ class Frontend
      */
     public function hidePastEvents(\WP_Query $query) : void
     {
+        ;
         if ($query->get('post_type') != 'event' || is_admin()) {
             return;
         }
         
         $meta_query = array_filter((array)$query->get('meta_query'));
-        if (!$query->get('event_scope') || $query->get('event_scope') == '') {
+        $scope = $query->get('event_scope') == '' ? 'future' : $query->get('event_scope');
+
+        $query->set('meta_key', 'date');
+        $query->set('orderby', array( 'meta_value' => 'ASC' ));
+
+        if (apply_filters('otomaties_events_show_past_events', false)) {
+            return;
+        }
+        if ($scope == 'future') {
             $meta_query[] = array(
                 'relation' => 'OR',
                 array(
@@ -138,10 +147,7 @@ class Frontend
                     ),
                 )
             );
-
-            $query->set('meta_key', 'date');
-            $query->set('orderby', array( 'meta_value' => 'ASC' ));
-        } else {
+        } elseif ($scope == 'past') {
             $meta_query[] = array(
                 array(
                     'relation' => 'OR',
