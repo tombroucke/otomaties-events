@@ -1,8 +1,12 @@
 <?php do_action('otomaties_events_before_registration_form'); ?>
 <form action="<?php echo admin_url('admin-post.php'); ?>" method="POST"
     class="form-event-registration js-form-event-registration">
-    <h2><?php echo apply_filters('otomaties_events_string_register', __('Register', 'otomaties-events')); ?></h2>
-    <h3><?php echo apply_filters('otomaties_events_string_personal_details', __('Personal details', 'otomaties-events')); ?></h3><?php // phpcs:ignore Generic.Files.LineLength ?>
+    <?php if (apply_filters('otomaties_events_registration_form_show_title', true)) : ?>
+        <h2><?php echo apply_filters('otomaties_events_string_register', __('Register', 'otomaties-events')); ?></h2>
+    <?php endif; ?>
+    <?php if (apply_filters('otomaties_events_registration_form_show_subtitle', true)) : ?>
+        <h3><?php echo apply_filters('otomaties_events_string_personal_details', __('Personal details', 'otomaties-events')); ?></h3><?php // phpcs:ignore Generic.Files.LineLength ?>
+    <?php endif; ?>
     <div class="<?php echo apply_filters('otomaties_events_section_class', 'row g-3 mb-5'); ?>">
         <?php if ($event->showField('first_name')) : ?>
             <div class="<?php echo apply_filters('otomaties_events_input_container_class', 'col-md-6'); ?>">
