@@ -134,10 +134,16 @@ class Admin
     public function register() : void
     {
         
-        $firstName = sanitize_text_field($_POST['first_name']);
-        $lastName = sanitize_text_field($_POST['last_name']);
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $phone = sanitize_text_field($_POST['phone']);
+        $eventId = filter_input(INPUT_POST, 'event_id', FILTER_SANITIZE_NUMBER_INT);
+        $event = Event::find($eventId)->first();
+        if (!$event) {
+            return;
+        }
+
+        $firstName = $event->showField('first_name') ? sanitize_text_field($_POST['first_name']) : null;
+        $lastName = $event->showField('last_name') ? sanitize_text_field($_POST['last_name']) : null;
+        $email = $event->showField('email') ? filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL) : null;
+        $phone = $event->showField('phone') ? sanitize_text_field($_POST['phone']) : null;
         $tickets = isset($_POST['ticket']) ? $_POST['ticket'] : [];
         foreach ($tickets as $key => $ticket) {
             $tickets[esc_attr($key)] = filter_var((int)$ticket, FILTER_SANITIZE_NUMBER_INT);
@@ -148,7 +154,6 @@ class Admin
                 $extraFields[esc_attr($key)] = sanitize_text_field($value);
             }
         }
-        $eventId = filter_input(INPUT_POST, 'event_id', FILTER_SANITIZE_NUMBER_INT);
         $registrationNonce = sanitize_title($_POST['registration_nonce']);
         $redirect = strtok($_SERVER['HTTP_REFERER'], '?');
 
@@ -163,8 +168,6 @@ class Admin
         }
 
         $errors = [];
-
-        $event = new Event($eventId);
 
         if (!$event->registrationsOpen()) {
             $errors[] = __('We\'re sorry, registrations are closed.', 'otomaties-events');

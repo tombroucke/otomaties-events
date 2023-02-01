@@ -1,6 +1,7 @@
 <?php //phpcs:ignore
 namespace Otomaties\Events;
 
+use Otomaties\Events\Models\Event;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 /**
@@ -166,6 +167,13 @@ class OptionsPage
                 'default_value' => __("Hi,\n\nThere is a new registration for {event} on {event_date}.\n\nName: {first_name} {last_name}\nEmail: {email}\nPhone: {phone}\nCustom fields: \n{custom_fields}\n\n<h3>Tickets:</h3>\n{ticket_table}\n\nKind regards", 'otomaties-events')// phpcs:ignore Generic.Files.LineLength
             ])
             ->addAccordion('notification_email_end')->endpoint()
+            ->addTab('registration_form', [
+                'label' => __('Registration form', 'otomaties-events')
+            ])
+            ->addCheckbox('otomaties_events_disable_default_fields', [
+                'label' => __('Disable form fields by default', 'otomaties-events'),
+                'choices' => Event::defaultFields(),
+            ])
             ->setLocation('options_page', '==', 'events-settings');
         acf_add_local_field_group($eventsSettings->build());
     }

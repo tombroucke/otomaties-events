@@ -305,4 +305,19 @@ class Event extends PostType
     {
         return filter_var($this->meta()->get('hide_tickets_title'), FILTER_VALIDATE_BOOLEAN);
     }
+
+    public function showField(string $field) : bool
+    {
+        $hideDefaultFields = $this->meta()->get('disable_default_fields') ?: [];
+        return !in_array($field, $hideDefaultFields);
+    }
+
+    public static function defaultFields() {
+        return [
+            'first_name' => __('First name', 'otomaties-events'),
+            'last_name' => __('Last name', 'otomaties-events'),
+            'email' => __('Email', 'otomaties-events'),
+            'phone' => __('Phone', 'otomaties-events'),
+        ];
+    }
 }

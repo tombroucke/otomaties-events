@@ -195,7 +195,15 @@ class CustomPostTypes
                 ->addTrueFalse('required', [
                     'label' => __('Required', 'otomaties-events'),
                 ])
-            ->endRepeater()
+            ->endRepeater();
+
+        $event->addCheckbox('disable_default_fields', [
+            'label' => __('Disable form fields', 'otomaties-events'),
+            'choices' => Event::defaultFields(),
+            'default_value' => get_field('otomaties_events_disable_default_fields', 'option'),
+        ]);
+
+        $event
             ->addTrueFalse('merge_extra_form_fields', [
                 'label' => __('Merge extra registration form fields', 'otomaties-events'),
                 'default_value' => get_field('otomaties_events_default_merge_extra_form_fields', 'option'),
