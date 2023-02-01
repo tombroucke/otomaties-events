@@ -75,13 +75,14 @@
     <?php endif; ?>
     <?php foreach ($event->ticketTypes() as $ticket) : ?>
         <?php if ($ticket->isAvailable()) : ?>
+            <?php $ticketLabel = apply_filters('otomaties_events_string_ticket_label', $ticket->title() . ' ' . $ticket->priceHtml('(', ')'), $ticket); ?>
             <div class="col-12">
                 <div class="input-group">
                     <span class="input-group-text"
-                        id="ticket_<?php echo $ticket->slug() ?>"><?php esc_html_e($ticket->title()); ?> <?php echo $ticket->priceHtml('(', ')'); ?></span><?php // phpcs:ignore Generic.Files.LineLength ?>
+                        id="ticket_<?php echo $ticket->slug() ?>"><?php esc_html_e($ticketLabel); ?></span><?php // phpcs:ignore Generic.Files.LineLength ?>
                     <input type="number" min="0" max="<?php echo $ticket->availableTickets(); ?>"
                         class="<?php esc_attr_e(apply_filters('otomaties_events_input_class', 'form-control')); ?>"
-                        name="ticket[<?php esc_html_e($ticket->slug()); ?>]" placeholder="0"
+                        name="ticket[<?php esc_html_e($ticket->slug()); ?>]" placeholder="<?php echo apply_filters('otomaties_events_string_ticket_amount_placeholder', 0, $ticket); ?>"
                         aria-label="<?php esc_html_e($ticket->title()); ?>"
                         aria-describedby="ticket_<?php esc_html_e($ticket->slug()); ?>">
                 </div>
