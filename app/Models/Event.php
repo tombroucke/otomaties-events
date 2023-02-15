@@ -312,7 +312,13 @@ class Event extends PostType
         return !in_array($field, $hideDefaultFields);
     }
 
-    public static function defaultFields() {
+    /**
+     * Default form fields
+     *
+     * @return array<string, string>
+     */
+    public static function defaultFields() : array
+    {
         return [
             'first_name' => __('First name', 'otomaties-events'),
             'last_name' => __('Last name', 'otomaties-events'),
