@@ -41,7 +41,7 @@ function init()
         add_action('admin_notices', function () {
             ?>
             <div class="notice notice-error">
-                <p><?php _e('<strong>Otomaties events</strong> is inactive. Please install & activate <strong>Advanced Custom Fields Pro</strong>.', 'otomaties-jobs') ?></p>
+                <p><?php _e('<strong>Otomaties events</strong> is inactive. Please install & activate <strong>Advanced Custom Fields Pro</strong>.', 'otomaties-events') ?></p>
             </div>
             <?php
         });
