@@ -26,8 +26,8 @@ class CustomPostTypes
         register_extended_post_type(
             $postType,
             [
-                'show_in_feed' => true,
-                'show_in_rest' => true,
+                'show_in_feed' => apply_filters('otomaties_events_show_in_feed', true),
+                'show_in_rest' => apply_filters('otomaties_events_show_in_rest', true),
                 'labels' => $this->postTypeLabels($postSingularName, $postPluralName),
                 'dashboard_activity' => true,
                 'has_archive' => apply_filters('otomaties_events_has_archive', true),
