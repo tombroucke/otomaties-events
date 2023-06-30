@@ -52,56 +52,57 @@
                     value="<?php esc_html_e($user->user_phone); ?>" required>
             </div>
         <?php endif; ?>
-    <?php if (!$event->mergeFormFields() || empty($event->extraFormFields())) : ?>
-    </div>
+    
+    <?php if (!$event->mergeFormFields()) : ?>
+        </div>
+        <div class="<?php echo apply_filters('otomaties_events_section_class', 'row g-3 mb-5'); ?>">
     <?php endif; ?>
     <?php if (!empty($event->extraFormFields())) : ?>
         <?php if (!$event->mergeFormFields()) : ?>
             <h3><?php echo apply_filters('otomaties_events_string_extra_information', __('Extra information', 'otomaties-events')); ?></h3><?php // phpcs:ignore Generic.Files.LineLength ?>
-            <div class="<?php echo apply_filters('otomaties_events_section_class', 'row g-3 mb-5'); ?>">
         <?php endif; ?>
         <?php foreach ($event->extraFormFields() as $extraFormField) : ?>
         <div class="col-12">
             <?php $extraFormField->render(); ?>
         </div>
         <?php endforeach; ?>
-        <?php if (!$event->hideTicketsTitle()) : ?>
-            </div>
-        <?php endif; ?>
     <?php endif; ?>
+    </div>
     <?php if (!$event->hideTicketsTitle()) : ?>
         <h3><?php echo apply_filters('otomaties_events_string_personal_tickets', __('Tickets', 'otomaties-events')); ?></h3><?php // phpcs:ignore Generic.Files.LineLength ?>
-        <div class="<?php echo apply_filters('otomaties_tickets_section_class', 'row g-3 mb-5'); ?>">
-    <?php endif; ?>
-    <?php foreach ($event->ticketTypes() as $ticket) : ?>
-        <?php if ($ticket->isAvailable()) : ?>
-            <?php
-                $ticketLabel = apply_filters(
-                    'otomaties_events_string_ticket_label',
-                    $ticket->title() . ' ' . $ticket->priceHtml('(', ')'),
-                    $ticket
-                );
-                $ticketAmountPlaceholder = apply_filters(
-                    'otomaties_events_string_ticket_amount_placeholder',
-                    0,
-                    $ticket
-                );
-            ?>
-            <div class="col-12">
-                <div class="input-group">
-                    <span class="input-group-text"
-                        id="ticket_<?php echo $ticket->slug() ?>"><?php esc_html_e($ticketLabel); ?></span><?php // phpcs:ignore Generic.Files.LineLength ?>
-                    <input type="number" min="0" max="<?php echo $ticket->availableTickets(); ?>"
-                        class="<?php esc_attr_e(apply_filters('otomaties_events_input_class', 'form-control')); ?>"
-                        name="ticket[<?php esc_html_e($ticket->slug()); ?>]" 
-                        placeholder="<?php echo $ticketAmountPlaceholder; ?>"
-                        aria-label="<?php esc_html_e($ticket->title()); ?>"
-                        aria-describedby="ticket_<?php esc_html_e($ticket->slug()); ?>">
-                </div>
-            </div>
         <?php endif; ?>
-    <?php endforeach; ?>
-    </div>
+    <?php if (count($event->ticketTypes()) > 0): ?>
+        <div class="<?php echo apply_filters('otomaties_tickets_section_class', 'row g-3 mb-5'); ?>">
+        <?php foreach ($event->ticketTypes() as $ticket) : ?>
+            <?php if ($ticket->isAvailable()) : ?>
+                <?php
+                    $ticketLabel = apply_filters(
+                        'otomaties_events_string_ticket_label',
+                        $ticket->title() . ' ' . $ticket->priceHtml('(', ')'),
+                        $ticket
+                    );
+                    $ticketAmountPlaceholder = apply_filters(
+                        'otomaties_events_string_ticket_amount_placeholder',
+                        0,
+                        $ticket
+                    );
+                ?>
+                <div class="col-12">
+                    <div class="input-group">
+                        <span class="input-group-text"
+                            id="ticket_<?php echo $ticket->slug() ?>"><?php esc_html_e($ticketLabel); ?></span><?php // phpcs:ignore Generic.Files.LineLength ?>
+                        <input type="number" min="0" max="<?php echo $ticket->availableTickets(); ?>"
+                            class="<?php esc_attr_e(apply_filters('otomaties_events_input_class', 'form-control')); ?>"
+                            name="ticket[<?php esc_html_e($ticket->slug()); ?>]" 
+                            placeholder="<?php echo $ticketAmountPlaceholder; ?>"
+                            aria-label="<?php esc_html_e($ticket->title()); ?>"
+                            aria-describedby="ticket_<?php esc_html_e($ticket->slug()); ?>">
+                    </div>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
     <input type="hidden" name="action" value="event_registration" />
     <input type="hidden" name="event_id" value="<?php esc_attr_e($event->getId()); ?>" />
     <?php wp_nonce_field('register_for_' . get_the_ID(), 'registration_nonce'); ?>
