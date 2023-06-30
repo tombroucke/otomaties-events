@@ -61,8 +61,5 @@ module.exports = (env, argv) => ({
 		port: 3000,
 		proxy: 'https://wervel.local',
 	}),
-	],
-	externals: {
-		jquery: 'jQuery'
-	}
+	]
 });

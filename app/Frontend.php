@@ -77,7 +77,7 @@ class Frontend
          */
 
         if (is_singular('event')) {
-            wp_enqueue_script($this->pluginName, Assets::find('js/main.js'), array( 'jquery' ), null);
+            wp_enqueue_script($this->pluginName, Assets::find('js/main.js'), [], null);
             wp_localize_script($this->pluginName, 'oeVars', [
                 'strings' => [
                     'validator' => [
