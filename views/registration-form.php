@@ -68,7 +68,7 @@
         <?php endforeach; ?>
     <?php endif; ?>
     </div>
-    <?php if (!$event->hideTicketsTitle()) : ?>
+    <?php if (!apply_filters('otomaties_events_hide_tickets_title', $event->hideTicketsTitle())) : ?>
         <h3><?php echo apply_filters('otomaties_events_string_personal_tickets', __('Tickets', 'otomaties-events')); ?></h3><?php // phpcs:ignore Generic.Files.LineLength ?>
         <?php endif; ?>
     <?php if (count($event->ticketTypes()) > 0): ?>
