@@ -123,6 +123,7 @@ class CustomPostTypes
             ])
             ->addTimePicker('time', [
                 'label' => __('Time', 'otomaties-events'),
+                'display_format' => get_option('time_format'),
             ])
             ->addDatePicker('date_to', [
                 'label' => __('Date to', 'otomaties-events'),
@@ -130,6 +131,7 @@ class CustomPostTypes
             ])
             ->addTimePicker('time_to', [
                 'label' => __('Time to', 'otomaties-events'),
+                'display_format' => get_option('time_format'),
             ])
             ->addPostObject('location', [
                 'label' => __('Location', 'otomaties-events'),
@@ -170,6 +172,10 @@ class CustomPostTypes
                 ])
                 ->addNumber('registration_limit', [
                     'label' => __('Total sales limit for this ticket', 'otomaties-events'),
+                    'instructions' => __('Leave empty to disable', 'otomaties-events'),
+                ])
+                ->addNumber('default_value', [
+                    'label' => __('Default value', 'otomaties-events'),
                     'instructions' => __('Leave empty to disable', 'otomaties-events'),
                 ])
             ->endRepeater()
@@ -275,14 +281,21 @@ class CustomPostTypes
                         'function' => function () {
                             $registration = new Registration(get_the_ID());
                             $event = $registration->event();
-                            
                             if ($event) {
-                                echo sprintf(
-                                    '<a href="%s">%s %s</a>',
-                                    get_edit_post_link($event->getId()),
-                                    esc_html($event->title()),
-                                    $event->eventDate()->format(get_option('date_format'))
-                                );
+                                if ($event->eventDate()) {
+                                    echo sprintf(
+                                        '<a href="%s">%s %s</a>',
+                                        get_edit_post_link($event->getId()),
+                                        esc_html($event->title()),
+                                        $event->eventDate()->format(get_option('date_format'))
+                                    );
+                                } else {
+                                    echo sprintf(
+                                        '<a href="%s">%s</a>',
+                                        get_edit_post_link($event->getId()),
+                                        esc_html($event->title())
+                                    );
+                                }
                             } else {
                                 echo __('Deleted event', 'otomaties-events');
                             }

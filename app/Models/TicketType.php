@@ -29,9 +29,9 @@ class TicketType
      * @param string $key
      * @return string|integer
      */
-    public function get(string $key) : string|int
+    public function get(string $key) : string|int|null
     {
-        return $this->ticket[$key] ?? null;
+        return isset($this->ticket[$key]) && $this->ticket[$key] != '' ? $this->ticket[$key] : null;
     }
 
     /**
@@ -47,12 +47,12 @@ class TicketType
     /**
      * Ticket price
      *
-     * @return integer|null
+     * @return float|null
      */
-    public function price() : ?int
+    public function price() : ?float
     {
         $price = $this->get('price');
-        return $price !== '' ? (int)$price : null;
+        return $price !== '' ? (float)$price : null;
     }
 
     /**
@@ -99,6 +99,21 @@ class TicketType
         return $this->get('registration_limit') ?: 9999999;
     }
 
+    public function defaultValue() : ?int
+    {
+        return min(
+            $this->get('default_value'),
+            $this->registrationLimit(),
+            $this->ticketLimitPerRegistration(),
+            $this->availableTickets()
+        );
+    }
+
+    public function hasGuests() : bool
+    {
+        return $this->ticketLimitPerRegistration() != 1;
+    }
+
     /**
      * Get ticket slug
      *
@@ -138,7 +153,10 @@ class TicketType
     {
         $eventFreeSpots = $this->event->freeSpots();
         $ticketLimit = $this->registrationLimit() - $this->soldTickets();
-        return min($eventFreeSpots, $ticketLimit);
+        return min(
+            $eventFreeSpots,
+            $ticketLimit
+        );
     }
 
     /**

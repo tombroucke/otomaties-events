@@ -313,6 +313,17 @@ class Event extends PostType
     }
 
     /**
+     * Check if there is only one ticket type, and that type can only register one person
+     *
+     * @return boolean
+     */
+    public function isUniqueRegistration() : bool
+    {
+        $availableTicketTypes = $this->availableTicketTypes();
+        return count($availableTicketTypes) == 1 && !$availableTicketTypes[0]->hasGuests();
+    }
+
+    /**
      * Default form fields
      *
      * @return array<string, string>

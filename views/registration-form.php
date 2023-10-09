@@ -70,37 +70,44 @@
     </div>
     <?php if (!apply_filters('otomaties_events_hide_tickets_title', $event->hideTicketsTitle())) : ?>
         <h3><?php echo apply_filters('otomaties_events_string_personal_tickets', __('Tickets', 'otomaties-events')); ?></h3><?php // phpcs:ignore Generic.Files.LineLength ?>
-        <?php endif; ?>
-    <?php if (count($event->ticketTypes()) > 0): ?>
-        <div class="<?php echo apply_filters('otomaties_tickets_section_class', 'row g-3 mb-5'); ?>">
-        <?php foreach ($event->ticketTypes() as $ticket) : ?>
-            <?php if ($ticket->isAvailable()) : ?>
-                <?php
-                    $ticketLabel = apply_filters(
-                        'otomaties_events_string_ticket_label',
-                        $ticket->title() . ' ' . $ticket->priceHtml('(', ')'),
-                        $ticket
-                    );
-                    $ticketAmountPlaceholder = apply_filters(
-                        'otomaties_events_string_ticket_amount_placeholder',
-                        0,
-                        $ticket
-                    );
-                ?>
-                <div class="col-12">
-                    <div class="input-group">
-                        <span class="input-group-text"
-                            id="ticket_<?php echo $ticket->slug() ?>"><?php esc_html_e($ticketLabel); ?></span><?php // phpcs:ignore Generic.Files.LineLength ?>
-                        <input type="number" min="0" max="<?php echo $ticket->availableTickets(); ?>"
-                            class="<?php esc_attr_e(apply_filters('otomaties_events_input_class', 'form-control')); ?>"
-                            name="ticket[<?php esc_html_e($ticket->slug()); ?>]" 
-                            placeholder="<?php echo $ticketAmountPlaceholder; ?>"
-                            aria-label="<?php esc_html_e($ticket->title()); ?>"
-                            aria-describedby="ticket_<?php esc_html_e($ticket->slug()); ?>">
+    <?php endif; ?>
+    <?php if (count($event->ticketTypes()) > 0) : ?>
+        <?php
+        $classes = 'row g-3 mb-5 event-tickets';
+        if ($event->isUniqueRegistration()) {
+            $classes .= ' event-tickets--unique-registration';
+        }
+        ?>
+        <div class="<?php echo apply_filters('otomaties_tickets_section_class', $classes); ?>">
+            <?php foreach ($event->ticketTypes() as $ticket) : ?>
+                <?php if ($ticket->isAvailable()) : ?>
+                    <?php
+                        $ticketLabel = apply_filters(
+                            'otomaties_events_string_ticket_label',
+                            $ticket->title() . ' ' . $ticket->priceHtml('(', ')'),
+                            $ticket
+                        );
+                        $ticketAmountPlaceholder = apply_filters(
+                            'otomaties_events_string_ticket_amount_placeholder',
+                            0,
+                            $ticket
+                        );
+                    ?>
+                    <div class="col-12">
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                id="ticket_<?php echo $ticket->slug() ?>"><?php esc_html_e($ticketLabel); ?></span><?php // phpcs:ignore Generic.Files.LineLength ?>
+                            <input type="number" min="0" max="<?php echo min($ticket->registrationLimit(), $ticket->ticketLimitPerRegistration(), $ticket->availableTickets()); ?>"<?php // phpcs:ignore Generic.Files.LineLength ?>
+                                class="<?php esc_attr_e(apply_filters('otomaties_events_input_class', 'form-control')); ?>"<?php // phpcs:ignore Generic.Files.LineLength ?>
+                                name="ticket[<?php esc_html_e($ticket->slug()); ?>]" 
+                                value="<?php echo $event->isUniqueRegistration() ? '1' : esc_html($ticket->defaultValue()); ?>"<?php // phpcs:ignore Generic.Files.LineLength ?>
+                                placeholder="<?php echo $ticketAmountPlaceholder; ?>"
+                                aria-label="<?php esc_html_e($ticket->title()); ?>"
+                                aria-describedby="ticket_<?php esc_html_e($ticket->slug()); ?>">
+                        </div>
                     </div>
-                </div>
-            <?php endif; ?>
-        <?php endforeach; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </div>
     <?php endif; ?>
     <input type="hidden" name="action" value="event_registration" />
