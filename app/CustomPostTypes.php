@@ -183,7 +183,8 @@ class CustomPostTypes
                 'label' => __('Registration form', 'otomaties-events')
             ])
             ->addRepeater('extra_fields', [
-                'label' => __('Extra form fields', 'otomaties-events')
+                'label' => __('Extra form fields', 'otomaties-events'),
+                'layout' => 'block',
             ])
                 ->addSelect('field_type', [
                     'label' => __('Field type', 'otomaties-events'),
@@ -191,6 +192,7 @@ class CustomPostTypes
                         'text' => __('Text', 'otomaties-events'),
                         'textarea' => __('Textarea', 'otomaties-events'),
                         'number' => __('Number', 'otomaties-events'),
+                        'select' => __('Select', 'otomaties-events'),
                     ],
                     'required' => true
                 ])
@@ -198,6 +200,23 @@ class CustomPostTypes
                     'label' => __('Label', 'otomaties-events'),
                     'required' => true
                 ])
+                ->addRepeater('options', [
+                    'label' => __('Options', 'otomaties-events'),
+                    'conditional_logic' => [
+                        'field' => 'field_type',
+                        'operator' => '==',
+                        'value' => 'select'
+                    ]
+                ])
+                    ->addText('key', [
+                        'label' => __('key', 'otomaties-events'),
+                        'required' => true
+                    ])
+                    ->addText('label', [
+                        'label' => __('Value', 'otomaties-events'),
+                        'required' => true
+                    ])
+                ->endRepeater()
                 ->addTrueFalse('required', [
                     'label' => __('Required', 'otomaties-events'),
                 ])

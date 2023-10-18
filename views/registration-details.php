@@ -20,8 +20,12 @@
         <?php foreach ($registration->meta()->get('extra_fields') as $fieldName => $value) : ?>
             <?php $extraField = $registration->event()->extraFormField($fieldName); ?>
             <tr>
-                <th><?php echo $extraField ? esc_html($extraField->label()) : esc_html($fieldName); ?></th>
-                <td><?php echo esc_html($value); ?></td>
+                <?php
+                    $fieldLabel = $extraField ? $extraField->label() : $fieldName;
+                    $value = $extraField->optionValue($value) ? $extraField->optionValue($value) : $value;
+                ?>
+                <th><?php esc_html_e($fieldLabel); ?></th>
+                <td><?php esc_html_e($value); ?></td>
             </tr>
         <?php endforeach; ?>
     <?php endif; ?>
