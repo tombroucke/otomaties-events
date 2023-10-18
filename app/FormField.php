@@ -137,6 +137,9 @@ class FormField
                     apply_filters('otomaties_events_input_class', 'form-select'),
                     $this->required ? 'required' : ''
                 );
+
+                $output .= sprintf('<option value="">%s</option>', __('Select an option', 'otomaties-events'));
+
                 foreach ($this->options() as $option) {
                     $output .= sprintf(
                         '<option value="%s">%s</option>',
