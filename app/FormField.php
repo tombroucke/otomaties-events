@@ -28,7 +28,7 @@ class FormField
     /**
     * Form field options
     *
-    * @var array<string, string>
+    * @var array<string, array<string, string>>
     */
     private array $options;
     
@@ -95,13 +95,19 @@ class FormField
     /**
     * Get field options
     *
-    * @return array<string, string>
+    * @return array<string, array<string, string>>
     */
     public function options() : array
     {
         return $this->options;
     }
     
+    /**
+     * Get option value
+     *
+     * @param string $key
+     * @return string|null
+     */
     public function optionValue(string $key) : ?string
     {
         $options = $this->options();
@@ -129,7 +135,7 @@ class FormField
             );
         }
         
-        switch($this->type) {
+        switch ($this->type) {
             case 'select':
                 $output .= sprintf(
                     '<select name="extra_fields[%s]" class="%s" %s>',
@@ -137,9 +143,9 @@ class FormField
                     apply_filters('otomaties_events_input_class', 'form-select'),
                     $this->required ? 'required' : ''
                 );
-
+                
                 $output .= sprintf('<option value="">%s</option>', __('Select an option', 'otomaties-events'));
-
+                
                 foreach ($this->options() as $option) {
                     $output .= sprintf(
                         '<option value="%s">%s</option>',
@@ -149,28 +155,27 @@ class FormField
                 }
                 $output .= '</select>';
                 break;
-                case 'textarea':
-                    $output .= sprintf(
-                        '<textarea name="extra_fields[%s]" class="%s" placeholder="%s" %s></textarea>',
-                        $this->slug(),
-                        apply_filters('otomaties_events_input_class', 'form-control'),
-                        $this->label,
-                        $this->required ? 'required' : ''
-                    );
-                    break;
+            case 'textarea':
+                $output .= sprintf(
+                    '<textarea name="extra_fields[%s]" class="%s" placeholder="%s" %s></textarea>',
+                    $this->slug(),
+                    apply_filters('otomaties_events_input_class', 'form-control'),
+                    $this->label,
+                    $this->required ? 'required' : ''
+                );
+                break;
                     
-                    default:
-                    $output .= sprintf(
-                        '<input type="%s" class="%s" placeholder="%s" name="extra_fields[%s]" %s>',
-                        $this->type,
-                        apply_filters('otomaties_events_input_class', 'form-control'),
-                        $this->label,
-                        $this->slug(),
-                        $this->required ? 'required' : ''
-                    );
-                    break;
-                }
-                echo apply_filters('otomaties_events_form_field', $output, $this);
-            }
+            default:
+                $output .= sprintf(
+                    '<input type="%s" class="%s" placeholder="%s" name="extra_fields[%s]" %s>',
+                    $this->type,
+                    apply_filters('otomaties_events_input_class', 'form-control'),
+                    $this->label,
+                    $this->slug(),
+                    $this->required ? 'required' : ''
+                );
+                break;
         }
-        
+                echo apply_filters('otomaties_events_form_field', $output, $this);
+    }
+}

@@ -4,7 +4,7 @@
         <td class="attributes_content">
             <ul style="margin-bottom: 0; margin-top: 0;">
             <?php foreach ($extraFields as $fieldName => $value) : ?>
-                <?php 
+                <?php
                     $extraField = $registration->event()->extraFormField($fieldName);
                     $fieldLabel = $extraField ? $extraField->label() : $fieldName;
                     $value = $extraField->optionValue($value) ? $extraField->optionValue($value) : $value;
@@ -16,4 +16,3 @@
     </tr>
 </table>
 <?php endif; ?>
-
