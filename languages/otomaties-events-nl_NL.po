@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Otomaties Events\n"
-"POT-Creation-Date: 2023-02-01 12:22+0100\n"
-"PO-Revision-Date: 2023-10-24 16:34+0200\n"
+"POT-Creation-Date: 2023-10-25 12:15+0200\n"
+"PO-Revision-Date: 2023-10-25 12:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -47,8 +47,8 @@ msgstr "Details"
 msgid "Export"
 msgstr "Exporteren"
 
-#: app/CustomPostTypes.php:23 app/CustomPostTypes.php:274
-#: app/CustomPostTypes.php:307
+#: app/CustomPostTypes.php:23 app/CustomPostTypes.php:299
+#: app/CustomPostTypes.php:339
 msgid "Event"
 msgstr "Evenement"
 
@@ -60,7 +60,7 @@ msgstr "Evenementen"
 msgid "Event date"
 msgstr "Datum evenement"
 
-#: app/CustomPostTypes.php:59 app/CustomPostTypes.php:236
+#: app/CustomPostTypes.php:59 app/CustomPostTypes.php:261
 msgid "Registrations"
 msgstr "Registraties"
 
@@ -87,52 +87,52 @@ msgstr "Datum"
 msgid "Time"
 msgstr "Tijdstip"
 
-#: app/CustomPostTypes.php:128
+#: app/CustomPostTypes.php:129
 msgid "Date to"
 msgstr "Datum tot"
 
-#: app/CustomPostTypes.php:132
+#: app/CustomPostTypes.php:133
 msgid "Time to"
 msgstr "Tijdstip tot"
 
-#: app/CustomPostTypes.php:135 app/CustomPostTypes.php:336
-#: app/CustomPostTypes.php:394
+#: app/CustomPostTypes.php:137 app/CustomPostTypes.php:368
+#: app/CustomPostTypes.php:426
 msgid "Location"
 msgstr "Locatie"
 
-#: app/CustomPostTypes.php:140 app/CustomPostTypes.php:235
+#: app/CustomPostTypes.php:142 app/CustomPostTypes.php:260
 msgid "Registration"
 msgstr "Inschrijving"
 
-#: app/CustomPostTypes.php:142
+#: app/CustomPostTypes.php:144
 msgid "Registration will only be active if tickets have been added"
 msgstr "Registratie zal alleen actief zijn als er tickets zijn toegevoegd"
 
-#: app/CustomPostTypes.php:143
+#: app/CustomPostTypes.php:145
 msgid "Registration information"
 msgstr "Registratie-informatie"
 
-#: app/CustomPostTypes.php:146
+#: app/CustomPostTypes.php:148
 msgid "Maximum number of registrations"
 msgstr "Maximum aantal registraties"
 
-#: app/CustomPostTypes.php:147
+#: app/CustomPostTypes.php:149
 msgid "For all tickets, leave empty to disable"
 msgstr "Voor alle tickets, laat leeg om uit te schakelen"
 
-#: app/CustomPostTypes.php:150
+#: app/CustomPostTypes.php:152
 msgid "Tickets available from"
 msgstr "Tickets verkrijgbaar vanaf"
 
-#: app/CustomPostTypes.php:153
+#: app/CustomPostTypes.php:155
 msgid "Tickets available untill"
 msgstr "Tickets beschikbaar tot"
 
-#: app/CustomPostTypes.php:156
+#: app/CustomPostTypes.php:158
 msgid "Ticket types"
 msgstr "Ticket types"
 
-#: app/CustomPostTypes.php:157
+#: app/CustomPostTypes.php:159
 msgid ""
 "Be careful when deleting ticket types. Existing registrations with deleted "
 "ticket types won't count for maximum number of registrations."
@@ -141,225 +141,250 @@ msgstr ""
 "met verwijderde tickettypes zullen niet meetellen voor het maximum aantal "
 "registraties."
 
-#: app/CustomPostTypes.php:160
+#: app/CustomPostTypes.php:162
 msgid "Title"
 msgstr "Titel"
 
-#: app/CustomPostTypes.php:162
+#: app/CustomPostTypes.php:164
 msgid "Personal registration, adult, child, ..."
 msgstr "Persoonlijke registratie, volwassene, kind, ..."
 
-#: app/CustomPostTypes.php:165
+#: app/CustomPostTypes.php:167
 msgid "Price"
 msgstr "Prijs"
 
-#: app/CustomPostTypes.php:168
+#: app/CustomPostTypes.php:170
 msgid "Limit number of tickets per registration"
 msgstr "Beperk het aantal tickets per inschrijving"
 
-#: app/CustomPostTypes.php:169 app/CustomPostTypes.php:173
+#: app/CustomPostTypes.php:171 app/CustomPostTypes.php:175
+#: app/CustomPostTypes.php:179
 msgid "Leave empty to disable"
 msgstr "Leeg laten om uit te schakelen"
 
-#: app/CustomPostTypes.php:172
+#: app/CustomPostTypes.php:174
 msgid "Total sales limit for this ticket"
 msgstr "Totale verkooplimiet voor dit ticket"
 
-#: app/CustomPostTypes.php:177 app/OptionsPage.php:171
+#: app/CustomPostTypes.php:178
+msgid "Default value"
+msgstr "Standaardwaarde"
+
+#: app/CustomPostTypes.php:183 app/OptionsPage.php:171
 msgid "Registration form"
 msgstr "Registratieformulier"
 
-#: app/CustomPostTypes.php:180
+#: app/CustomPostTypes.php:186
 msgid "Extra form fields"
 msgstr "Extra formuliervelden"
 
-#: app/CustomPostTypes.php:183
+#: app/CustomPostTypes.php:190
 msgid "Field type"
 msgstr "Veldtype"
 
-#: app/CustomPostTypes.php:185
+#: app/CustomPostTypes.php:192
 msgid "Text"
 msgstr "Tekst"
 
-#: app/CustomPostTypes.php:186
+#: app/CustomPostTypes.php:193
 msgid "Textarea"
 msgstr "Tekstveld"
 
-#: app/CustomPostTypes.php:187
+#: app/CustomPostTypes.php:194
 msgid "Number"
 msgstr "Nummer"
 
-#: app/CustomPostTypes.php:192
+#: app/CustomPostTypes.php:195
+msgid "Select"
+msgstr "Selecteer"
+
+#: app/CustomPostTypes.php:200
 msgid "Label"
 msgstr "Label"
 
-#: app/CustomPostTypes.php:196
+#: app/CustomPostTypes.php:204
+msgid "Options"
+msgstr "Opties"
+
+#: app/CustomPostTypes.php:212
+msgid "key"
+msgstr "sleutel"
+
+#: app/CustomPostTypes.php:216
+msgid "Value"
+msgstr "Waarde"
+
+#: app/CustomPostTypes.php:221
 msgid "Required"
 msgstr "Verplicht"
 
-#: app/CustomPostTypes.php:201
+#: app/CustomPostTypes.php:226
 msgid "Disable form fields"
 msgstr "Formuliervelden uitschakelen"
 
-#: app/CustomPostTypes.php:208
+#: app/CustomPostTypes.php:233
 msgid "Merge extra registration form fields"
 msgstr "Extra registratieformuliervelden samenvoegen"
 
-#: app/CustomPostTypes.php:211
+#: app/CustomPostTypes.php:236
 msgid ""
 "Merge extra registration form fields with default registration form fields"
 msgstr ""
 "Extra registratieformuliervelden samenvoegen met standaard "
 "registratieformuliervelden"
 
-#: app/CustomPostTypes.php:214 app/CustomPostTypes.php:220
+#: app/CustomPostTypes.php:239 app/CustomPostTypes.php:245
 msgid "Can also be set in general settings"
 msgstr "Kan ook worden ingesteld in algemene instellingen"
 
-#: app/CustomPostTypes.php:217
+#: app/CustomPostTypes.php:242
 msgid "Hide tickets title"
 msgstr "Verberg tickets titel"
 
-#: app/CustomPostTypes.php:219
+#: app/CustomPostTypes.php:244
 msgid "Hide tickets title on registration form"
 msgstr "Verberg tickets-titel op registratieformulier"
 
-#: app/CustomPostTypes.php:271
+#: app/CustomPostTypes.php:296
 msgid "Name"
 msgstr "Naam"
 
-#: app/CustomPostTypes.php:287
+#: app/CustomPostTypes.php:319
 msgid "Deleted event"
 msgstr "Verwijderd evenement"
 
-#: app/CustomPostTypes.php:292
+#: app/CustomPostTypes.php:324
 msgid "# Tickets"
 msgstr "# Tickets"
 
-#: app/CustomPostTypes.php:299
+#: app/CustomPostTypes.php:331
 msgid "Registration date"
 msgstr "Inschrijvingsdatum"
 
-#: app/CustomPostTypes.php:337
+#: app/CustomPostTypes.php:369
 msgid "Locations"
 msgstr "Locaties"
 
-#: app/CustomPostTypes.php:388
+#: app/CustomPostTypes.php:420
 msgid "Location on map"
 msgstr "Locatie op kaart"
 
-#: app/CustomPostTypes.php:391
+#: app/CustomPostTypes.php:423
 msgid "Location information"
 msgstr "Locatie gegevens"
 
-#: app/CustomPostTypes.php:410
+#: app/CustomPostTypes.php:442
 msgid "Add New"
 msgstr "Nieuw toevoegen"
 
-#: app/CustomPostTypes.php:413
+#: app/CustomPostTypes.php:445
 #, php-format
 msgid "Add New %s"
 msgstr "Nieuwe %s toevoegen"
 
-#: app/CustomPostTypes.php:418
+#: app/CustomPostTypes.php:450
 #, php-format
 msgid "Edit %s"
 msgstr "Bewerk %s"
 
-#: app/CustomPostTypes.php:423
+#: app/CustomPostTypes.php:455
 #, php-format
 msgid "New %s"
 msgstr "Nieuwe %s"
 
-#: app/CustomPostTypes.php:428 app/CustomPostTypes.php:433
+#: app/CustomPostTypes.php:460 app/CustomPostTypes.php:465
 #, php-format
 msgid "View %s"
 msgstr "Bekijk %s"
 
-#: app/CustomPostTypes.php:438
+#: app/CustomPostTypes.php:470
 #, php-format
 msgid "Search %s"
 msgstr "Zoekresultaten voor %s"
 
-#: app/CustomPostTypes.php:443
+#: app/CustomPostTypes.php:475
 #, php-format
 msgid "No %s found."
 msgstr "Geen %s gevonden."
 
-#: app/CustomPostTypes.php:448
+#: app/CustomPostTypes.php:480
 #, php-format
 msgid "No %s found in trash."
 msgstr "Geen %s gevonden in de prullenbak."
 
-#: app/CustomPostTypes.php:453
+#: app/CustomPostTypes.php:485
 #, php-format
 msgid "Parent %s:"
 msgstr "Hoofd %s:"
 
-#: app/CustomPostTypes.php:458
+#: app/CustomPostTypes.php:490
 #, php-format
 msgid "All %s"
 msgstr "Alle %s"
 
-#: app/CustomPostTypes.php:463
+#: app/CustomPostTypes.php:495
 #, php-format
 msgid "%s Archives"
 msgstr "%s Archieven"
 
-#: app/CustomPostTypes.php:468
+#: app/CustomPostTypes.php:500
 #, php-format
 msgid "%s Attributes"
 msgstr "%s Eigenschappen"
 
-#: app/CustomPostTypes.php:473
+#: app/CustomPostTypes.php:505
 #, php-format
 msgid "Insert into %s"
 msgstr "Toevoegen aan %s"
 
-#: app/CustomPostTypes.php:478
+#: app/CustomPostTypes.php:510
 #, php-format
 msgid "Uploaded to this %s"
 msgstr "Geupload naar deze %s"
 
-#: app/CustomPostTypes.php:483
+#: app/CustomPostTypes.php:515
 #, php-format
 msgid "Filter %s list"
 msgstr "Filter %s lijst"
 
-#: app/CustomPostTypes.php:488
+#: app/CustomPostTypes.php:520
 #, php-format
 msgid "%s list navigation"
 msgstr "Navigatie door %slijst"
 
-#: app/CustomPostTypes.php:493
+#: app/CustomPostTypes.php:525
 #, php-format
 msgid "%s list"
 msgstr "%s lijst"
 
-#: app/CustomPostTypes.php:498
+#: app/CustomPostTypes.php:530
 #, php-format
 msgid "%s published."
 msgstr "%s gepubliceerd."
 
-#: app/CustomPostTypes.php:503
+#: app/CustomPostTypes.php:535
 #, php-format
 msgid "%s published privately."
 msgstr "%s privé gepubliceerd."
 
-#: app/CustomPostTypes.php:508
+#: app/CustomPostTypes.php:540
 #, php-format
 msgid "%s reverted to draft."
 msgstr "%s teruggezet naar concept."
 
-#: app/CustomPostTypes.php:513
+#: app/CustomPostTypes.php:545
 #, php-format
 msgid "%s scheduled."
 msgstr "%s gepland."
 
-#: app/CustomPostTypes.php:518
+#: app/CustomPostTypes.php:550
 #, php-format
 msgid "%s updated."
 msgstr "%s bijgewerkt."
+
+#: app/FormField.php:147
+msgid "Select an option"
+msgstr "Selecteer een optie"
 
 #: app/Frontend.php:84
 msgid "Field is required"
@@ -381,27 +406,27 @@ msgstr "Geef een geldig e-mailadres in"
 msgid "Please select one or more tickets"
 msgstr "Selecteer ten minste 1 ticket"
 
-#: app/Frontend.php:214
+#: app/Frontend.php:220
 msgid "Registration successful"
 msgstr "Succesvolle registratie"
 
-#: app/Models/Event.php:317 app/RegistrationExport.php:59
-#: views/registration-details.php:4 views/registration-form.php:10
-#: views/registration-form.php:14
+#: app/Models/Event.php:334 app/RegistrationExport.php:59
+#: views/registration-details.php:4 views/registration-form.php:14
+#: views/registration-form.php:18
 msgid "First name"
 msgstr "Voornaam"
 
-#: app/Models/Event.php:318 app/RegistrationExport.php:60
-#: views/registration-details.php:8 views/registration-form.php:21
-#: views/registration-form.php:25
+#: app/Models/Event.php:335 app/RegistrationExport.php:60
+#: views/registration-details.php:8 views/registration-form.php:25
+#: views/registration-form.php:29
 msgid "Last name"
 msgstr "Achternaam"
 
-#: app/Models/Event.php:319 app/RegistrationExport.php:62
+#: app/Models/Event.php:336 app/RegistrationExport.php:62
 msgid "Email"
 msgstr "E-mail"
 
-#: app/Models/Event.php:320 app/RegistrationExport.php:61
+#: app/Models/Event.php:337 app/RegistrationExport.php:61
 #: views/registration-details.php:16
 msgid "Phone"
 msgstr "Telefoon"
@@ -585,27 +610,27 @@ msgstr ""
 msgid "E-mailaddress"
 msgstr "E-mailadres"
 
-#: views/registration-details.php:29 views/registration-form.php:69
+#: views/registration-details.php:33 views/registration-form.php:72
 msgid "Tickets"
 msgstr "Tickets"
 
-#: views/registration-form.php:4 views/registration-form.php:96
+#: views/registration-form.php:5 views/registration-form.php:121
 msgid "Register"
 msgstr "Inschrijven"
 
-#: views/registration-form.php:5
+#: views/registration-form.php:8
 msgid "Personal details"
 msgstr "Uw gegevens"
 
-#: views/registration-form.php:32 views/registration-form.php:36
+#: views/registration-form.php:36 views/registration-form.php:40
 msgid "Email address"
 msgstr "E-mailadres"
 
-#: views/registration-form.php:43 views/registration-form.php:47
+#: views/registration-form.php:47 views/registration-form.php:51
 msgid "Phone number"
 msgstr "Telefoonnummer"
 
-#: views/registration-form.php:56
+#: views/registration-form.php:62
 msgid "Extra information"
 msgstr "Extra informatie"
 
