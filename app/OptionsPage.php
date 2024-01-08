@@ -44,16 +44,19 @@ class OptionsPage
         $eventsSettings
             ->addTab('general', [
                 'label' => __('General', 'otomaties-events')
-            ])
-            ->addText('otomaties_events_events_archive_slug', [
+            ]);
+        // if wpml is not active
+        if (!function_exists('icl_object_id')) {
+            $eventsSettings->addText('otomaties_events_events_archive_slug', [
                 'label' => __('Archive slug', 'otomaties-events'),
                 'default_value' => __('events', 'otomaties-events'),
                 'instructions' => sprintf(
                     __('<a href="%s">Re-save permalinks</a> after updating this value', 'otomaties-events'),
                     admin_url('options-permalink.php')
                 )
-            ])
-            ->addPostObject('otomaties_events_event_default_location', [
+            ]);
+        }
+        $eventsSettings->addPostObject('otomaties_events_event_default_location', [
                 'label' => __('Default location', 'otomaties-events'),
                 'post_type' => 'location',
                 'allow_null' => true,
