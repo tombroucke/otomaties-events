@@ -100,7 +100,17 @@ class Frontend
      */
     public function hidePastEvents(\WP_Query $query) : void
     {
-        if ($query->get('post_type') != 'event' || is_admin()) {
+        $eventTaxonomies = get_object_taxonomies('event');
+        $isTermQuery = false;
+        if ($query->is_main_query()) {
+            foreach ($eventTaxonomies as $taxonomy) {
+                if ($query->is_tax($taxonomy)) {
+                    $isTermQuery = true;
+                }
+            }
+        }
+
+        if ((!$isTermQuery && $query->get('post_type') != 'event') || is_admin()) {
             return;
         }
         
