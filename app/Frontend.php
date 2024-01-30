@@ -100,7 +100,6 @@ class Frontend
      */
     public function hidePastEvents(\WP_Query $query) : void
     {
-        ;
         if ($query->get('post_type') != 'event' || is_admin()) {
             return;
         }
@@ -109,7 +108,7 @@ class Frontend
         $scope = $query->get('event_scope') == '' ? 'future' : $query->get('event_scope');
 
         $query->set('meta_key', 'date');
-        $query->set('orderby', array( 'meta_value' => 'ASC' ));
+        $query->set('orderby', array('meta_value' => 'ASC', 'menu_order' => 'ASC'));
 
         if (apply_filters('otomaties_events_show_past_events', false)) {
             return;
