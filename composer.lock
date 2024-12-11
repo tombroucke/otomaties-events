@@ -2850,16 +2850,16 @@
         },
         {
             "name": "tombroucke/acf-objects",
-            "version": "4.2.1",
+            "version": "4.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tombroucke/acf-objects.git",
-                "reference": "19a61462a2328dc48569c1a20e5b5e57eb9331bc"
+                "reference": "feaf2cc442a5b3f0a6a5f1b33e205478983440ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tombroucke/acf-objects/zipball/19a61462a2328dc48569c1a20e5b5e57eb9331bc",
-                "reference": "19a61462a2328dc48569c1a20e5b5e57eb9331bc",
+                "url": "https://api.github.com/repos/tombroucke/acf-objects/zipball/feaf2cc442a5b3f0a6a5f1b33e205478983440ad",
+                "reference": "feaf2cc442a5b3f0a6a5f1b33e205478983440ad",
                 "shasum": ""
             },
             "require": {
@@ -2903,9 +2903,9 @@
             "description": "Convert return values from get_field() to objects with easy-to-use methods",
             "support": {
                 "issues": "https://github.com/tombroucke/acf-objects/issues",
-                "source": "https://github.com/tombroucke/acf-objects/tree/4.2.1"
+                "source": "https://github.com/tombroucke/acf-objects/tree/4.2.2"
             },
-            "time": "2024-12-11T08:58:12+00:00"
+            "time": "2024-12-11T09:11:33+00:00"
         },
         {
             "name": "tombroucke/wp-models",
