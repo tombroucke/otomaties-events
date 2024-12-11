@@ -16,9 +16,9 @@
         "php": ">=8",
         "composer/installers": "^1.0 || ^2.0",
         "johnbillion/extended-cpts": "^5.0",
-        "phpoffice/phpspreadsheet": "^1.23",
+        "phpoffice/phpspreadsheet": "^3.6",
         "tombroucke/wp-models": "^2.1",
-        "tombroucke/acf-objects": "^3.0",
+        "tombroucke/acf-objects": "^4.2",
         "stoutlogic/acf-builder": "^1.12"
     },
     "keywords": ["wordpress", "plugin", "events", "calendar"],
@@ -29,17 +29,18 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^9.6",
         "squizlabs/php_codesniffer": "^3.7",
         "roave/security-advisories": "dev-latest",
-        "szepeviktor/phpstan-wordpress": "^1.1",
-        "php-stubs/acf-pro-stubs": "^6.0"
+        "php-stubs/acf-pro-stubs": "^6.0",
+        "larastan/larastan": "^3.0",
+        "szepeviktor/phpstan-wordpress": "^2.0"
     },
     "scripts": {
         "test": [
             "phpcs --standard=PSR2 app views",
             "phpunit --colors=always --verbose",
-            "vendor/bin/phpstan analyze app --memory-limit 512M"
+            "vendor/bin/phpstan analyze app --memory-limit 1024M"
         ]
     }
 }

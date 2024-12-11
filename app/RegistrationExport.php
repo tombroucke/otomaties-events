@@ -92,7 +92,7 @@ class RegistrationExport
             // tickets
             $tickets = $registration->tickets();
             foreach ($this->event->ticketTypes() as $ticketType) {
-                if (is_array($tickets) && isset($tickets[$ticketType->slug()])) {
+                if (isset($tickets[$ticketType->slug()])) {
                     $entry[] = filter_var($tickets[$ticketType->slug()], FILTER_SANITIZE_NUMBER_INT);
                 } else {
                     $entry[] = '';

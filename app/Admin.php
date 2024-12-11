@@ -134,7 +134,13 @@ class Admin
     public function register() : void
     {
         
-        $eventId = filter_input(INPUT_POST, 'event_id', FILTER_SANITIZE_NUMBER_INT);
+        $eventIdInput = filter_input(INPUT_POST, 'event_id', FILTER_SANITIZE_NUMBER_INT);
+        $eventId = $eventIdInput ? (int) $eventIdInput : null;
+        
+        if (!$eventId) {
+            return;
+        }
+
         $event = Event::find($eventId)->first();
         if (!$event) {
             return;

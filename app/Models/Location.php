@@ -2,9 +2,11 @@
 
 namespace Otomaties\Events\Models;
 
-use Otomaties\AcfObjects\Acf;
 use Otomaties\WpModels\PostType;
-use Otomaties\AcfObjects\GoogleMap;
+use Otomaties\AcfObjects\Fields\GoogleMap;
+use Otomaties\AcfObjects\Facades\AcfObjects;
+use Otomaties\AcfObjects\Contracts\FieldContract;
+use Otomaties\AcfObjects\Contracts\CollectionContract;
 
 class Location extends PostType
 {
@@ -21,11 +23,11 @@ class Location extends PostType
     /**
      * Get location map
      *
-     * @return GoogleMap
+     * @return FieldContract | CollectionContract | bool
      */
-    public function map() : GoogleMap
+    public function map() : FieldContract|CollectionContract|bool
     {
-        return Acf::getField('map', $this->getId());
+        return AcfObjects::getField('map', $this->getId());
     }
 
     /**
