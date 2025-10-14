@@ -1,45 +1,50 @@
 {
-    "name": "tombroucke/otomaties-events",
-    "description": "Add event functionality to your WordPress website",
-    "autoload": {
-        "psr-4": {
-            "Otomaties\\Events\\": "app/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Tom Broucke",
-            "email": "tom@tombroucke.be"
-        }
-    ],
-    "require": {
-        "php": ">=8",
-        "composer/installers": "^1.0 || ^2.0",
-        "johnbillion/extended-cpts": "^5.0",
-        "phpoffice/phpspreadsheet": "^5.1",
-        "tombroucke/wp-models": "^2.1",
-        "tombroucke/acf-objects": "^4.2",
-        "stoutlogic/acf-builder": "^1.12"
-    },
-    "keywords": ["wordpress", "plugin", "events", "calendar"],
-    "type": "wordpress-plugin",
-    "config": {
-        "allow-plugins": {
-            "composer/installers": true
-        }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.6",
-        "squizlabs/php_codesniffer": "^4.0",
-        "php-stubs/acf-pro-stubs": "^6.0",
-        "larastan/larastan": "^3.0",
-        "szepeviktor/phpstan-wordpress": "^2.0"
-    },
-    "scripts": {
-        "test": [
-            "phpcs --standard=PSR2 app views",
-            "phpunit --colors=always --verbose",
-            "vendor/bin/phpstan analyze app --memory-limit 1024M"
-        ]
+  "name": "tombroucke/otomaties-events",
+  "description": "Add event functionality to your WordPress website",
+  "autoload": {
+    "psr-4": {
+      "Otomaties\\Events\\": "app/"
     }
+  },
+  "authors": [
+    {
+      "name": "Tom Broucke",
+      "email": "tom@tombroucke.be"
+    }
+  ],
+  "require": {
+    "php": ">=8",
+    "composer/installers": "^1.0 || ^2.0",
+    "johnbillion/extended-cpts": "^5.0",
+    "phpoffice/phpspreadsheet": "*",
+    "tombroucke/wp-models": "^2.1",
+    "tombroucke/acf-objects": "^4.2",
+    "stoutlogic/acf-builder": "^1.12"
+  },
+  "keywords": [
+    "wordpress",
+    "plugin",
+    "events",
+    "calendar"
+  ],
+  "type": "wordpress-plugin",
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.6",
+    "squizlabs/php_codesniffer": "^4.0",
+    "php-stubs/acf-pro-stubs": "^6.0",
+    "larastan/larastan": "^3.0",
+    "szepeviktor/phpstan-wordpress": "^2.0"
+  },
+  "scripts": {
+    "test": [
+      "phpcs --standard=PSR2 app views",
+      "phpunit --colors=always --verbose",
+      "vendor/bin/phpstan analyze app --memory-limit 1024M"
+    ]
+  }
 }
