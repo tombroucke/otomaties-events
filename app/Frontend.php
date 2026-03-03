@@ -113,12 +113,31 @@ class Frontend
         if ((!$isTermQuery && $query->get('post_type') != 'event') || is_admin()) {
             return;
         }
-        
+
         $meta_query = array_filter((array)$query->get('meta_query'));
         $scope = $query->get('event_scope') == '' ? 'future' : $query->get('event_scope');
 
+        $meta_query['date_exists'] = [
+            'key'     => 'date',
+            'compare' => 'EXISTS',
+            'type'    => 'NUMERIC',
+        ];
+
         $query->set('meta_key', 'date');
-        $query->set('orderby', array('meta_value' => 'ASC', 'menu_order' => 'ASC'));
+        $query->set('orderby', [
+            'date_exists' => 'DESC',
+            'menu_order'  => 'ASC',
+        ]);
+
+        $orderbyFilter = function ($orderby, $q) use ($query, &$orderbyFilter) {
+            if ($q !== $query) {
+                return $orderby;
+            }
+            remove_filter('posts_orderby', $orderbyFilter, 10);
+            global $wpdb;
+            return "CASE WHEN {$wpdb->postmeta}.meta_value IS NULL OR {$wpdb->postmeta}.meta_value = '' THEN 1 ELSE 0 END ASC, CAST({$wpdb->postmeta}.meta_value AS UNSIGNED) ASC, {$wpdb->posts}.menu_order ASC"; // phpcs:ignore Generic.Files.LineLength
+        };
+        add_filter('posts_orderby', $orderbyFilter, 10, 2);
 
         if (apply_filters('otomaties_events_show_past_events', false)) {
             return;
@@ -168,8 +187,16 @@ class Frontend
                 )
             );
 
-            $query->set('meta_key', 'date');
-            $query->set('orderby', array( 'meta_value' => 'DESC' ));
+            $orderbyFilterPast = function ($orderby, $q) use ($query, &$orderbyFilterPast) {
+                if ($q !== $query) {
+                    return $orderby;
+                }
+                remove_filter('posts_orderby', $orderbyFilterPast, 10);
+                global $wpdb;
+                return "CAST({$wpdb->postmeta}.meta_value AS UNSIGNED) DESC, 
+                        {$wpdb->posts}.menu_order ASC";
+            };
+            add_filter('posts_orderby', $orderbyFilterPast, 10, 2);
         }
         $query->set('meta_query', $meta_query);
     }
